@@ -1,0 +1,78 @@
+
+ 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Ajout mouvement
+</button>
+
+
+<div class="alert alert-success" role="alert" *ngIf="mouvementAjout">
+    Mouvement ajouté avec succès!
+</div>
+  
+<div class="alert alert-danger" role="alert" *ngIf="erreurAjout">
+    Erreur lors de l'ajout du Mouvement. Veuillez réessayer.
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Ajout mouvement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="row g-3" (ngSubmit)="ajoutMouvement()" #ajoutForm=""ngForm> 
+
+                <div>
+                    <label for="validationDefault01" class="form-label">Type mouvement</label>
+                    <select class="form-select" aria-label="Default select example" name="type_mvt" [(ngModel)]="type_mvt">
+                        <option selected>Type mouvement</option>
+                        <option value="Entrer">Entrer</option>
+                        <option value="Sortie">Sortie</option>
+                    </select>
+                </div>
+
+                <div class="">
+                    <label for="validationDefault01" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="validationDefault01" value="" name="date_mvt" [(ngModel)]="date_mvt" required>
+                </div>
+                  
+                <div class="">
+                  <label for="validationDefault01" class="form-label">Quantité</label>
+                  <input type="number" class="form-control" id="validationDefault01" value="" name="qtt_mvt" [(ngModel)]="qtt_mvt" required>
+                </div>
+                
+                <div>
+                    <label for="validationDefault01" class="form-label">Dépot</label>
+                    <select class="form-select" aria-label="Default select example" name="id_dep" [(ngModel)]="id_dep">
+                        <option selected>select dépot</option>
+                        <option *ngFor="let depot of depots" [value]="depot.id_dep">
+                        <span>{{depot.nom_dep}}</span>
+                        </option>
+
+                    </select>
+                </div>
+
+                <div>
+                    <label for="validationDefault01" class="form-label">Produit</label>
+                    <select class="form-select" aria-label="Default select example" name="id_p" [(ngModel)]="id_p">
+                        <option selected>select produit</option>
+                        <option *ngFor="let produit of produits" [value]="produit.id_p">
+                            <span>{{produit.designation_p}}</span>
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    </div>
+</div>

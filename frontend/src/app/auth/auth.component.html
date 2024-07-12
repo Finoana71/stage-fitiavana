@@ -1,0 +1,25 @@
+
+  <div class="card authentification">
+    <div class="card-body">
+        
+        <form  (ngSubmit)="login()" #loginForm="ngForm">
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                <input type="email" name="email_ut" [(ngModel)]="email_ut" class="form-control" placeholder="nom@example.com">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" name="mdp_ut" [(ngModel)]="mdp_ut"  class="form-control" id="inputPassword">
+                </div>
+            </div>
+            <div class="boutton mt-5">
+                <button type="submit" class="btn btn-outline-success me-2">Valider</button>
+                <button type="button" class="btn btn-outline-danger ms-2">Annuler</button>    
+            </div>
+        </form>
+
+    </div>
+  </div>

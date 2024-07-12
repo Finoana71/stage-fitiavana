@@ -1,0 +1,5 @@
+<app-navbar></app-navbar>
+<h2>{{titre}}</h2>
+
+<app-ajout (onAdd)="addDepot($event)"></app-ajout>
+<app-liste-depot [depots]="depots"></app-liste-depot>

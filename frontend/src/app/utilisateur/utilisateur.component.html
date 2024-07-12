@@ -1,0 +1,6 @@
+<app-navbar></app-navbar>
+
+<h2>{{titre}}</h2>
+
+<app-ajout-utilisateur (ajoutUti)="ajoutUtilisateur($event)"></app-ajout-utilisateur>
+<app-liste-utilisateur [utilisateurs]="utilisateurs"></app-liste-utilisateur>

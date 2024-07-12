@@ -1,0 +1,25 @@
+import { Component } from '@angular/core';
+import { StockService } from './service/stock.service';
+
+@Component({
+  selector: 'app-stock',
+  templateUrl: './stock.component.html',
+  styleUrl: './stock.component.css'
+})
+export class StockComponent {
+  titre="Stock"
+
+  stocks: any [] = [];
+  constructor(private stockService: StockService ){}
+
+  ngOnInit(): void {
+    this.stockService.getStock().subscribe(data=>{
+      this.stocks = data;
+      
+    })
+  }
+
+  ajoutStock(stock:any){
+    this.stocks.push(stock);
+  }
+}
