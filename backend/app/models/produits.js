@@ -12,7 +12,6 @@ const Produit = sequelize.define("produits", {
     },
     categorie_p: {
         type: DataTypes.STRING(50),
-
     },
     photo_p: {
         type: DataTypes.TEXT,

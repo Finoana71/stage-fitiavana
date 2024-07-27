@@ -38,7 +38,6 @@ exports.supprimerDepot = async(req, res) =>{
     }
 }
 
-
 // Modification  Depot
 exports.modificationDepot = async (req, res)=>{
     const id = req.params.id_dep;

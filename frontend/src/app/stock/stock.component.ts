@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StockService } from './service/stock.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-stock',
@@ -7,7 +8,7 @@ import { StockService } from './service/stock.service';
   styleUrl: './stock.component.css'
 })
 export class StockComponent {
-  titre="Stock"
+  titre=""
 
   stocks: any [] = [];
   constructor(private stockService: StockService ){}
@@ -15,11 +16,12 @@ export class StockComponent {
   ngOnInit(): void {
     this.stockService.getStock().subscribe(data=>{
       this.stocks = data;
-      
+
     })
   }
 
   ajoutStock(stock:any){
     this.stocks.push(stock);
   }
+
 }

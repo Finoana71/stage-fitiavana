@@ -1,12 +1,5 @@
-<div class="alert alert-success" role="alert" *ngIf="produitSuppr">
-  Produit supprimer avec succès!
-</div>
-<div class="alert alert-danger " role="alert" *ngIf="ErreurSuppr">
-  Produit supprimer avec invalide. Veuillez réessayer!
-</div>
-
 <!-- Liste Produit -->
-<div class="card mt-4">
+<div class="card mt-4" data-aos="fade-down">
   <table class="table">
     <thead>
       <tr>
@@ -26,18 +19,18 @@
         <td>{{produit.poid_p}}</td>
         <td>{{produit.prix_p}}</td>
         <td>
-          <button type="button" class="btn btn-dark">Modif</button>
-          <button 
+          <button type="button" class="btn btn-dark me-2">Modif</button>
+          <button
               type="button"
-              class="btn btn-danger"
+              class="btn btn-danger ms-2"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
           >supp</button>
-          <button 
-            class="btn btn-primary"
-            type="button" 
-            data-bs-toggle="offcanvas" 
-            data-bs-target="#offcanvasRight" 
+          <button
+            class="btn btn-primary ms-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight">Vue</button>
         </td>
       </tr>
@@ -56,8 +49,8 @@
         <h5 class="modal-title" id="exampleModalLabel">êtes-vous sûr de supprimer ?</h5>
       </div>
       <div class="modal-footer position-relative">
-        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>          
-        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimerProduit(produit.id_p)" >OUI</button>      
+        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimerProduit(produit.id_p)" >OUI</button>
       </div>
     </div>
   </div>

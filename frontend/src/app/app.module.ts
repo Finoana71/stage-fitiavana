@@ -26,6 +26,9 @@ import { slideComponent } from './slide/slide.component';
 import { AuthComponent } from './auth/auth.component';
 import { ProtectedComponent } from './protected/protected.component';
 import { JwtInterceptor } from './interceptor/JwtInterceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BouttonUpdateComponent } from './boutton/miseajout/boutton.component';
+import { BouttonDeleteComponent } from './boutton/supprimer/boutton.component';
 
 @NgModule({
   imports: [
@@ -34,19 +37,26 @@ import { JwtInterceptor } from './interceptor/JwtInterceptor';
     HttpClientModule,
     RouterOutlet,
     AppRoutingModule,
-    FormsModule
-    
+    FormsModule,
+    BrowserAnimationsModule
+
   ],
   declarations: [
 
     AppComponent,
     NavbarComponent,
+
+    // Boutton
+    BouttonUpdateComponent,
+    BouttonDeleteComponent,
+
+
     // slide
     slideComponent,
 
     // les modules Produits
     ProduitComponent,
-    ListeProduitComponent,    
+    ListeProduitComponent,
     AjoutProduitComponent,
 
     // les modules Utilisations

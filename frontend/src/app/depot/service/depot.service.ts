@@ -28,8 +28,8 @@ export class DepotService {
     return this.http.get<Depot>(`${this.apiUrl}/${id}`)
   }
   
-  modification(id:number, depot:Depot):Observable<Depot>{
-    return this.http.put<Depot>(`${this.apiUrl}/${id}`,depot);
+  modification(id:number, depot:any):Observable<any>{
+    return this.http.put(`${this.apiUrl}/${id}`,depot);
   }
 }
 

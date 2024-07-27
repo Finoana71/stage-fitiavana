@@ -7,7 +7,6 @@ class UtilisateurRepository {
         return await Utilisateur.findByPk(id);
     }
 
-
     async creatUtil(data){
         return await Utilisateur.create(data);
     }

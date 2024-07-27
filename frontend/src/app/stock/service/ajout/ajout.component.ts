@@ -3,6 +3,7 @@ import { StockService } from '../stock.service';
 import { ProduitService } from '../../../produit/service/produit.service';
 import { DepotService } from '../../../depot/service/depot.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 
 
@@ -12,23 +13,21 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./ajout.component.css'],
 })
 export class AjoutStockComponent {
- 
+
   @Output()estAjoutStock = new EventEmitter();
-   
+
   qtt_st? : number;
   id_p? : number;
   id_dep? : number;
+  emailLocalStorage = localStorage.getItem("email")
 
   produits: any[] = [];
   depots: any[] = [];
 
-  stockAjout: boolean = false;
-  erreurAjout: boolean = false;
-
   constructor(
     private produitsService: ProduitService,
     private depotService: DepotService,
-    private stockService: StockService ) { 
+    private stockService: StockService ) {
   }
 
   ngOnInit(): void {
@@ -55,14 +54,34 @@ export class AjoutStockComponent {
     this.stockService.ajoutStock(stock).subscribe(
 
       (response: any) => {
-        this.stockAjout = true;
 
+        this.valider();
         response.stock.produit = response.produit;
         response.stock.depot = response.depot;
         this.estAjoutStock.emit(response.stock);
-        
+
       },
-      (erreur: any) => { this.erreurAjout = true; }
+      (erreur: any) => {
+        this.error();
+      }
     );
+  }
+
+  valider(){
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please check your authentication!",
+    });
   }
 }

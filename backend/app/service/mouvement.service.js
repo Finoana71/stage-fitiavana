@@ -13,21 +13,19 @@ class mouvementService{
 
     async createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut){
         
-        let data = { id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut }
+        let data = { id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut };
         let stock = await this.findStockByProdDep(id_dep, id_p); 
 
 
             if(stock != null){
-                stock=JSON.stringify(stock)
+                stock = JSON.stringify(stock)
                 stock = JSON.parse(stock)
-
-              const a =  await this.updateStock_dep_pro(stock, qtt_mvt, type_mvt)
+                await this.updateStock_dep_pro(stock, qtt_mvt, type_mvt)
             }
             
-            else {
+            else 
                 await this.createNewStock(id_p, id_dep, qtt_mvt, type_mvt)
-            }
-                
+            
             if(data.qtt_mvt < 0)
                 data.qtt_mvt = 0
 
@@ -60,6 +58,8 @@ class mouvementService{
             }
         const data = {qtt_st, id_p, id_dep }
                 
+        if (data.qtt_st<0)
+            data.qtt_st = 0
         stockRepository.create(data)
     }
 

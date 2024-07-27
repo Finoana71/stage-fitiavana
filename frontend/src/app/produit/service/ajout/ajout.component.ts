@@ -3,6 +3,7 @@ import { ProduitService } from '../produit.service';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { Console, error } from 'console';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -22,30 +23,28 @@ export class AjoutProduitComponent {
   poid_p: number | undefined;
   prix_p: number | undefined;
 
-  ProduitAjout: boolean = false;
-  erreurAjout: boolean = false;
-  
   currentFile?:File;
   message = '';
   preview = '';
   imageInfos?: Observable<any>;
+  emailLocalStorage = localStorage.getItem("email")
 
   constructor(private produitService: ProduitService){};
-  
+
   ngOnInit(): void {
     this.imageInfos = this.produitService.getfiles();
     this.produitService.countProduit()
     .subscribe(data=>{
       this.sommes = data;
-      console.log("total", data);   
-    });      
+      console.log("total", data);
+    });
   }
 
   countProd(){
     this.produitService.countProduit()
     .subscribe(data=>{
       this.sommes = data;
-      console.log("total", data);   
+      console.log("total", data);
     });
   }
 
@@ -73,24 +72,41 @@ export class AjoutProduitComponent {
   }
 
   ajoutProduit(){
-    const produit = { 
+    const produit = {
       designation_p:this.designation_p,
       categorie_p:this.categorie_p,
       photo_p:this.photo_p,
       poid_p:this.poid_p,
       prix_p:this.prix_p
     };
- 
+
     this.produitService.ajoutProduit(produit).subscribe(
       (response:any) =>
         {
-          this.ProduitAjout = true;
-          this.estAjout.emit(response); 
+          this.valider();
+          this.estAjout.emit(response);
           this.countProd();
         },
       (erreur:any) =>
-        {this.erreurAjout = true;}
+        this.error()
     );
   }
 
+  valider(){
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please check your authentication!",
+    });
+  }
 }

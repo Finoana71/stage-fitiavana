@@ -1,12 +1,12 @@
 
-<div class="alert alert-success" role="alert" *ngIf="stockSuppr">
+<div class="alert alert-success mt-4" role="alert" *ngIf="stockSuppr">
   Stock supprimer avec succès!
 </div>
-<div class="alert alert-danger" role="alert" *ngIf="ErreurSuppr">
+<div class="alert alert-danger mt-4" role="alert" *ngIf="ErreurSuppr">
   Stock supprimer avec invalide. Veuillez réessayer!
 </div>
 <!-- Liste stock -->
-<div class="card mt-4">
+<div class="card mt-4" data-aos="fade-down">
   <table class="table">
       <thead>
         <tr>
@@ -22,17 +22,17 @@
           <td>{{stock.depot.nom_dep}}</td>
           <td>{{stock.qtt_st}}</td>
           <td>
-            <button 
+            <button
               type="button"
-              class="btn btn-danger"
+              class="btn btn-danger me-2"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
               >supp</button>
-            <button 
-              class="btn btn-primary"
-              type="button" 
-              data-bs-toggle="offcanvas" 
-              data-bs-target="#offcanvasRight" 
+            <button
+              class="btn btn-primary ms-2"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"
               (click)="voirLeDetail(stock.id_st)"
               >Vue</button>
@@ -53,8 +53,8 @@
         <h5 class="modal-title" id="exampleModalLabel">êtes-vous sûr de supprimer ?</h5>
       </div>
       <div class="modal-footer position-relative">
-        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>          
-        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimer(stock.id_st)" >OUI</button>      
+        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimer(stock.id_st)" >OUI</button>
       </div>
     </div>
   </div>
@@ -73,10 +73,10 @@
         <b>Nom depôt</b>  : {{histoStocks.depot.nom_dep}} <br>
         <b>Nom produit</b>  : {{histoStocks.produit.designation_p}} <br>
         <b>Poids produit</b>  : {{histoStocks.produit.poid_p}} <br>
-        <b>Quantité stock</b> : {{histoStocks.qtt_st}} <br>         
-     </span> 
+        <b>Quantité stock</b> : {{histoStocks.qtt_st}} <br>
+     </span>
     </div>
-    
+
   </div>
 </div>
 

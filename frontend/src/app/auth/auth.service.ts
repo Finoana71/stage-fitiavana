@@ -11,8 +11,8 @@ export class AuthService{
 
     constructor(private http: HttpClient){}
 
-    register(email_ut?: string, mdp_ut?: string): Observable<any>{
-        return this.http.post(`${this.apiUrl}/register`, {email_ut, mdp_ut});
+    register(role?:string,email_ut?: string, mdp_ut?: string): Observable<any>{
+        return this.http.post(`${this.apiUrl}/register`, {role,email_ut, mdp_ut});
     }
 
     login(email_ut?: string, mdp_ut?: string): Observable<any>{
@@ -25,7 +25,7 @@ export class AuthService{
 
     logout():void{
         localStorage.removeItem('token');
-        localStorage.removeItem('email');        
+        localStorage.removeItem('email');
     }
 
     protected():Observable<any>{

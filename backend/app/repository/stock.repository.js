@@ -5,7 +5,6 @@ class stockRepository{
         return await Stock.findByPk(id)
     }
     async create(data){
-
         return await Stock.create(data)
     }
     async findAll(){

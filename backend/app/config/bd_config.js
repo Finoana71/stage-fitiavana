@@ -15,7 +15,7 @@
 
  const {Sequelize} = require('sequelize');
 
- const sequelize = new Sequelize('stockProduitMultitache','root','',{
+ const sequelize = new Sequelize('stockProduitMultitache1','root','',{
     host:'localhost',
     dialect: "mysql", 
     pool: {
@@ -26,4 +26,4 @@
     } 
 });
 
- module.exports =  sequelize;
+module.exports =  sequelize;

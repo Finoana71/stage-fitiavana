@@ -24,5 +24,8 @@ export class StockService {
   getByIdStock(id: number): Observable<Stock[]>{
     return this.http.get<Stock[]>(`${this.apiUrl}/${id}`)
   }
+  modification(id: number, stock:any) :Observable<Stock>{
+    return this.http.put(`${this.apiUrl}/${id}`, stock)
+  }
   
 }

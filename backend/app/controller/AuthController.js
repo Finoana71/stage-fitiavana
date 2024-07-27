@@ -7,7 +7,7 @@ class AuthController{
         
         try {
 
-            const utilisateur =  await AuthService.register(req.body.email_ut, req.body.mdp_ut);
+            const utilisateur =  await AuthService.register(req.body.role,req.body.email_ut, req.body.mdp_ut);
             
             res.status(201).json(utilisateur);            
         } catch (error) {

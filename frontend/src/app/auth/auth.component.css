@@ -1,3 +1,79 @@
-.authentification{
-    width: 35rem;
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+CL&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.authentification {
+  max-width: 400px;
+  margin: 50px auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.authentification .form-control {
+  border-radius: 10px;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.authentification .form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.authentification .btn-outline-success,
+.authentification .btn-outline-danger {
+  width: 100px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.authentification .btn-outline-success:hover,
+.authentification .btn-outline-danger:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.authentification .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.authentification .boutton {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.blocLogin{
+  display: flex;
+  flex-direction: row;
+  height: 80vh;
+  width: 80vw;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.logo{
+  margin: 2rem;
+  width: 50%;
+}
+.login{
+  width: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.blockMere{
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.titreLogin{
+  font-family: "Playwrite CL", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.seConnecter{
+  width: 80rem;
 }

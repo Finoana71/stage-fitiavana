@@ -10,12 +10,12 @@ import { Produit } from './produit.model';
 })
 export class ProduitComponent {
 
-  titre="Produits"
+  titre=""
   // ngOnInit(): void {
   //   AOS.init({disable:'mobile'});
   //   AOS.refresh();
   // }
-  
+
   produits: Produit[] = [];
 
   constructor(private produitService: ProduitService){}
@@ -24,7 +24,7 @@ export class ProduitComponent {
     this.produitService.getProduit().subscribe(data =>{
       this.produits = data;
     })
-  } 
+  }
 
   ajoutProduit(produit : Produit){
     this.produits.push(produit);

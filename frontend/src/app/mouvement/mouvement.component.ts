@@ -9,7 +9,7 @@ import { MouvementService } from './service/mouvement.service';
 })
 export class MouvementComponent {
 
-  titre= "Mouvement"
+  titre= ""
   // liste Mouvement
 
   mouvements: any[] = [];

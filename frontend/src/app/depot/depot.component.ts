@@ -8,7 +8,7 @@ import { Depot } from './depot.model'
   styleUrl: './depot.component.css'
 })
 export class DepotComponent implements OnInit{
-titre = "Dépot"
+titre = ""
   // liste Depot
   depots: Depot[] = []
   depotSuppr = false
@@ -19,7 +19,7 @@ titre = "Dépot"
     this.DepotService.getDepot().subscribe(data =>{
       this.depots = data
     })
-  }  
+  }
   // fin liste Depot
 
   addDepot(depot: Depot){

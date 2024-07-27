@@ -99,11 +99,11 @@ exports.supprimerMouvement = async (req, res) =>{
 
 exports.modificationMouvement = async (req, res)=>{
     const id = req.params.id_mvt;
-    const { type_mvt, date_mvt, qtt_mvt } = req.body;
+    const { type_mvt, date_mvt, qtt_mvt, id_dep, id_p } = req.body;
 
     try {
         const [modification] = await Mouvement.update(
-            { type_mvt, date_mvt, qtt_mvt }, 
+            { type_mvt, date_mvt, qtt_mvt, id_dep, id_p }, 
             { where:{ id_mvt:id}
         });
 
@@ -111,11 +111,17 @@ exports.modificationMouvement = async (req, res)=>{
             return res.status(404).json({error : 'Mouvement invalide'});
         }
 
-        const modifMouvement = await Mouvement.findOne({ where: {id_mvt:id}});
+        const modifMouvement = await Mouvement.findOne({ 
+            where: {id_mvt:id},
+            include:['produit','depot','utilisateur']
+        });
+
+        
         res.status(200).json({message:"Modification Mouvement est avec succés", mouvement:modifMouvement});
                 
     } catch (erreur) {
         res.status(500).json({error : 'Erreur Mouvement de produit'});
     }
 }
+
 

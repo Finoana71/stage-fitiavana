@@ -11,9 +11,11 @@ export class AjoutUtilisateurComponent {
 
   @Output()ajoutUti = new EventEmitter();
 
+  role : string = "";
   email_ut : string = "";
   mdp_ut  : string = "";
   mdp : string = "";
+  emailLocalStorage = localStorage.getItem("email")
 
   utilisateurAjout: boolean = false;
   erreurAjout: boolean = false;
@@ -21,13 +23,13 @@ export class AjoutUtilisateurComponent {
   constructor(
     private ajoutService : UtilisateurService,
     private auhtService : AuthService
-  
+
   ){};
 
   // ajouterUtilisateur(){
   //   const utilisateur = {
   //     email_ut : this.email_ut,
-  //     mdp_ut : this.mdp_ut 
+  //     mdp_ut : this.mdp_ut
   //   };
 
   //   console.log("les utilisateur",utilisateur);
@@ -36,11 +38,11 @@ export class AjoutUtilisateurComponent {
   //     (response:any) => {
   //       // Message avec succéss
   //       this.utilisateurAjout = true;
-        
+
   //       // Récupérer le dépôt ajouté et l'ajouter à la liste des dépôts
-  //       this.ajoutUti.emit(response); 
+  //       this.ajoutUti.emit(response);
   //     },
-      
+
   //     (erreur:any) => {
   //       // Message d'erreur
   //       this.erreurAjout = true;
@@ -48,15 +50,15 @@ export class AjoutUtilisateurComponent {
   //   )
   // }
 
-  
+
   register():void{
 
 
-    this.auhtService.register(this.email_ut ,this.mdp_ut).subscribe(
+    this.auhtService.register(this.role,this.email_ut ,this.mdp_ut).subscribe(
       response =>{
         this.utilisateurAjout = true;
 
-        this.ajoutUti.emit(response); 
+        this.ajoutUti.emit(response);
 
       },
 
@@ -67,4 +69,4 @@ export class AjoutUtilisateurComponent {
     );
   }
 }
-  
+

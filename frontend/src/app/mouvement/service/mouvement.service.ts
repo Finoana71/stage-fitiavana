@@ -27,4 +27,7 @@ export class MouvementService {
     return this.http.get<Mouvement[]>(`${this.apiUrl}/${id}`)
   }
   
+  modification(id:number, Mouvement:any):Observable<any>{
+    return this.http.put(`${this.apiUrl}/${id}`,Mouvement);
+  }
 }

@@ -1,11 +1,11 @@
-<div class="alert alert-success" role="alert" *ngIf="mouvementSuppr">
+<div class="alert alert-success mt-4" role="alert" *ngIf="mouvementSuppr" >
   Mouvement supprimer avec succès!
 </div>
-<div class="alert alert-danger" role="alert" *ngIf="ErreurSuppr">
+<div class="alert alert-danger mt-4" role="alert" *ngIf="ErreurSuppr">
   Mouvement supprimer avec invalide. Veuillez réessayer!
 </div>
 <!-- Liste mouvement -->
-<div class="card mt-4">
+<div class="card mt-4" data-aos="fade-down">
   <table class="table">
       <thead>
         <tr>
@@ -14,38 +14,42 @@
           <th scope="col">Type</th>
           <th scope="col">Date</th>
           <th scope="col">Quantité</th>
-          <th scope="col">Utilisateur</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let mouvement of mouvements">
+      <tbody >
+        <tr *ngFor="let mouvement of mouvements" >
           <td>{{mouvement.produit.designation_p}}</td>
           <td>{{mouvement.depot.nom_dep}}</td>
           <td>{{mouvement.type_mvt}}</td>
           <td>{{mouvement.date_mvt|date:"dd-MM-YYYY"}}</td>
           <td>{{mouvement.qtt_mvt}}</td>
-          <td>{{mouvement.utilisateur.email_ut}}</td>
           <td>
-              <button type="button" class="btn btn-dark">Modif</button>
-
-              <button 
+              <app-boutton-update
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop1"
+                class="me-2"
+                (click)="getMouve(mouvement.id_mvt)">
+              </app-boutton-update>
+              
+              <button
               type="button"
-              class="btn btn-danger"
+              class="btn btn-danger ms-2"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
               >supp</button>
 
-              <button 
-              class="btn btn-primary"
-              type="button" 
-              data-bs-toggle="offcanvas" 
-              data-bs-target="#offcanvasRight" 
+              <button
+              class="btn btn-primary ms-3"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"
               (click)="voirLeDetail(mouvement.id_mvt)"
-              >Vue</button>
-          
-          </td>          
+              >desc</button>
+
+          </td>
       </tr>
       </tbody>
   </table>
@@ -62,8 +66,8 @@
         <h5 class="modal-title" id="exampleModalLabel">êtes-vous sûr de supprimer ?</h5>
       </div>
       <div class="modal-footer position-relative">
-        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>          
-        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimerMouv(mouvement.id_mvt)" >OUI</button>      
+        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimerMouv(mouvement.id_mvt)" >OUI</button>
       </div>
     </div>
   </div>
@@ -71,22 +75,86 @@
 
 <!-- Historique mouvement -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  
+
   <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Historique mouvement</h5>
+    <h5 id="offcanvasRightLabel">Historique produit</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
   <div class="offcanvas-body">
     <div>
       <span *ngIf="histoMouve">
-        
         <b>Utilisateur</b>  : {{histoMouve.utilisateur.email_ut}} <br>
         <b>Nom depôt</b>  : {{histoMouve.depot.nom_dep}} <br>
         <b>Nom produit</b>  : {{histoMouve.produit.designation_p}} <br>
         <b>Poids produit</b>  : {{histoMouve.produit.poid_p}} <br>
       </span>
-    </div> 
+    </div>
   </div>
-  
+
 </div>
+
+
+<!-- Modal Modification -->
+<div  class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modification dépot</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="modifMouve">
+
+        <form action="" (ngSubmit)="onModif()" #modifForm="ngForm">
+
+          <div>
+            <label for="validationDefault01" class="form-label">Type mouvement</label>
+            <select class="form-select" aria-label="Default select example" value="{{modifMouve.type_mvt}}" name="type_mvt" [(ngModel)]="mouvement.type_mvt">
+                <option value="Entrer">Entrer</option>
+                <option value="Sortie">Sortie</option>
+            </select>
+          </div>
+
+          <div class="">
+              <label for="validationDefault01" class="form-label">Date</label>
+              <input value="{{modifMouve.date_mvt}}" type="date" class="form-control" id="validationDefault01"  value="" name="date_mvt" [(ngModel)]="mouvement.date_mvt" required>
+          </div>
+
+          <div class="">
+            <label for="validationDefault01" class="form-label">Quantité</label>
+            <input value="{{modifMouve.qtt_mvt}}" type="number" class="form-control" id="validationDefault01" value="" name="qtt_mvt" [(ngModel)]="mouvement.qtt_mvt" required>
+          </div>
+
+          <div>
+              <label for="validationDefault01" class="form-label">Dépot :</label>
+              <b> {{modifMouve.depot.nom_dep}} </b> 
+              <select class="form-select" aria-label="Default select example" value="{{modifMouve.depot.nom_dep}}" name="id_dep" [(ngModel)]="mouvement.id_dep">
+                  <option *ngFor="let depot of depots" [value]="depot.id_dep">
+                  <span>{{depot.nom_dep}}</span>
+                  </option>
+              </select>
+          </div>
+
+          <div>
+              <label for="validationDefault01" class="form-label">Produit :</label>
+              <b> {{modifMouve.produit.designation_p}} </b>
+              
+              <select class="form-select" aria-label="Default select example" name="id_p" [(ngModel)]="mouvement.id_p">
+                  <option *ngFor="let produit of produits" [value]="produit.id_p">
+                      <span>{{produit.designation_p}}</span>
+                  </option>
+              </select>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

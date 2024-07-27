@@ -84,11 +84,11 @@ exports.supprimerStock = async(req, res) =>{
 
 exports.modificationStock = async (req, res)=>{
     const id = req.params.id_st;
-    const { qtt_st } = req.body;
+    const { qtt_st, id_p,id_dep } = req.body;
 
     try {
         const [modification] = await stockService.updateStock(
-            { qtt_st }, 
+            { qtt_st, id_p, id_dep }, 
             { where:{ id_st:id}
         });
 

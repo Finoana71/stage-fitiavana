@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ProduitService } from '../produit.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -11,29 +12,41 @@ export class ListeProduitComponent {
 
   @Input() produits: any[] = [];
 
-  produitSuppr:boolean = false;
-  ErreurSuppr:boolean = false
-
   constructor(private produitService: ProduitService){}
- 
+
   supprimerProduit(id:number){
 
     this.produitService.supprProduit(id).subscribe(
       (response:any) => {
-        this.produitSuppr = true;
-        
+
+        this.valider();
         const index = this.produits.findIndex(
           (mvt:any) => mvt.id_mvt == id)
           this.produits.splice(index,1) // firy no ho fafana amin ilaina tableaux "index"
 
       },
-      (erreur:any) =>{
-        console.log("rrrrrrr--", erreur);
-        
-        this.ErreurSuppr = true;
+      erreur =>{
+        this.error();
       }
     );
-    
+
   }
 
+  valider(){
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please check your authentication!",
+    });
+  }
 }

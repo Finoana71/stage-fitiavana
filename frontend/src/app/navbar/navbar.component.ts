@@ -10,28 +10,30 @@ import { response } from 'express';
 })
 export class NavbarComponent {
 
-btnvert: boolean = true;
-seDecon: boolean = true;
+  btnvert: boolean = true;
+  ifAdmin: boolean = true;
+  seDecon: boolean = true;
 
-@Input() email_ut?: Auth;
+  emailStorage = localStorage.getItem("email");
+
+
+  @Input() email_ut?: Auth;
 
   constructor(private authService:AuthService){}
 
   getEmail(){
+    let email = this.emailStorage ;
 
-    let email = localStorage.getItem("email"); 
     if (email) {
       this.btnvert;
     }else{
       this.btnvert=false;
     }
     return email;
-    
   }
+
   se_deconnecter():void{
     this.authService.logout();
-  } 
-
+  }
 
 }
- 

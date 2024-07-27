@@ -10,7 +10,7 @@ describe('AjoutDepotComponent', () => {
       imports: [ListeStockComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ListeStockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

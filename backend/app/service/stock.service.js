@@ -5,6 +5,9 @@ class stockService{
     async create(qtt_st, id_p, id_dep ){
         let data = {qtt_st, id_p, id_dep }
 
+        if(data.qtt_st < 0)
+            data.qtt_st = 0
+        
         return stockRepository.create(data);
     }
     async delete(id){

@@ -1,0 +1,10 @@
+.swal-custom-padding .swal2-popup {
+  padding: 2rem; /* Ajustez la valeur de padding selon vos besoins */
+}
+.lesBouttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Pour ajouter de l'espace entre les boutons */
+}
+
+

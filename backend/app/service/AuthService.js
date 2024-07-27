@@ -10,11 +10,11 @@ class AuthService{
         this.strategy = strategy;
     }
 
-    async register(email_ut, mdp_ut){
+    async register(role,email_ut, mdp_ut){
 
         const hashedMdp_ut = await bcrypt.hash(mdp_ut, 10);
 
-        const utilisateur =  await Utilisateur.create({ email_ut, mdp_ut: hashedMdp_ut });
+        const utilisateur =  await Utilisateur.create({ role,email_ut, mdp_ut: hashedMdp_ut });
 
         return utilisateur;
     }

@@ -1,15 +1,16 @@
 
-<div class="alert alert-success" role="alert" *ngIf="utiliSuppr">
+<div class="alert alert-success mt-4" role="alert" *ngIf="utiliSuppr">
   Utilisateur supprimer avec succès!
 </div>
-<div class="alert alert-danger" role="alert" *ngIf="ErreurSuppr">
+<div class="alert alert-danger mt-4" role="alert" *ngIf="ErreurSuppr">
   Utilisateur supprimer avec invalide. Veuillez réessayer!
 </div>
 <!-- Liste Utilisateur -->
-<div class="card mt-4">
+<div class="card mt-4" data-aos="fade-down">
   <table class="table">
       <thead>
         <tr>
+          <th scope="col">Role</th>
           <th scope="col">email</th>
           <th scope="col">mot de passe </th>
           <th scope="col">Action</th>
@@ -17,17 +18,18 @@
       </thead>
       <tbody>
         <tr *ngFor="let utilisateur of utilisateurs">
+          <td> {{utilisateur.role}}</td>
           <td> {{utilisateur.email_ut}}</td>
           <td> {{utilisateur.mdp_ut}}</td>
           <td>
-              <button type="button" class="btn btn-dark">Modif</button>
-              <button 
-              type="button"
-              class="btn btn-danger"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              >supp</button>
-            </td>
+            <button type="button" class="btn btn-dark me-2">Modif</button>
+            <button
+            type="button"
+            class="btn btn-danger ms-2"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            >supp</button>
+          </td>
         </tr>
   </table>
 </div>
@@ -44,8 +46,8 @@
         <h5 class="modal-title" id="exampleModalLabel">êtes-vous sûr de supprimer ?</h5>
       </div>
       <div class="modal-footer position-relative">
-        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>          
-        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimerUtili(utilisateur.id_ut)" >OUI</button>      
+        <button type="button" data-bs-dismiss="modal" class="btn btn-danger me-2">NON</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-success ms-2" (click)="supprimerUtili(utilisateur.id_ut)" >OUI</button>
       </div>
     </div>
   </div>
