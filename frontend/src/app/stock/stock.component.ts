@@ -16,7 +16,6 @@ export class StockComponent {
   ngOnInit(): void {
     this.stockService.getStock().subscribe(data=>{
       this.stocks = data;
-
     })
   }
 

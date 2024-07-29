@@ -85,5 +85,5 @@ export class AjoutMouvementComponent {
       title: "Oops...",
       text: "Please check your add mouvement!",
     });
-}
+  }
 }

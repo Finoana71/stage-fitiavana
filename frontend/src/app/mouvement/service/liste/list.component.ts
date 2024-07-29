@@ -4,6 +4,7 @@ import { Mouvement } from '../../mouvement.modele';
 import { ProduitService } from '../../../produit/service/produit.service';
 import { DepotService } from '../../../depot/service/depot.service';
 import { StockService } from '../../../stock/service/stock.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class ListeMouvementomponent {
     id_ut:0
   }
 
-modifMouve:any  = null;
+modifMouve:any = null;
 
   @Input()mouvements : any[] = [];
   histoMouve:any  = null; 
@@ -79,19 +80,15 @@ modifMouve:any  = null;
 
     this.mouvementService.modification(id, this.mouvement).subscribe({
       next: (response) =>{
-        console.log('update', response);
+        console.log('update', response.mouvement);
 
         const index = this.mouvements.findIndex((mouv:Mouvement) =>mouv.id_mvt == id);               
         this.mouvements[index] = response.mouvement;
 
-        console.log('update depot', response.mouvement);
-
-        //modificaiton Stock
-        // this.stockService.modification()
-        
+        this.valider();        
       }, 
       error:(err) =>{
-        console.error('Error', err)
+        this.error();
       }
     })
   }
@@ -102,8 +99,27 @@ modifMouve:any  = null;
     .subscribe(data =>{
     this.modifMouve = data;
 
-    console.log(this.modifMouve.depot.nom_dep);
+    console.log("id_dep",this.modifMouve.depot.id_dep);
+    console.log("id_p",this.modifMouve.produit.id_p);
 
     })
   };
+
+  
+  valider(){
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Update succes",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please check your update mouvement!",
+    });
+  }
 }

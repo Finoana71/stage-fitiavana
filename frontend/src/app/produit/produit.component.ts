@@ -29,4 +29,6 @@ export class ProduitComponent {
   ajoutProduit(produit : Produit){
     this.produits.push(produit);
   }
+
+
 }

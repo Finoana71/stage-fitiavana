@@ -2,6 +2,7 @@ const { log } = require('handlebars');
 const Depot = require('../models/depot');
 const Produit = require('../models/produits')
 const stockService = require('../service/stock.service');
+const stockRepository = require('../repository/stock.repository');
 
 // Creer une Stock
 
@@ -41,11 +42,12 @@ exports.creerStock = async (req, res) =>{
 
 exports.listeStock = async (req, res) =>{
     try {
-        const stock = await stockService.findAll(); // mitovy oe jointure
+        const stock = await stockRepository.findAll(); // mitovy oe jointure
         
         res.status(200).json(stock);
 
     } catch (erreur) {
+        console.log("erreur--", erreur);
         res.status(400).json({erreur});
     }
 }
@@ -71,11 +73,12 @@ exports.supprimerStock = async(req, res) =>{
         const id = req.params.id_st;
         console.log("idddd",id);
 
-        const stock = await stockService.delete(id);
+        const stock = await stockRepository.delete(id);
         console.log("sotck",stock);
         res.status(200).json({message:"Supprimer stock est avec succés", stocks : stock});
         
     } catch (erreur) {
+        console.log("errrrr", e);
         res.status(400).json({erreur:erreur.message});
     }
 }
@@ -103,3 +106,4 @@ exports.modificationStock = async (req, res)=>{
         res.status(500).json({error :'Erreur Stock de produit'});
     }
 }
+

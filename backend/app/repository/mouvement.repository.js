@@ -11,6 +11,9 @@ class mouvementRepository{
     async getIdMouv(id){
         return Mouvement.findByPk(id,{include: ["produit","depot","utilisateur"]})
     }
+    async geIdByMouv(){
+        
+    }
 }
 
 module.exports = new mouvementRepository();

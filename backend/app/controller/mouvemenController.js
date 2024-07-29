@@ -1,11 +1,13 @@
 const Depot = require('../models/depot');
 const Mouvement = require('../models/mouvement');
 const Produit = require('../models/produits');
-const Stock = require('../models/Stock');
 const Utilisateur = require('../models/utilisateur');
 const mouvementService = require('../service/mouvement.service');
-const { supprimerProduit } = require('./produitController');
-
+const mouvementRepository = require('../repository/mouvement.repository');
+const stockRepository = require('../repository/stock.repository');
+const Stock = require('../models/Stock');
+const { findAllDep_Pro } = require('../service/stock.service');
+const { where } = require('sequelize');
 // Creer une Stock
 
 exports.creerMouvement = async (req, res) =>{
@@ -98,30 +100,47 @@ exports.supprimerMouvement = async (req, res) =>{
 // Modification Mouvement
 
 exports.modificationMouvement = async (req, res)=>{
+    const id_ut = req.user ;
     const id = req.params.id_mvt;
     const { type_mvt, date_mvt, qtt_mvt, id_dep, id_p } = req.body;
 
-    try {
-        const [modification] = await Mouvement.update(
-            { type_mvt, date_mvt, qtt_mvt, id_dep, id_p }, 
-            { where:{ id_mvt:id}
-        });
+    try {        
 
-        if(!modification){
-            return res.status(404).json({error : 'Mouvement invalide'});
-        }
 
+        const ancienMouv = await Mouvement.findByPk(id);
+
+        const ancienStocks = await findAllDep_Pro(ancienMouv.id_p, ancienMouv.id_dep);
+
+        if (ancienStocks.length) {
+
+            const ancienStock = ancienStocks[0]
+            let qttStock = ancienStock.qtt_st
+
+            let oldMvt = ancienMouv.qtt_mvt
+
+            if (ancienMouv.type_mvt == "Entrer")
+                qttStock -= oldMvt  
+            else
+                qttStock += ancienMouv.qtt_mvt
+            await Stock.update({qtt_st:qttStock} ,{where:{id_st:ancienStock.id_st }})
+        }    
+
+        await Mouvement.destroy({where:{id_mvt:id}});
+
+        const creatMouvement = await mouvementService.createMouvement(
+            id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut,id
+        );
+        
         const modifMouvement = await Mouvement.findOne({ 
-            where: {id_mvt:id},
+            where: {id_mvt:creatMouvement.id_mvt},
             include:['produit','depot','utilisateur']
         });
 
-        
         res.status(200).json({message:"Modification Mouvement est avec succés", mouvement:modifMouvement});
                 
     } catch (erreur) {
+        console.log("eer++++", erreur);
         res.status(500).json({error : 'Erreur Mouvement de produit'});
     }
+    
 }
-
-
