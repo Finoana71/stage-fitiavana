@@ -9,30 +9,19 @@ const upload = multer({storage: storage});
 // Creer une produit
 
 exports.creerProduit = async (req, res) =>{
-    const{
+    let{
         designation_p,
         categorie_p,
         poid_p,
-        prix_p 
+        prix_p ,
+        photo_p,
+        file
     } = req.body;
-    const photo_p = req.file;
     
-    // const base64Image= photo_p.buffer.toString('base64');
-
-    // try {
-    //     const produit = await Produit.create(
-    //       {  designation_p,
-    //         categorie_p,
-    //         photo_p,
-    //         poid_p,
-    //         prix_p}
-    //     )
-    //     res.status(201).json(produit)
-    // } catch (erreur) {
-    //     res.status(400).json({erreur:erreur.message});
-    // }
 
     try {
+
+        photo_p = await produitService.uploadFile(file,photo_p)
         const produit = await produitService.createProduit({
             designation_p,
             categorie_p,
@@ -40,6 +29,8 @@ exports.creerProduit = async (req, res) =>{
             poid_p,
             prix_p
         })
+
+
         res.status(201).json(produit)
         
     } catch (erreur) {
@@ -50,13 +41,7 @@ exports.creerProduit = async (req, res) =>{
 //List produit
 
 exports.listeProduit = async(req, res) =>{
-    // try {
-    //     const produit = await Produit.findAll();
-    //     res.status(200).json(produit);
 
-    // } catch (erreur) {
-    //     res.status(400).json({erreur:erreur.message});
-    // }
     try {
         const produit = await produitService.getProduits();
         res.status(200).json(produit);
@@ -81,7 +66,6 @@ exports.supprimerProduit = async(req, res) =>{
 
     } catch (erreur) {
         res.status(400).json({erreur:erreur.message});
-
     }
 }
 

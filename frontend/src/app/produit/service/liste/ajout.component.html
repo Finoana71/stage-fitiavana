@@ -13,13 +13,15 @@
     </thead>
     <tbody>
       <tr *ngFor="let produit of produits">
-        <td>{{produit.photo_p}}</td>
+        <td>
+          <img class="image" src ="http://localhost:8080/fichier/{{produit.photo_p}}" alt="image">
+        </td>
         <td>{{produit.designation_p}}</td>
         <td>{{produit.categorie_p}}</td>
         <td>{{produit.poid_p}}</td>
         <td>{{produit.prix_p}}</td>
         <td>
-          <button type="button" class="btn btn-dark me-2">Modif</button>
+          <!-- <button type="button" class="btn btn-dark me-2">Modif</button> -->
           <button
               type="button"
               class="btn btn-danger ms-2"

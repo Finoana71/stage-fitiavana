@@ -12,6 +12,7 @@ class produitRepository{
         return await Produit.findAll();
     }
     async update(id, data){
+        
         const produit = await this.findById(id);
         if (produit) {
             return await Produit.update(data);

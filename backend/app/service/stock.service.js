@@ -20,9 +20,6 @@ class stockService{
     async updateStock(id, data){
         return stockRepository.update(id,data);
     }
-    // async findQttStockById(id,){
-    //         return await stockRepository.findQttStockById();
-    // }
     async getIdStock (id){
         return stockRepository.getIdStock(id);
     }

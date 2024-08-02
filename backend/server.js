@@ -19,6 +19,7 @@ var corsOptions = {
     origin: ["http://localhost:4200"] // Url Angular
 };
 
+
 app.use(cors(corsOptions));
 
 // Routes
@@ -28,6 +29,8 @@ app.use('/api',mouvementRoutes);
 app.use('/api',UtilisateurRoutes);
 app.use('/api',StockRoutes);
 app.use('/api', authRoutes);
+
+app.use('/fichier',express.static(__dirname + '/app/uploads/'));
 
 //start servers
 const startServer = async () => {  

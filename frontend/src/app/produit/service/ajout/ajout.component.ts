@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ProduitService } from '../produit.service';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
-import { Console, error } from 'console';
+import { Console, error, log } from 'console';
 import Swal from 'sweetalert2';
 
 
@@ -17,9 +17,9 @@ export class AjoutProduitComponent {
 
   sommes: any = "";
 
+  photo_p!: string |undefined;
   designation_p: string = "";
   categorie_p: string = "";
-  photo_p: string = "";
   poid_p: number | undefined;
   prix_p: number | undefined;
 
@@ -28,6 +28,8 @@ export class AjoutProduitComponent {
   preview = '';
   imageInfos?: Observable<any>;
   emailLocalStorage = localStorage.getItem("email")
+
+
 
   constructor(private produitService: ProduitService){};
 
@@ -48,13 +50,16 @@ export class AjoutProduitComponent {
     });
   }
 
-  selectFile(event: any):void{
+  selectFile(event: any): void {
     this.message='';
     this.preview='';
+   
     const selectedFiles = event.target.files;
-
+    
     if(selectedFiles){
       const file: File | null = selectedFiles.item(0);
+
+      this.photo_p = file?.name
 
       if (file) {
         this.preview = '';
@@ -68,18 +73,26 @@ export class AjoutProduitComponent {
         };
         reader.readAsDataURL(this.currentFile);
       }
+
+    
     }
+
   }
 
   ajoutProduit(){
     const produit = {
       designation_p:this.designation_p,
       categorie_p:this.categorie_p,
-      photo_p:this.photo_p,
       poid_p:this.poid_p,
-      prix_p:this.prix_p
+      prix_p:this.prix_p,
+      file:this.preview,
+      photo_p : this.photo_p
     };
 
+    console.log("nom du fichier", this.photo_p)
+     
+    console.log("photooooo", this.preview);
+    
     this.produitService.ajoutProduit(produit).subscribe(
       (response:any) =>
         {
@@ -87,8 +100,12 @@ export class AjoutProduitComponent {
           this.estAjout.emit(response);
           this.countProd();
         },
-      (erreur:any) =>
+      (erreur:any) => {
+        console.log("erreur", erreur)
+        
         this.error()
+      }
+
     );
   }
 

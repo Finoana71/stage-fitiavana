@@ -15,7 +15,7 @@
 
  const {Sequelize} = require('sequelize');
 
- const sequelize = new Sequelize('stockProduitMultitache1','root','',{
+ const sequelize = new Sequelize('stage','root','',{
     host:'localhost',
     dialect: "mysql", 
     pool: {

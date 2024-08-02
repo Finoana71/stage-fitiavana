@@ -46,9 +46,9 @@ class mouvementService{
             stock.qtt_st -= qtt_mvt 
         }
 
-        // if (stock.qtt_st < 0) {
-        //     stock.qtt_st = 0
-        // }
+        if (stock.qtt_st < 0) {
+            stock.qtt_st = 0
+        }
 
         await stockRepository.update(stock.id_st, stock)
     }
