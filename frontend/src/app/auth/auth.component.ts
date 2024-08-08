@@ -43,11 +43,16 @@ export class AuthComponent {
 
 
   error(){
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please check your authentication!",
-      });
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+    Toast.fire({
+      icon: "error",
+      title: "Vérifier bien votre authentification!"
+    })
   }
 
   loginSucces(){

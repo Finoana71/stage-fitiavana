@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { StockService } from '../stock.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -11,36 +12,58 @@ export class ListeStockComponent {
   @Input()stocks: any[] =[]
   
   histoStocks:any  = null
-
-  stockSuppr:boolean = false
-  ErreurSuppr:boolean = false
-
   modifSuccess:boolean = false
 
   constructor(private stockService: StockService){}
 
   voirLeDetail(id: number){
-    this.stockService.getByIdStock(id)
-    .subscribe(data =>{
-      this.histoStocks = data;
-      console.log("donné", data)
-      }
-    )
+    try {
+      this.stockService.getByIdStock(id)
+      .subscribe(data =>{
+        this.histoStocks = data;
+        console.log("donné", data)
+        }
+      )
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
   supprimer(id:number){
     this.stockService.supprStock(id).subscribe(
+      
       (response:any) =>{
-        this.stockSuppr = true;
         
+        this.valider()
         const index = this.stocks.findIndex((stok:any)=>stok.id_st == id)
         this.stocks.splice(index,1) // firy no ho fafana amin ilaina tableaux "index"
 
       },
       (erreur:any) =>{
-        this.ErreurSuppr = true;
+        this.error()
       }
+
     );
   }
+  
+  valider(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    Toast.fire({
+      icon: "success",
+      title: "update succes"
+    })
+  }
 
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please DOUBLON!",
+    });
+  }
 }

@@ -39,13 +39,16 @@ export class AjoutDepotComponent {
   }
 
   valider(){
-    Swal.fire({
+    const Toast = Swal.mixin({
+      toast: true,
       position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
       showConfirmButton: false,
-      timer: 1500
+      timer: 2000,
     });
+    Toast.fire({
+      icon: "success",
+      title: "Ajout avec succes"
+    })
   }
 
   error(){
@@ -54,5 +57,5 @@ export class AjoutDepotComponent {
       title: "Oops...",
       text: "Please DOUBLON!",
     });
-}
+  }
 }

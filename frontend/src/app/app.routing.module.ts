@@ -14,13 +14,12 @@ import { ProtectedComponent } from "./protected/protected.component";
 const routes: Routes = [
     // {path:'', component:slideComponent},
 
-    {path:'gestion_de_stock_multi-tâche', component:NavbarComponent},
+    {path:'gestion_de_stock_multi-tâche', component:slideComponent},
     {path:'gestion_de_stock_multi-tâche/produit', component:ProduitComponent},
     {path:'gestion_de_stock_multi-tâche/depot', component:DepotComponent},
     {path:'gestion_de_stock_multi-tâche/utilisateur', component:UtilisateurComponent},
     {path:'gestion_de_stock_multi-tâche/mouvement', component:MouvementComponent},
     {path:'gestion_de_stock_multi-tâche/stock', component:StockComponent},
-
 
     {path:'login', component:AuthComponent},
     {path:'register', component:AuthComponent},

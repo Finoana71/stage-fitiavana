@@ -8,9 +8,15 @@ class produitRepository{
     async create(data){
         return await Produit.create(data);
     }
-    async findAll(){
-        return await Produit.findAll();
+
+    async findAll(page){
+
+        const nbrEl = 5
+        const offset = (page - 1) * nbrEl
+        return await Produit.findAll({limit: nbrEl, offset: offset});
+         
     }
+
     async update(id, data){
         
         const produit = await this.findById(id);

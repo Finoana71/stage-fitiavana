@@ -1,9 +1,4 @@
-.btnVert{
-    width: 15px;
-    height:15px;
-    border-radius: 50%;
-    background-color:green;
-}
+
 h5{
     color: white;
 }
@@ -11,5 +6,15 @@ h5{
     display: flex;
     margin: auto;
     row-gap: 2rem;
+}
+
+.bg-navbar{
+  background-color: rgb(75, 72, 72);
+  position: fixed;
+  border-radius: 11px;
+  padding: 20px;
+  margin-top: 6rem;
+  width: 12rem;
+  height: 24rem;
 }
 

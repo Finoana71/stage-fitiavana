@@ -1,3 +1,9 @@
 .preview{
     max-width: 200px;
 }
+.btnAjout{
+  margin-left: 13rem;
+}
+.modal{
+  color: black;
+}

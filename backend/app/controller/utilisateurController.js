@@ -1,5 +1,5 @@
 const Utilisateur = require('../models/utilisateur');
-const { findUtilById } = require('../repository/utilisateur.repository');
+const { findUtilById } = require('../service/utilisateur.service');
 const AuthService = require('../service/AuthService');
 
 // Creer une Utilisateur

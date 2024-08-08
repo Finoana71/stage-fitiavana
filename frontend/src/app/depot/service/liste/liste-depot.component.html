@@ -1,5 +1,6 @@
 <!-- Liste Depot -->
-<div class="card mt-4"  data-aos="fade-down">
+
+<div class="card mt-4 widthTable"  data-aos="fade-down">
   <table class="table">
       <thead>
         <tr>
@@ -40,13 +41,13 @@
       </div>
       <div class="modal-body" *ngIf="modifDepot">
 
-        <form action="" (ngSubmit)="onSubmit()" #modifForm="ngForm">
-          
+        <form action="" (ngSubmit)="modification()" #modifForm="ngForm">
+
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nom dépot</label>
             <input type="text" name="nom_dep" [(ngModel)]="depot.nom_dep" value="{{modifDepot.nom_dep}}" class="form-control" id="exampleFormControlInput1">
           </div>
-          
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>

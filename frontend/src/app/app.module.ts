@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { StockComponent } from './stock/stock.component';
 import { ListeStockComponent } from './stock/service/liste/list.component';
 import { AjoutProduitComponent } from "./produit/service/ajout/ajout.component";
-import { ListeProduitComponent } from "./produit/service/liste/ajout.component";
+import { ListeProduitComponent } from "./produit/service/liste/liste.component";
 import { AjoutStockComponent } from './stock/service/ajout/ajout.component';
 import { MouvementComponent } from './mouvement/mouvement.component';
 import { ListeMouvementomponent } from './mouvement/service/liste/list.component';
@@ -29,7 +29,7 @@ import { JwtInterceptor } from './interceptor/JwtInterceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BouttonUpdateComponent } from './boutton/miseajout/boutton.component';
 import { BouttonDeleteComponent } from './boutton/supprimer/boutton.component';
-
+import { SeDeconnecterComponent } from './navbar/seDeconnecter/seDeconnecter.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,8 +38,7 @@ import { BouttonDeleteComponent } from './boutton/supprimer/boutton.component';
     RouterOutlet,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
   ],
   declarations: [
 
@@ -80,7 +79,10 @@ import { BouttonDeleteComponent } from './boutton/supprimer/boutton.component';
 
     //Authentification
     AuthComponent,
-    ProtectedComponent
+    ProtectedComponent,
+
+    //SeDeconnecter
+    SeDeconnecterComponent
 
   ],
   providers: [

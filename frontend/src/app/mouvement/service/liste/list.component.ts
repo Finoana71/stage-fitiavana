@@ -33,6 +33,7 @@ modifMouve:any = null;
   ErreurSuppr:boolean = false 
   produits:any[] = [];
   depots:any[] = [];
+  page = 1;
 
   constructor(
       private mouvementService: MouvementService,
@@ -42,7 +43,7 @@ modifMouve:any = null;
     ){}
 
   ngOnInit(): void {
-    this.produitService.getProduit().subscribe(data => {
+    this.produitService.getProduit(this.page).subscribe(data => {
       this.produits = data;
     });
 
@@ -107,13 +108,16 @@ modifMouve:any = null;
 
   
   valider(){
-    Swal.fire({
+    const Toast = Swal.mixin({
+      toast: true,
       position: "top-end",
-      icon: "success",
-      title: "Update succes",
       showConfirmButton: false,
-      timer: 1500
+      timer: 2000,
     });
+    Toast.fire({
+      icon: "success",
+      title: "update succes"
+    })
   }
   error(){
     Swal.fire({

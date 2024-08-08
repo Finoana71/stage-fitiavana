@@ -6,5 +6,7 @@
   align-items: center;
   gap: 1rem; /* Pour ajouter de l'espace entre les boutons */
 }
-
-
+.widthTable{
+  width: 45rem;
+  margin-left: 13rem;
+}

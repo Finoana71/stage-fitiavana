@@ -16,8 +16,8 @@ class produitService{
 
         return await produitRepository.create(data);
     }
-    async getProduits(){
-        return await produitRepository.findAll();
+    async getProduits(page){
+        return await produitRepository.findAll(page);
     }
     async putProduits(id, data){
         return await produitRepository.update(id, data);

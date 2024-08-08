@@ -15,7 +15,7 @@ export class AjoutProduitComponent {
 
   @Output()estAjout = new EventEmitter;
 
-  sommes: any = "";
+  sommes: number = 0;
 
   photo_p!: string |undefined;
   designation_p: string = "";
@@ -30,14 +30,13 @@ export class AjoutProduitComponent {
   emailLocalStorage = localStorage.getItem("email")
 
 
-
-  constructor(private produitService: ProduitService){};
+  constructor(public produitService: ProduitService){};
 
   ngOnInit(): void {
     this.imageInfos = this.produitService.getfiles();
     this.produitService.countProduit()
     .subscribe(data=>{
-      this.sommes = data;
+      this.sommes = data.total_p;
       console.log("total", data);
     });
   }
@@ -45,8 +44,7 @@ export class AjoutProduitComponent {
   countProd(){
     this.produitService.countProduit()
     .subscribe(data=>{
-      this.sommes = data;
-      console.log("total", data);
+      this.sommes = data.total_p;
     });
   }
 
@@ -74,7 +72,6 @@ export class AjoutProduitComponent {
         reader.readAsDataURL(this.currentFile);
       }
 
-    
     }
 
   }
@@ -98,7 +95,6 @@ export class AjoutProduitComponent {
         {
           this.valider();
           this.estAjout.emit(response);
-          this.countProd();
         },
       (erreur:any) => {
         console.log("erreur", erreur)
@@ -110,20 +106,38 @@ export class AjoutProduitComponent {
   }
 
   valider(){
-    Swal.fire({
+    const Toast = Swal.mixin({
+      toast: true,
       position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
       showConfirmButton: false,
-      timer: 1500
+      timer: 2000,
     });
+    Toast.fire({
+      icon: "success",
+      title: "Ajout avec succes"
+    })
+  }
+
+  validerSuppr(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Suppression avec succes"
+    })
   }
 
   error(){
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Please check your authentication!",
+      text: "Vérifiez bien!",
     });
   }
+
+  
 }

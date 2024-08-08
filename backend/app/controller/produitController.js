@@ -42,13 +42,16 @@ exports.creerProduit = async (req, res) =>{
 
 exports.listeProduit = async(req, res) =>{
 
+    const page = req.query.page;
+
     try {
-        const produit = await produitService.getProduits();
+        const produit = await produitService.getProduits(page);
         res.status(200).json(produit);
 
     } catch (erreur) {
         res.status(400).json({erreur:erreur.message});
     }
+
 }
 
 // Supprimer le produit

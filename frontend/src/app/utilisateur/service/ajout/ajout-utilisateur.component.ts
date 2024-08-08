@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UtilisateurService } from '../utilisateur.service';
 import { AuthService } from '../../../auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ajout-utilisateur',
@@ -15,7 +16,6 @@ export class AjoutUtilisateurComponent {
   email_ut : string = "";
   mdp_ut  : string = "";
   mdp : string = "";
-  emailLocalStorage = localStorage.getItem("email")
 
   utilisateurAjout: boolean = false;
   erreurAjout: boolean = false;
@@ -56,17 +56,38 @@ export class AjoutUtilisateurComponent {
 
     this.auhtService.register(this.role,this.email_ut ,this.mdp_ut).subscribe(
       response =>{
-        this.utilisateurAjout = true;
 
+        this.valider();
         this.ajoutUti.emit(response);
 
       },
 
       erreur => {
         // Message d'erreur
-        this.erreurAjout = true;
+        this.error();
       }
     );
+  }
+  
+  valider(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Ajout avec succes"
+    })
+  }
+
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please DOUBLON!",
+    });
   }
 }
 

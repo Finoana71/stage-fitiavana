@@ -7,8 +7,8 @@ import { Depot } from './depot.model'
   templateUrl: './depot.component.html',
   styleUrl: './depot.component.css'
 })
-export class DepotComponent implements OnInit{
-titre = ""
+export class DepotComponent implements OnInit{  
+  titre = "Liste des dépots"
   // liste Depot
   depots: Depot[] = []
   depotSuppr = false

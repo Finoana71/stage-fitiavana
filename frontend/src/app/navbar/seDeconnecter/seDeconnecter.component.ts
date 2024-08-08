@@ -1,15 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { Auth } from '../auth/auth.model';
-import { response } from 'express';
+import { AuthService } from '../../auth/auth.service';
+import { Auth } from '../../auth/auth.model';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  selector: 'app-seDeconnecter',
+  templateUrl: './seDeconnecter.component.html',
+  styleUrl: './seDeconnecter.component.css'
 })
-export class NavbarComponent {
-
+export class SeDeconnecterComponent {
+  
   btnvert: boolean = true;
   ifAdmin: boolean = true;
   navbar:boolean = true;
@@ -34,5 +33,4 @@ export class NavbarComponent {
   se_deconnecter():void{
     this.authService.logout();
   }
-
 }

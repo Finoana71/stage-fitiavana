@@ -1,6 +1,15 @@
-<app-navbar></app-navbar>
-
-<h2 data-aos="fade-up">{{titre}}</h2>
-
-<app-ajout-stock (estAjoutStock)="ajoutStock($event)"></app-ajout-stock>
-<app-list-stock [stocks]="stocks" ></app-list-stock>
+<!-- <app-navbar></app-navbar> -->
+<div class="displayFlex">
+  <div>
+    <div>
+      <app-seDeconnecter></app-seDeconnecter>
+    </div>
+    <div>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+  <div>
+    <app-ajout-stock (estAjoutStock)="ajoutStock($event)"></app-ajout-stock>
+    <app-list-stock [stocks]="stocks" ></app-list-stock>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Auth } from "./auth.model";
 
 @Injectable({
@@ -24,6 +24,7 @@ export class AuthService{
     }
 
     logout():void{
+
         localStorage.removeItem('token');
         localStorage.removeItem('email');
     }

@@ -57,11 +57,12 @@ exports.listeStock = async (req, res) =>{
 exports.getIdStock = async (req, res) =>{
     try {
         const id  = req.params.id_st
-        const stock = await stockService.getIdStock(id) 
+        const stock = await stockRepository.getIdStock(id) 
         
         res.status(200).json(stock);
 
     } catch (erreur) {
+        console.log("erreur--", erreur);
         res.status(400).json({error});    
     }
 }

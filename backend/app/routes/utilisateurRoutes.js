@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const utilisateurController = require('../controller/utilisateurController');
-const utilisateurRepository = require('../repository/utilisateur.repository');
 const { authenticate } = require('../controller/AuthController');
 
 router.post('/utilisateur',utilisateurController.creerUtilisateur);

@@ -17,18 +17,19 @@ export class ProduitComponent {
   // }
 
   produits: Produit[] = [];
+  page = 1;
 
   constructor(private produitService: ProduitService){}
 
   ngOnInit(): void {
-    this.produitService.getProduit().subscribe(data =>{
+    this.produitService.getProduit(this.page).subscribe(data =>{
       this.produits = data;
     })
   }
 
   ajoutProduit(produit : Produit){
     this.produits.push(produit);
+    this.ngOnInit()
   }
-
-
+  
 }

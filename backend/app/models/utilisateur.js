@@ -17,7 +17,7 @@ const Utilisateur = sequelize.define("utilisateur", {
         unique: true
     },
     mdp_ut : {
-        type : DataTypes.STRING(100),
+        type : DataTypes.STRING(200),
         allowNull: true
     }
     

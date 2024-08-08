@@ -1,12 +1,6 @@
 
-<div class="alert alert-success mt-4" role="alert" *ngIf="stockSuppr">
-  Stock supprimer avec succès!
-</div>
-<div class="alert alert-danger mt-4" role="alert" *ngIf="ErreurSuppr">
-  Stock supprimer avec invalide. Veuillez réessayer!
-</div>
 <!-- Liste stock -->
-<div class="card mt-4" data-aos="fade-down">
+<div class="card mt-4 widthTable" data-aos="fade-down">
   <table class="table">
       <thead>
         <tr>
@@ -22,12 +16,12 @@
           <td>{{stock.depot.nom_dep}}</td>
           <td>{{stock.qtt_st}}</td>
           <td>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-danger me-2"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
-              >supp</button>
+              >supp</button> -->
             <button
               class="btn btn-primary ms-2"
               type="button"

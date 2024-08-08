@@ -21,7 +21,7 @@ class stockService{
         return stockRepository.update(id,data);
     }
     async getIdStock (id){
-        return stockRepository.getIdStock(id);
+        return await stockRepository.getIdStock(id, {include: ["produit", "depot"]});
     }
 
     async findAllDep_Pro(id_p, id_dep){

@@ -1,6 +1,19 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar> -->
 
-<h2 data-aos="fade-up">{{titre}}</h2>
+<div class="displayFlex">
 
-<app-ajout-utilisateur (ajoutUti)="ajoutUtilisateur($event)"></app-ajout-utilisateur>
-<app-liste-utilisateur [utilisateurs]="utilisateurs"></app-liste-utilisateur>
+  <div>
+    <div>
+      <app-seDeconnecter></app-seDeconnecter>
+    </div>
+    <div>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+
+  <div>
+    <app-ajout-utilisateur (ajoutUti)="ajoutUtilisateur($event)"></app-ajout-utilisateur>
+    <app-liste-utilisateur [utilisateurs]="utilisateurs"></app-liste-utilisateur>
+  </div>
+  
+</div>

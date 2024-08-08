@@ -1,6 +1,17 @@
-<app-navbar></app-navbar>
+<div class="displayFlex">
+  <div>
+    <div>
+      <app-seDeconnecter></app-seDeconnecter>
+    </div>
+    <div>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+  
+  <div>
+    <app-ajout-mouvement (onAdd)="addMouvement($event)"></app-ajout-mouvement>
+    <app-list-mouvement [mouvements]="mouvements"></app-list-mouvement>
+  </div>
+</div>
 
-<h2 data-aos="fade-up">{{titre}}</h2>
-<app-ajout-mouvement (onAdd)="addMouvement($event)"></app-ajout-mouvement>
-<app-list-mouvement [mouvements]="mouvements"></app-list-mouvement>
 

@@ -1,11 +1,5 @@
-<div class="alert alert-success mt-4" role="alert" *ngIf="mouvementSuppr" >
-  Mouvement supprimer avec succès!
-</div>
-<div class="alert alert-danger mt-4" role="alert" *ngIf="ErreurSuppr">
-  Mouvement supprimer avec invalide. Veuillez réessayer!
-</div>
 <!-- Liste mouvement -->
-<div class="card mt-4" data-aos="fade-down">
+<div class="card mt-4 widthTable" data-aos="fade-down">
   <table class="table">
       <thead>
         <tr>
@@ -32,13 +26,13 @@
                 class="me-2"
                 (click)="getMouve(mouvement.id_mvt)">
               </app-boutton-update>
-              
+<!-- 
               <button
               type="button"
               class="btn btn-danger ms-2"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
-              >supp</button>
+              >supp</button> -->
 
               <button
               class="btn btn-primary ms-3"
@@ -127,7 +121,7 @@
 
           <div>
               <label for="validationDefault01" class="form-label">Dépot :</label>
-              <b> {{modifMouve.depot.nom_dep}} </b> 
+              <b> {{modifMouve.depot.nom_dep}} </b>
               <select class="form-select" aria-label="Default select example" value="{{modifMouve.depot.nom_dep}}" name="id_dep" [(ngModel)]="mouvement.id_dep">
                   <option *ngFor="let depot of depots" [value]="depot.id_dep">
                   <span>{{depot.nom_dep}}</span>
@@ -138,14 +132,14 @@
           <div>
               <label for="validationDefault01" class="form-label">Produit :</label>
               <b> {{modifMouve.produit.designation_p}} </b>
-              
+
               <select class="form-select" aria-label="Default select example" name="id_p" [(ngModel)]="mouvement.id_p">
                   <option *ngFor="let produit of produits" [value]="produit.id_p">
                       <span>{{produit.designation_p}}</span>
                   </option>
               </select>
           </div>
-          
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>

@@ -24,7 +24,8 @@ export class AjoutMouvementComponent {
   produits:any[] = [];
   depots:any[] = [];
   utilisateurs:any[] = [];
-  emailLocalStorage = localStorage.getItem("email")
+  emailLocalStorage = localStorage.getItem("email");
+  page = 1;
 
   constructor(
     private ajoutMouvementServ : MouvementService,
@@ -34,7 +35,7 @@ export class AjoutMouvementComponent {
 
 
   ngOnInit(): void {
-    this.produitService.getProduit().subscribe(data => {
+    this.produitService.getProduit(this.page).subscribe(data => {
       this.produits = data;
     });
 
@@ -71,14 +72,18 @@ export class AjoutMouvementComponent {
   }
 
   valider(){
-    Swal.fire({
+    const Toast = Swal.mixin({
+      toast: true,
       position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
       showConfirmButton: false,
-      timer: 1500
+      timer: 2000,
     });
+    Toast.fire({
+      icon: "success",
+      title: "Ajout avec succes"
+    })
   }
+
   error(){
     Swal.fire({
       icon: "error",

@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt =  require('jsonwebtoken');
 const Utilisateur =  require('../models/utilisateur');
 const JWTStrategy = require('./strategies/JWTStrategy');
-const utilisateurRepository = require('../repository/utilisateur.repository');
+const utilisateurRepository = require('./utilisateur.service');
 
 class AuthService{
 
@@ -12,7 +12,7 @@ class AuthService{
 
     async register(role,email_ut, mdp_ut){
 
-        const hashedMdp_ut = await bcrypt.hash(mdp_ut, 10);
+        const hashedMdp_ut = await bcrypt.hash(mdp_ut,8);
 
         const utilisateur =  await Utilisateur.create({ role,email_ut, mdp_ut: hashedMdp_ut });
 

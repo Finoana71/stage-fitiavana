@@ -24,6 +24,8 @@ export class AjoutStockComponent {
   produits: any[] = [];
   depots: any[] = [];
 
+  page = 1;
+
   constructor(
     private produitsService: ProduitService,
     private depotService: DepotService,
@@ -32,7 +34,7 @@ export class AjoutStockComponent {
 
   ngOnInit(): void {
 
-    this.produitsService.getProduit().subscribe(data => {
+    this.produitsService.getProduit(this.page).subscribe(data => {
       this.produits = data;
     });
 
@@ -68,13 +70,16 @@ export class AjoutStockComponent {
   }
 
   valider(){
-    Swal.fire({
+    const Toast = Swal.mixin({
+      toast: true,
       position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
       showConfirmButton: false,
-      timer: 1500
+      timer: 2000,
     });
+    Toast.fire({
+      icon: "success",
+      title: "Ajout avec succes"
+    })
   }
 
   error(){

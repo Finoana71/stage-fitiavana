@@ -1,0 +1,15 @@
+1 - Creer le base de donné dans le mysql avec cette commande " create database stage "
+2 - Lancer le backend : entrer dans le dossier backend puis taper cette commande " node server.js " 
+3 - Lancer le frontend : entrer dans le dossier backend puis taper cette commande " ng serve "
+4 - Création login 
+	4 -1 /  Saisiez sur url :
+	" http://localhost:4200/gestion_de_stock_multi-t%C3%A2che/utilisateur "
+
+	NB : email d'admin obligatoirement : admin@gmail.com 
+ 	
+	4 - 2 / Rôle :
+		- admin : il peut faire tous les actions 
+		- user : 
+			- il peut faire ajouter le mouvement, 
+			- il peut regarder tout simplement la liste 
+			produit, dépot, mouvement, stock

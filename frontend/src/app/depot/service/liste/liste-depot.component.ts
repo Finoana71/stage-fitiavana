@@ -77,7 +77,7 @@ export class ListeDepotComponent {
     });
   }
 
-  onSubmit(){
+  modification(){
 
     let id = this.modifDepot.id_dep;
 
@@ -86,18 +86,15 @@ export class ListeDepotComponent {
         console.log('update', response);
 
         const index = this.depots.findIndex((dep:Depot) =>dep.id_dep == id);        
-       
-        console.log("idd-", index);
-       
+             
         const nom_dep =  this.depots[index] = response.depot;
         
         console.log("aaaa", nom_dep);
         
-        console.log('update depot', response);
-        
+        this.valider();
       }, 
       error:(err) =>{
-        console.error('Error', err)
+        this.error();
       }
     })
   
@@ -114,4 +111,24 @@ export class ListeDepotComponent {
     
     })
   };
+
+  valider(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Ajout avec succes"
+    })
+  }
+  error(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please DOUBLON!",
+    });
+  }
 }

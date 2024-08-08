@@ -1,10 +1,9 @@
 
 @if(emailLocalStorage=="admin@gmail.com"){
-  <button type="button" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">
+  <button type="button" class="btn btn-primary btnAjout" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">
     Add Product
     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-      {{sommes.total_p}}
-    <span class="visually-hidden">unread messages</span>
+      {{sommes}}
     </span>
   </button>
 }
@@ -43,8 +42,7 @@
               <div class="">
                   <label for="validationDefault01" class="form-label">Photo</label>
                   <input (change)="selectFile($event)" name="photo_p" type="file" class="form-control" id="photo_p" value="" required>
-              
-                </div>
+              </div>
 
               <div class="">
                 <label for="validationDefault01" class="form-label">Poid</label>
