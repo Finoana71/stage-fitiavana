@@ -1,0 +1,17 @@
+<div class="displayFlex">
+  <div>
+    <div>
+      <app-seDeconnecter></app-seDeconnecter>
+    </div>
+    <div>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+
+  <div class="">
+    <app-ajout-mouvement (onAdd)="addMouvement($event)"></app-ajout-mouvement>
+    <app-list-mouvement [mouvements]="mouvements"></app-list-mouvement>
+  </div>
+</div>
+
+

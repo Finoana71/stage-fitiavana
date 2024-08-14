@@ -1,0 +1,15 @@
+<!-- <app-navbar></app-navbar> -->
+<div class="displayFlex">
+  <div>
+    <div>
+      <app-seDeconnecter></app-seDeconnecter>
+    </div>
+    <div>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+  <div class="">
+    <app-ajout-stock (estAjoutStock)="ajoutStock($event)"></app-ajout-stock>
+    <app-list-stock [stocks]="stocks" ></app-list-stock>
+  </div>
+</div>

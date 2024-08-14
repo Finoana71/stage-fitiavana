@@ -1,0 +1,19 @@
+<!-- <app-navbar></app-navbar> -->
+
+<div class="displayFlex">
+
+  <div>
+    <div>
+      <app-seDeconnecter></app-seDeconnecter>
+    </div>
+    <div>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+
+  <div class="">
+    <app-ajout-utilisateur (ajoutUti)="ajoutUtilisateur($event)"></app-ajout-utilisateur>
+    <app-liste-utilisateur [utilisateurs]="utilisateurs"></app-liste-utilisateur>
+  </div>
+
+</div>

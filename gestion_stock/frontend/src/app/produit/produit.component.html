@@ -1,0 +1,20 @@
+<!-- <app-navbar></app-navbar> -->
+
+<div class="displayFlex">
+    <div>
+      <div>
+        <app-seDeconnecter></app-seDeconnecter>
+      </div>
+      <div>
+        <app-navbar></app-navbar>
+      </div>
+    </div>
+    <div class="liste_ajout">
+      <div>
+        <app-ajout-produit (estAjout)="ajoutProduit($event)"></app-ajout-produit>
+      </div>
+      <div>
+        <app-list-produit class="listeProduit" [produits]="produits"></app-list-produit>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+
+<div class="displayFlex">
+  <div>
+    <div>
+      <app-seDeconnecter></app-seDeconnecter>
+    </div>
+    <div>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+
+  <div class="liste_ajout">
+    <app-ajout (onAdd)="addDepot($event)"></app-ajout>
+    <app-liste-depot [depots]="depots"></app-liste-depot>
+  </div>
+
+</div>
+
