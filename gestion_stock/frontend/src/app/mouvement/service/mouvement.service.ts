@@ -9,7 +9,7 @@ import { Mouvement } from '../mouvement.modele';
 export class MouvementService {
 
 
-  private apiUrl = "http://localhost:8080/api/mouvement";
+  private apiUrl = "http://localhost:8081/api/mouvement";
 
   constructor(private http: HttpClient) { }
 
@@ -26,7 +26,7 @@ export class MouvementService {
   getByIdMouv(id: number): Observable<Mouvement[]>{
     return this.http.get<Mouvement[]>(`${this.apiUrl}/${id}`)
   }
-  
+
   modification(id:number, Mouvement:any):Observable<any>{
     return this.http.put(`${this.apiUrl}/${id}`,Mouvement);
   }

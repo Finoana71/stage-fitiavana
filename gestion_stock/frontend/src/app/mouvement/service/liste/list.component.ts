@@ -68,9 +68,10 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
 
         const index = this.mouvements.findIndex((mvt:any)=>mvt.id_mvt == id)
         this.mouvements.splice(index,1) // firy no ho fafana amin ilaina tableaux "index"
-
+        this.validerSuppr()
       },
       (erreur:any) =>{
+        this.errorSuprr()
         this.ErreurSuppr = true;
       }
     );
@@ -90,8 +91,8 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
       console.log("id",id);
 
       console.log("mouvement", this.mouvement);
-      
-      
+
+
       this.MouvementService.modification(id, this.mouvement).subscribe({
         next: (response) =>{
           console.log('update', response.mouvement);
@@ -103,7 +104,7 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
         },
         error:(err) =>{
           console.log("errr", err);
-          
+
           this.errorUpdate();
         }
       })
@@ -115,7 +116,7 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
   //   this.MouvementService.getB(id).subscribe(data =>{
   //   this.modifMouve = data;
 
-    
+
   //   console.log("id_dep",this.modifMouve.depot.id_dep);
   //   console.log("id_p",this.modifMouve.produit.id_p);
   //   console.log("id_mv",this.modifMouve.produit.id_mvt);
@@ -143,6 +144,26 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
     })
   }
   errorUpdate(){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please check your update mouvement!",
+    });
+  }
+
+  validerSuppr(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    Toast.fire({
+      icon: "success",
+      title: "update succes"
+    })
+  }
+  errorSuprr(){
     Swal.fire({
       icon: "error",
       title: "Oops...",

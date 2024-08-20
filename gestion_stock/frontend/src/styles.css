@@ -31,14 +31,17 @@ body{
   color: rgb(255, 39, 60) !important;
 }
 .liste_ajout{
-  margin-left: -50px;
+  margin-left: -20px;
 }
-
+.list_ajout1{
+  margin-left: -35px;
+}
+/*
 .widthTable{
-  width: 90vh;
+  width: 156vh;
   margin-left: 13rem;
   background-color: rgb(66, 66, 66);
-}
+} */
 
 /* boutton */
 .btn-secondary:hover{
@@ -97,3 +100,52 @@ body{
   border-radius: 11rem;
   width: 9rem;
 }
+/* Style par défaut pour les écrans d'ordinateur standard (ordinateurs portables et de bureau) */
+.widthTable {
+  width: 74vw; /* Largeur ajustée pour les écrans standard */
+  height: 60vh; /* Hauteur ajustée pour les écrans standard */
+  margin-left: auto; /* Centrer l'élément */
+  margin-right: auto; /* Centrer l'élément */
+  background-color: rgb(66, 66, 66);
+  margin-left: 13rem;
+}
+
+/* Pour les écrans de moins de 1024px (petits ordinateurs portables et grandes tablettes) */
+@media (max-width: 1024px) {
+  .widthTable {
+    width: 80vw; /* Ajustement pour mieux s'adapter aux écrans légèrement plus petits */
+    height: 65vh; /* Ajustement de la hauteur pour les écrans plus petits */
+    margin-left: 2rem; /* Réduction de la marge pour éviter les débordements */
+    margin-right: 2rem;
+  }
+}
+
+/* Pour les écrans de moins de 768px (tablettes et téléphones) */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px; /* Ajustement de la taille de la police */
+  }
+
+  .widthTable {
+    width: 90vw; /* Adapte la largeur pour les tablettes */
+    height: 70vh; /* Ajustement de la hauteur pour les tablettes */
+    margin-left: 2rem; /* Réduction de la marge pour éviter les débordements */
+    margin-right: 2rem;
+  }
+}
+
+/* Pour les écrans de moins de 480px (téléphones) */
+@media (max-width: 480px) {
+  body {
+    font-size: 12px; /* Ajustement de la taille de la police pour les très petits écrans */
+  }
+
+  .widthTable {
+    width: 100vw; /* Adapte la largeur à 100% de l'écran */
+    height: 80vh; /* Ajustement de la hauteur pour les très petits écrans */
+    margin-left: 0; /* Suppression de la marge pour centrer sur les petits écrans */
+    margin-right: 0;
+  }
+}
+
+

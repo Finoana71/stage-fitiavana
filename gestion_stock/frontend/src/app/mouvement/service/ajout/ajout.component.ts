@@ -28,7 +28,6 @@ export class AjoutMouvementComponent {
   utilisateurs:any[] = [];
   emailLocalStorage = localStorage.getItem("email");
   page = 1;
-
   constructor(
     public MouvementService : MouvementService,
     public produitService: ProduitService ,
@@ -55,6 +54,7 @@ export class AjoutMouvementComponent {
   }
 
   ajoutMouvement(){
+
     const mouvement = {
       type_mvt: this.type_mvt,
       date_mvt: this.date_mvt,
@@ -67,17 +67,19 @@ export class AjoutMouvementComponent {
 
       (response:any) =>{
         response.mouvement.utilisateur = response.utilisateur;
+        // response.mouvement.nouvellDepot = response.nouvellDepot;
         response.mouvement.depot = response.depot;
         response.mouvement.produit = response.produit;
 
         this.valider();
         this.onAdd.emit(response.mouvement)
+        console.log("response---", response);
+        
 
       },
       (erreur:any) =>{
-        this.error();
+        this.error(erreur.error.erreur);        
       }
-
     )
   }
 
@@ -94,11 +96,14 @@ export class AjoutMouvementComponent {
     })
   }
 
-  error(){
+  error(message?: string ){
+    if (message== null) {
+      message = "Please check your add mouvement!" 
+    }
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Please check your add mouvement!",
+      text: message,
     });
   }
 }

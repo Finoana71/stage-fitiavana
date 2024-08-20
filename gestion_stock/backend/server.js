@@ -16,7 +16,7 @@ app.use(express.json());
 // access origin
 const cors = require("cors");
 var corsOptions = {
-    origin: ["http://localhost:4200"] // Url Angular
+    origin: ["http://localhost:4200", "http://172.16.25.42:4200"] // Url Angular
 };
 
 

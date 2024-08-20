@@ -8,6 +8,7 @@ const stockRepository = require('../repository/stock.repository');
 const Stock = require('../models/Stock');
 const { findAllDep_Pro } = require('../service/stock.service');
 const { where } = require('sequelize');
+const depotService = require('../service/depot.service');
 // Creer une Stock
 
 exports.creerMouvement = async (req, res) =>{
@@ -40,18 +41,17 @@ exports.creerMouvement = async (req, res) =>{
             return res.status(404).json({erreur:'produit invalide'});
         }
 
-        const nouveMouvement = await mouvementService.createMouvement(
+        const newMouvement = await mouvementService.createMouvement(
             id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut,id
         );
 
-
         // const nouveMouvement = await Mouvement.create(req.body);
-        res.status(201).json({message:'Creation Stock avec succés', mouvement:nouveMouvement, utilisateur, depot, produit});
+        res.status(201).json({message:'Creation Stock avec succés', mouvement: newMouvement, utilisateur, depot, produit});
         // res.status(201).json(nouveMouvement, utilisateur, depot, produit);
     
     } catch (erreur) {
         console.log(erreur);
-        res.status(500).json({erreur:'Creation invalide'});
+        res.status(500).json({erreur:erreur.message});
     }
 
 }
@@ -68,6 +68,8 @@ exports.listeMouvement = async (req, res) =>{
     }
 }
 
+
+
 //List par Id mouvement
 
 exports.getIdMouv = async (req, res) =>{
@@ -81,7 +83,6 @@ exports.getIdMouv = async (req, res) =>{
     } catch (erreur) {
         res.status(400).json({error : 'cette id mouvement est vide' });    
     }
-
 }
 
 //Supprimer Mouvement
@@ -105,7 +106,6 @@ exports.modificationMouvement = async (req, res)=>{
     const { type_mvt, date_mvt, qtt_mvt, id_dep, id_p } = req.body;
 
     try {        
-
 
         const ancienMouv = await Mouvement.findByPk(id);
 

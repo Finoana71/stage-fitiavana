@@ -12,12 +12,14 @@ import { AjoutProduitComponent } from '../ajout/ajout.component';
 })
 export class ListeProduitComponent extends AjoutProduitComponent{
 
+  searchResults: any[] = [];
+  searchTerm: string = '';
   // totalPages = this.totalPage();
-  idDelete?:number // id produit à supprimer 
+  idDelete?:number // id produit à supprimer
 
   override ngOnInit(): void {
   console.log("ngOnInit---");
-  
+
     this.countProd()
 
   }
@@ -36,4 +38,9 @@ export class ListeProduitComponent extends AjoutProduitComponent{
     this.idDelete = id_p
   }
 
+  onSearch() {
+    this.produitService.searchProduits(this.searchTerm).subscribe((results) => {
+      this.searchResults = results;
+    });
+  }
 }

@@ -8,4 +8,6 @@ router.delete('/produit/:id_p',produitController.supprimerProduit);
 router.put('/produit/:id_p',produitController.modificationProduit);
 router.get('/produit/count',produitController.countProduit);
 
+router.get('/produit/search', (req, res) => produitController.search(req, res));
+
 module.exports = router;

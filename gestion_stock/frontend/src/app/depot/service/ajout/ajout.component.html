@@ -11,7 +11,7 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Add Depot</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            
+
             <div class="modal-body">
 
               <form [formGroup]="myForm" class="row g-3" (ngSubmit)="ajouterDepot()">
@@ -22,6 +22,17 @@
                   <div *ngIf="myForm.get('nom_dep')?.invalid && myForm.get('nom_dep')?.touched">
                     <small class="text-danger" *ngIf="myForm.get('nom_dep')?.errors?.['required']">
                       The repository name is required.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="">
+                  <label for="validationDefault01" class="form-label">limit</label>
+                  <input type="number" class="form-control" id="validationDefault01" formControlName="limite_dep" [(ngModel)]="limite_dep" required>
+                  <!-- Affichage du message d'erreur si le champ nom_dep est invalide -->
+                  <div *ngIf="myForm.get('limite_dep')?.invalid && myForm.get('limite_dep')?.touched">
+                    <small class="text-danger" *ngIf="myForm.get('limite_dep')?.errors?.['required']">
+                      The repository limit depot is required.
                     </small>
                   </div>
                 </div>

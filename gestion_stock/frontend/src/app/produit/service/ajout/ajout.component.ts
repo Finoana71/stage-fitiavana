@@ -13,11 +13,11 @@ import { Produit } from '../../produit.model';
 })
 export class AjoutProduitComponent implements OnInit{
   @Output()estAjout = new EventEmitter;
-
   @Input() produits: any[] = [];
 
   myForm:FormGroup
   sommes: number = 0;
+  page = 1
 
   photo_p!: string |undefined;
   designation_p: string = "";
@@ -30,7 +30,6 @@ export class AjoutProduitComponent implements OnInit{
   preview = '';
   imageInfos?: Observable<any>;
   emailLocalStorage = localStorage.getItem("email");
-  page = 1
 
   constructor(
     public produitService: ProduitService,

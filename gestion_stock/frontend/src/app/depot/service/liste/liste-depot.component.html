@@ -5,12 +5,14 @@
       <thead class="table-dark">
         <tr>
           <th scope="col">Depot name</th>
+          <th scope="col">Limit depot</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let depot of depots" class="table-secondary">
           <td> {{depot.nom_dep}}</td>
+          <td> {{depot.limite_dep}}</td>
           <td class="lesBouttons">
             <app-boutton-update
               type="button"
@@ -52,7 +54,7 @@
         <a class="page-link" (click)="page < totalPage() && handlePageChange(page + 1)">Next</a>
       </li>
     </ul>
-    
+
   </nav>
 
   <pagination-controls (pageChange)="handlePageChange($event)" [maxSize]="5" [autoHide]="true"></pagination-controls>
@@ -69,6 +71,7 @@
       </div>
       <div class="modal-body" *ngIf="idDepot">
         <form [formGroup]="myForm" class="row g-3" (ngSubmit)="modification()">
+
           <div class="">
             <label for="validationDefault01" class="form-label">Name</label>
             <input type="text" class="form-control" id="validationDefault01" formControlName="nom_dep" [(ngModel)]="depot.nom_dep" required>
@@ -79,6 +82,18 @@
               </small>
             </div>
           </div>
+
+          <div class="">
+            <label for="validationDefault01" class="form-label">limit</label>
+            <input type="number" class="form-control" id="validationDefault01" formControlName="limite_dep" [(ngModel)]="depot.limite_dep" required>
+            <!-- Affichage du message d'erreur si le champ nom_dep est invalide -->
+            <div *ngIf="myForm.get('limite_dep')?.invalid && myForm.get('limite_dep')?.touched">
+              <small class="text-danger" *ngIf="myForm.get('limite_dep')?.errors?.['required']">
+                The repository limit depot is required.
+              </small>
+            </div>
+          </div>
+
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

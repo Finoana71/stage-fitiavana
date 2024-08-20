@@ -9,7 +9,7 @@ import { Produit } from '../produit.model';
 export class ProduitService {
 
 
-  private apiUrl = "http://localhost:8080/api/produit";
+  private apiUrl = "http://localhost:8081/api/produit";
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +31,9 @@ export class ProduitService {
   supprProduit(id: number): Observable<Produit>{
     return this.http.delete<Produit>(`${this.apiUrl}/${id}`)
   }
-
+  searchProduits(designation: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?designation=${designation}`);
+  }
 }
 
 

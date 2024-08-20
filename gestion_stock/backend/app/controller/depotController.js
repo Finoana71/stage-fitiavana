@@ -12,7 +12,20 @@ exports.creerDepot = async (req, res) =>{
         res.status(400).json({erreur:erreur.message});
     }
 }
+exports.findSupperieurAncienLimite = async(req, res)=>{
 
+    idSupperieurA_ = req.params.id_dep;
+
+   try {
+    const valeurSupperieurAncienLimite = await depotService.findSupperieurAncienLimite(idSupperieurA_)
+    res.status(201).json({limite_dep: valeurSupperieurAncienLimite})
+ 
+   } catch (erreur) {
+    res.status(400).json({erreur:erreur.message});
+    
+   }
+
+}
 //List Depot
 
 exports.listeDepot = async(req, res) =>{
@@ -43,11 +56,11 @@ exports.supprimerDepot = async(req, res) =>{
 // Modification  Depot
 exports.modificationDepot = async (req, res)=>{
     const id = req.params.id_dep;
-    const {nom_dep} = req.body;
+    const {nom_dep,limite_dep} = req.body;
 
     try {
         const [modification] = await Depot.update(
-            { nom_dep }, 
+            { nom_dep, limite_dep }, 
             { where:{ id_dep:id}
         });
 

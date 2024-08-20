@@ -8,7 +8,7 @@ import { Stock } from '../stock.model';
 })
 export class StockService {
 
-  private apiUrl = "http://localhost:8080/api/stock";
+  private apiUrl = "http://localhost:8081/api/stock";
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +27,5 @@ export class StockService {
   modification(id: number, stock:any) :Observable<Stock>{
     return this.http.put(`${this.apiUrl}/${id}`, stock)
   }
-  
+
 }

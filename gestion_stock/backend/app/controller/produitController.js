@@ -99,3 +99,13 @@ exports.countProduit = async (req, res) =>{
     const produit = await produitService.count();
     res.status(200).json({total_p: produit});
 }
+
+exports.search = async (req, res) =>{
+    const { name } = req.query;
+    try {
+      const users = await userService.searchUsersByName(name);
+      res.json(users);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  }

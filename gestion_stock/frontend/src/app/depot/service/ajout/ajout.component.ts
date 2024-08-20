@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core'
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core'
 import { DepotService } from '../depot.service'
 import { Depot } from '../../depot.model'
 import Swal from 'sweetalert2';
@@ -11,21 +11,23 @@ import { response } from 'express';
   styleUrls: ['./ajout.component.css'],
 })
 
-export class AjoutDepotComponent {
+export class AjoutDepotComponent implements OnInit {
+  @Output()onAdd = new EventEmitter(); // envoyez le donnée qu'on ajout
+  @Input() depots: any[] = [] // prende le donné apres l'ajout
+
+  myForm: FormGroup;
   sommes: number = 0;
   page = 1
 
-  myForm: FormGroup;
-  @Output()onAdd = new EventEmitter(); // envoyez le donnée qu'on ajout
-  @Input() depots: Depot[] = [] // prende le donné apres l'ajout
-
   depot:Depot ={
     id_dep:0 ,
-    nom_dep:''    
+    nom_dep:'',
+    limite_dep:0
   };
 
   // id!:number
   nom_dep: string = 'Dépot'
+  limite_dep:number=0
   idDepot: any = null;
 
   // depots: Depot[] = [] // Déclarer la propriété depots
@@ -36,19 +38,23 @@ export class AjoutDepotComponent {
     private fb: FormBuilder
   ) {
     this.myForm = this.fb.group({
-      nom_dep:[this.nom_dep, Validators.required]
+      nom_dep:[this.nom_dep, Validators.required],
+      limite_dep:[this.limite_dep, Validators.required]
     })
   }
 
   ngOnInit(): void {
     this.handlePageChange(this.page);
+    this.DepotService.onRefreshList.subscribe(()=>
+      this.listeDepots()
+    )
   }
 
   // getNomDepot(){
   //   const id_dep = this.idDepot;
   //   const idDepotNom_dep = this.DepotService.getIdDepot(id_dep)
   //   console.log( idDepotNom_dep);
-    
+
   // }
 
   listeDepots(){
@@ -62,7 +68,7 @@ export class AjoutDepotComponent {
   }
 
   ajouterDepot() {
-    const depot = new Depot(this.idDepot, this.nom_dep)
+    const depot = new Depot(this.idDepot, this.nom_dep, this.limite_dep)
 
     this.DepotService.ajoutDepot(depot).subscribe(
       (response:any) => {
@@ -72,8 +78,9 @@ export class AjoutDepotComponent {
 
         // Récupérer le dépôt ajouté et l'ajouter à la liste des dépôts
        console.log("response", response);
-       
-        this.onAdd.emit(response)
+
+        // this.onAdd.emit(response)
+        this.DepotService.onRefreshList.emit()
 
       },
       erro =>{
@@ -82,30 +89,30 @@ export class AjoutDepotComponent {
     );
   }
 
-valider(){
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-  });
-  Toast.fire({
-    icon: "success",
-    title: "Ajout avec succes"
-  })
-}
-validerSuppr(){
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-  });
-  Toast.fire({
-    icon: "success",
-    title: "Delete succefull"
-  })
-}
+  valider(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Ajout avec succes"
+    })
+  }
+  validerSuppr(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Delete succefull"
+    })
+  }
 
 
   error(){
@@ -132,7 +139,7 @@ validerSuppr(){
 
  supprimerDep(id:number){
    const id_dep = this.idDepot
-   
+
    this.DepotService.supprDepot(id_dep).subscribe(
 
      (response:Depot) =>{
@@ -140,7 +147,7 @@ validerSuppr(){
        const index = this.depots.findIndex(
          (dep:Depot) => dep.id_dep == id,
          console.log("id_dep", (dep:Depot)=>dep.id_dep == id)
-       
+
         )
         this.depots.splice(index,1) // firy no ho fafana amin ilaina tableaux "index"
         this.validerSuppr()
@@ -156,7 +163,8 @@ validerSuppr(){
    let id = this.idDepot;
 
    console.log("id_mo", id);
-   
+   console.log("this.Depot", this.depot);
+
    this.DepotService.modification(id, this.depot).subscribe({
      next: (response) =>{
        console.log('update', response);
@@ -171,7 +179,7 @@ validerSuppr(){
      },
      error:(err) =>{
        console.log("err", err);
-       
+
        this.error();
      }
    })

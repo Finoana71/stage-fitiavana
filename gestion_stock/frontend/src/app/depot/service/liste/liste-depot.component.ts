@@ -16,7 +16,6 @@ export class ListeDepotComponent  extends AjoutDepotComponent{
   
   // nomDep?:string;
 
-  
   totalPage():number{
 
     const limitProduits:number = 5 ;

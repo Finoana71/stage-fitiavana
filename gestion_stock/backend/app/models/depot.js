@@ -11,6 +11,10 @@ const Depot = sequelize.define("depot", {
         type: DataTypes.STRING(100),
         allowNull: true,
         unique: true
+    },
+    limite_dep: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
     }
 });
 
