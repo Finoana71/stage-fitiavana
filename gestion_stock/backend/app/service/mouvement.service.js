@@ -1,5 +1,5 @@
 
-const { Op, json } = require('sequelize');
+const { Op, json, Error } = require('sequelize');
 const Depot = require('../models/depot');
 const depotRepository = require('../repository/depot.repository');
 const mouvementRepository = require('../repository/mouvement.repository');
@@ -26,13 +26,14 @@ class mouvementService{
     }
 
     async createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut){
+
         let data = { id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut };
         let findByIdDepot = await depotRepository.findById(id_dep);
         const ancienLimitDepot = findByIdDepot.limite_dep
         const ancienIdDepot = findByIdDepot.id_dep
     
         // const updat = ancienLimitDepot = nouvelValeurLimitDepot
-        if (type_mvt == "Entrer") {
+        if (type_mvt == "Entrée") {
             const nouvelValeurLimitDepot = ancienLimitDepot + data.qtt_mvt
             //modification limite_dep 
 
@@ -150,7 +151,7 @@ class mouvementService{
 
     async updateStock_dep_pro(stock, qtt_mvt, type_mvt){
         
-        if (type_mvt ==  "Entrer") {
+        if (type_mvt ==  "Entrée") {
             stock.qtt_st+= qtt_mvt 
             
         }else {
@@ -168,7 +169,7 @@ class mouvementService{
 
         let qtt_st 
 
-            if (type_mvt == "Entrer") {
+            if (type_mvt == "Entrée") {
                 qtt_st = qtt_mvt
             }                
             else {

@@ -38,7 +38,7 @@ export class ListeStockComponent {
       
       (response:any) =>{
         
-        this.valider()
+        this.validerSuprr()
         const index = this.stocks.findIndex((stok:any)=>stok.id_st == id)
         this.stocks.splice(index,1) // firy no ho fafana amin ilaina tableaux "index"
 
@@ -50,7 +50,8 @@ export class ListeStockComponent {
     );
   }
   
-  valider(){
+  
+  validerSuprr(){
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -59,7 +60,7 @@ export class ListeStockComponent {
     });
     Toast.fire({
       icon: "success",
-      title: "update succes"
+      title: "Delete succes"
     })
   }
 

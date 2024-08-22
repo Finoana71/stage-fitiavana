@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http'
 import { EventEmitter, Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Depot } from '../depot.model'
+import { environment } from '../../../environments/environments'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepotService {
 
-  private apiUrl = "http://localhost:8081/api/depot"
+  private apiUrl = environment.apiUrl+"/depot"
 
   onRefreshList =  new EventEmitter
    

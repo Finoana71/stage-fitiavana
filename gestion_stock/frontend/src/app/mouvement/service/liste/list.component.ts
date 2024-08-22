@@ -30,36 +30,14 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
 
   modifMouve:any = null;
 
-  @Input()mouvements : any[] = [];
   histoMouve:any  = null;
 
   mouvementSuppr:boolean = false;
   ErreurSuppr:boolean = false
-  // produits:any[] = [];
-  // depots:any[] = [];
-  // page = 1;
 
-  // constructor(
-  //     private mouvementService: MouvementService,
-  //     private produitService: ProduitService ,
-  //     private depotService : DepotService,
-  //     private fb : FormBuilder
-  //   ){
-  //     this.myForm = this.fb.group({
-  //       date:[this.mouvement.date_mvt, [Validators.required]],
-  //       qtt:[this.mouvement.qtt_mvt, [Validators.required, Validators.min(1)]],
-  //     })}
-
-  // ngOnInit(): void {
-  //   this.produitService.getProduit(this.page).subscribe(data => {
-  //     this.produits = data;
-  //   });
-
-  //   this.depotService.getDepot().subscribe(data => {
-  //     this.depots = data;
-  //   })
-
-  // }
+  override ngOnInit(): void {
+    this.onRefreshList();
+  }
 
   supprimerMouv(id:number){
     this.MouvementService.supprMouvement(id).subscribe(
@@ -112,23 +90,9 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
 
   }
 
-  // getMouve(id:number){
-  //   this.MouvementService.getB(id).subscribe(data =>{
-  //   this.modifMouve = data;
-
-
-  //   console.log("id_dep",this.modifMouve.depot.id_dep);
-  //   console.log("id_p",this.modifMouve.produit.id_p);
-  //   console.log("id_mv",this.modifMouve.produit.id_mvt);
-
-  //   })
-  // };
-
   getMouve(id_mvt:number){
     this.modifMouve = id_mvt;
-
     console.log("id_mv",this.modifMouve);
-
   }
 
   validerUpdate(){

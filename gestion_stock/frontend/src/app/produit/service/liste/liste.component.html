@@ -25,7 +25,7 @@
     <tbody>
       <tr *ngFor="let produit of produits" class="table-secondary">
         <td>
-          <img class="image" src ="http://localhost:8080/fichier/{{produit.photo_p}}" alt="image">
+          <img class="image" src ="{{environment}}/fichier/{{produit.photo_p}}" alt="image">
         </td>
         <td>{{produit.designation_p}}</td>
         <td>{{produit.categorie_p}}</td>

@@ -3,7 +3,7 @@ import { ProduitService } from '../produit.service';
 import Swal from 'sweetalert2';
 import { Produit } from '../../produit.model';
 import { AjoutProduitComponent } from '../ajout/ajout.component';
-
+import { environment } from '../../../../environments/environments';
 
 @Component({
   selector: 'app-list-produit',
@@ -12,6 +12,7 @@ import { AjoutProduitComponent } from '../ajout/ajout.component';
 })
 export class ListeProduitComponent extends AjoutProduitComponent{
 
+  environment:string = environment.imageUrl
   searchResults: any[] = [];
   searchTerm: string = '';
   // totalPages = this.totalPage();
@@ -19,9 +20,7 @@ export class ListeProduitComponent extends AjoutProduitComponent{
 
   override ngOnInit(): void {
   console.log("ngOnInit---");
-
     this.countProd()
-
   }
 
   totalPage():number{

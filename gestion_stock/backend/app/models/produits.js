@@ -19,6 +19,7 @@ const Produit = sequelize.define("produits", {
     poid_p: {
         type: DataTypes.INTEGER,
     },
+
     prix_p: {
         type: DataTypes.INTEGER,
     }

@@ -15,6 +15,7 @@ export class AjoutDepotComponent implements OnInit {
   @Output()onAdd = new EventEmitter(); // envoyez le donnée qu'on ajout
   @Input() depots: any[] = [] // prende le donné apres l'ajout
 
+  titre = " Dépot "
   myForm: FormGroup;
   sommes: number = 0;
   page = 1

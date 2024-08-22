@@ -17,13 +17,18 @@ export class MouvementComponent {
   constructor(private MouvementService: MouvementService){}
 
   ngOnInit(): void {
-    this.MouvementService.getMouvement().subscribe(data =>{
-      this.mouvements = data;
-      console.log("dfqsfqdf", data);
-    })
+    this.listeMouvement();
   }  // fin liste Mouvement
 
   addMouvement(mouvement:any){
     this.mouvements.push(mouvement);
   }
+
+  listeMouvement(){
+    this.MouvementService.getMouvement().subscribe(data =>{
+      this.mouvements = data;
+      console.log("dfqsfqdf", data);
+    })
+  }
+
 }

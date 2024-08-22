@@ -17,7 +17,7 @@
             <div>
               <label for="typeMouvement" class="form-label">Type mouvement</label>
               <select class="form-select" aria-label="Default select example" formControlName="type_mvt" [(ngModel)]="type_mvt">
-                <option value="Entrer">Entrer</option>
+                <option value="Entrée">Entrée</option>
                 <option value="Sortie">Sortie</option>
               </select>
               <div *ngIf="myForm.get('type_mvt')?.invalid && myForm.get('type_mvt')?.touched">

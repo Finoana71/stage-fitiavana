@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MouvementService } from '../mouvement.service'
 import { ProduitService } from '../../../produit/service/produit.service';
 import { DepotService } from '../../../depot/service/depot.service';
@@ -15,6 +15,8 @@ export class AjoutMouvementComponent {
 
   myForm:FormGroup
   @Output()onAdd = new EventEmitter();
+  @Input()mouvements : any[] = [];
+
 
   type_mvt:string = '';
   date_mvt?:Date;
@@ -51,6 +53,20 @@ export class AjoutMouvementComponent {
     this.depotService.getDepot(this.page).subscribe(data => {
       this.depots = data;
     })
+    this.onRefreshList();
+  }
+
+  onRefreshList(){
+    this.MouvementService.onRefreshList.subscribe(()=>{
+      this.listeMouvement();
+    })
+  }
+  
+  listeMouvement(){
+    this.MouvementService.getMouvement().subscribe(data =>{
+      this.mouvements = data;
+      console.log("dfqsfqdf", data);
+    })
   }
 
   ajoutMouvement(){
@@ -72,8 +88,9 @@ export class AjoutMouvementComponent {
         response.mouvement.produit = response.produit;
 
         this.valider();
-        this.onAdd.emit(response.mouvement)
+        // this.onAdd.emit(response.mouvement)
         console.log("response---", response);
+        this.MouvementService.onRefreshList.emit()
         
 
       },

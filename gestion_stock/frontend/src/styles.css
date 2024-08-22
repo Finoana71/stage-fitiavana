@@ -34,7 +34,7 @@ body{
   margin-left: -20px;
 }
 .list_ajout1{
-  margin-left: -35px;
+  margin-left: -77px;
 }
 /*
 .widthTable{
@@ -104,8 +104,8 @@ body{
 .widthTable {
   width: 74vw; /* Largeur ajustée pour les écrans standard */
   height: 60vh; /* Hauteur ajustée pour les écrans standard */
-  margin-left: auto; /* Centrer l'élément */
-  margin-right: auto; /* Centrer l'élément */
+  margin-left: auto; /* CEntrée l'élément */
+  margin-right: auto; /* CEntrée l'élément */
   background-color: rgb(66, 66, 66);
   margin-left: 13rem;
 }
@@ -143,7 +143,7 @@ body{
   .widthTable {
     width: 100vw; /* Adapte la largeur à 100% de l'écran */
     height: 80vh; /* Ajustement de la hauteur pour les très petits écrans */
-    margin-left: 0; /* Suppression de la marge pour centrer sur les petits écrans */
+    margin-left: 0; /* Suppression de la marge pour cEntrée sur les petits écrans */
     margin-right: 0;
   }
 }

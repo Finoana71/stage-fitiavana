@@ -50,7 +50,7 @@ exports.creerMouvement = async (req, res) =>{
         // res.status(201).json(nouveMouvement, utilisateur, depot, produit);
     
     } catch (erreur) {
-        console.log(erreur);
+        console.log("eerr", erreur);
         res.status(500).json({erreur:erreur.message});
     }
 
@@ -118,7 +118,7 @@ exports.modificationMouvement = async (req, res)=>{
 
             let oldMvt = ancienMouv.qtt_mvt
 
-            if (ancienMouv.type_mvt == "Entrer")
+            if (ancienMouv.type_mvt == "Entrée")
                 qttStock -= oldMvt  
             else
                 qttStock += ancienMouv.qtt_mvt

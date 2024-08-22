@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Mouvement } from '../mouvement.modele';
+import { environment } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MouvementService {
 
+  private apiUrl =  environment.apiUrl+`/mouvement`;
 
-  private apiUrl = "http://localhost:8081/api/mouvement";
+  onRefreshList =  new EventEmitter
 
   constructor(private http: HttpClient) { }
 

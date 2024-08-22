@@ -13,7 +13,6 @@ import { AjoutDepotComponent } from '../ajout/ajout.component';
 })
 export class ListeDepotComponent  extends AjoutDepotComponent{
 
-  
   // nomDep?:string;
 
   totalPage():number{
