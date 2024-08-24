@@ -1,6 +1,8 @@
 const {DataTypes}= require('sequelize');
 const sequelize = require ('../config/bd_config');
 
+// const Mouvement = require('./mouvement');
+
 const Depot = sequelize.define("depot", {
     id_dep: {
         type: DataTypes.INTEGER,
@@ -17,5 +19,10 @@ const Depot = sequelize.define("depot", {
         allowNull: true,
     }
 });
+
+// Mouvement.belongsTo(Depot,{
+//     foreignKey:'id_dep',
+//     as:'depot'
+// })
 
 module.exports = Depot;

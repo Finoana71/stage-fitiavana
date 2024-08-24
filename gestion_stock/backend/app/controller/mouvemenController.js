@@ -5,7 +5,7 @@ const Utilisateur = require('../models/utilisateur');
 const mouvementService = require('../service/mouvement.service');
 const mouvementRepository = require('../repository/mouvement.repository');
 const stockRepository = require('../repository/stock.repository');
-const Stock = require('../models/Stock');
+const Stock = require('../models/stock');
 const { findAllDep_Pro } = require('../service/stock.service');
 const { where } = require('sequelize');
 const depotService = require('../service/depot.service');
@@ -144,3 +144,40 @@ exports.modificationMouvement = async (req, res)=>{
     }
     
 }
+
+exports.produitDetails = async (req, res) =>{
+    try {
+        const produitDetails = await Mouvement.findAll({include:['stocks', 'produit']});
+        
+        // const result = await Mouvement.findAll({
+        //     attributes: ['type_mvt', 'qtt_mvt', 'date_mvt'],
+        //     include: [
+        //       {
+        //         model: Produit,
+        //         attributes: ['designation_p'],
+        //         where: { designation_p: 'clavier' },
+        //       },
+        //       {
+        //         model: Depot,
+        //         attributes: ['nom_dep'],
+        //         include: [
+        //           {
+        //             model: Stock,
+        //             attributes: ['qtt_st'],
+        //           }
+        //         ]
+        //       }
+        //     ]
+        //   });
+        
+        res.status(200).json(produitDetails);
+        
+
+    } catch (erreur) {
+        res.status(400).json({erreur:erreur.message});
+    }
+
+    
+
+}
+

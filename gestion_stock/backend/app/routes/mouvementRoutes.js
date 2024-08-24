@@ -9,4 +9,6 @@ router.delete('/mouvement/:id_mvt',mouvementController.supprimerMouvement);
 router.put('/mouvement/:id_mvt',authenticate,mouvementController.modificationMouvement);
 router.get('/mouvement/:id_mvt',mouvementController.getIdMouv);
 
+router.get('/produit/produitDetails',mouvementController.produitDetails);
+
 module.exports = router;

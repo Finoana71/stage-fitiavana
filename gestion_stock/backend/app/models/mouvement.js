@@ -1,7 +1,8 @@
 const {DataTypes}= require('sequelize');
 const sequelize = require ('../config/bd_config');
 
-const produits = require('./produits');
+const stock = require('./stock');
+const produit = require('./produits');
 const depot = require('./depot');
 const utilisateur = require('./utilisateur');
 
@@ -22,10 +23,10 @@ const Mouvement = sequelize.define("mouvement", {
     },
     id_p:{
         type: DataTypes.INTEGER,
-        references:{
-            model: produits,
-            key:'id_p'
-        }
+        // references:{
+        //     model: produits,
+        //     key:'id_p'
+        // }
     },
     id_dep:{
         type: DataTypes.INTEGER,
@@ -46,25 +47,24 @@ const Mouvement = sequelize.define("mouvement", {
 /*  Définition des relations entre les modèles 
     relation One to One
 */
-Mouvement.belongsTo(produits,{
-    foreignKey:'id_p',
-    as:'produit'
-})
+// Mouvement.belongsTo(produits,{
+//     foreignKey:'id_p',
+//     as:'produit'
+// })
+depot.hasMany(stock, {foreignKey:'id_dep',as:'stocks'})
 
-Mouvement.belongsTo(depot,{
-    foreignKey:'id_dep',
-    as:'depot'
-})
+stock.belongsTo(depot,{foreignKey:'id_dep',as:'stocks'})
 
-Mouvement.belongsTo(utilisateur,{
-    foreignKey:'id_ut',
-    as:'utilisateur'
-})
+Mouvement.belongsTo(depot,{foreignKey:'id_dep',as:'depot'})
+
+Mouvement.belongsTo(utilisateur,{ foreignKey:'id_ut',as:'utilisateur'})
+
+Mouvement.belongsTo(produit,{foreignKey:'id_p',as:'produit'})
 
 // relation One to Many
 
-produits.hasMany(Mouvement,{
-    foreignKey:'id_p',
-    as:'mouvement',
-})
+// produits.hasMany(Mouvement,{
+//     foreignKey:'id_p',
+//     as:'mouvement',
+// })
 module.exports = Mouvement;

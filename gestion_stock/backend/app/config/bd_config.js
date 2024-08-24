@@ -23,7 +23,8 @@
         min: 0,
         acquire: 30000,
         idl: 10000,
-    } 
+    },
+    logging : false
 });
 
 module.exports =  sequelize;

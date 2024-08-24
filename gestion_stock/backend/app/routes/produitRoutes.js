@@ -10,4 +10,5 @@ router.get('/produit/count',produitController.countProduit);
 
 router.get('/produit/search', (req, res) => produitController.search(req, res));
 
+
 module.exports = router;
