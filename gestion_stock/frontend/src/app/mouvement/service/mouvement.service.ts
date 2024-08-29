@@ -18,7 +18,7 @@ export class MouvementService {
   getMouvement(): Observable<any[]> {
     return this.http.get<Mouvement[]>(this.apiUrl);
   }
-
+  
   ajoutMouvement(mouvement: Mouvement): Observable<Mouvement>{
     return this.http.post<Mouvement>(this.apiUrl, mouvement);
   }
@@ -31,5 +31,8 @@ export class MouvementService {
 
   modification(id:number, Mouvement:any):Observable<any>{
     return this.http.put(`${this.apiUrl}/${id}`,Mouvement);
+  }
+  countMouvementParProduit(id_p:number):Observable<{reslt:number}>{
+    return this.http.get<{reslt:number}>(`${this.apiUrl}/count/${id_p}`)  
   }
 }

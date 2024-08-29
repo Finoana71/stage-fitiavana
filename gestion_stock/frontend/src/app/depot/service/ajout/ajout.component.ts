@@ -93,7 +93,7 @@ export class AjoutDepotComponent implements OnInit {
   valider(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });
@@ -105,7 +105,7 @@ export class AjoutDepotComponent implements OnInit {
   validerSuppr(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });

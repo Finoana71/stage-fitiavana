@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Produit } from '../../produit.model';
+import { MouvementService } from '../../../mouvement/service/mouvement.service';
 
 
 @Component({
@@ -22,8 +23,10 @@ export class AjoutProduitComponent implements OnInit{
   photo_p!: string |undefined;
   designation_p: string = "";
   categorie_p: string = "";
-  poid_p: number | undefined;
   prix_p: number | undefined;
+  longeur: number | undefined;
+  largeur: number | undefined;
+  hauteur: number | undefined;
 
   currentFile?:File;
   message = '';
@@ -33,14 +36,17 @@ export class AjoutProduitComponent implements OnInit{
 
   constructor(
     public produitService: ProduitService,
+    public mouvementService: MouvementService,
     private fb: FormBuilder
   ){
     this.myForm = this.fb.group({
       designation_p:[this.designation_p, Validators.required],
       photo_p:[this.photo_p, Validators.required],
       categorie_p:[this.categorie_p, Validators.required],
-      poid_p:[this.poid_p, Validators.required],
       prix_p:[this.prix_p, Validators.required],
+      longeur:[this.longeur, Validators.required],
+      largeur:[this.largeur, Validators.required],
+      hauteur:[this.hauteur, Validators.required],
     })
   };
 
@@ -51,6 +57,7 @@ export class AjoutProduitComponent implements OnInit{
       this.sommes = data.total_p;
       console.log("total", data);
     });
+    
     // this.countProd()
     // this.handlePageChange(this.page)
   }
@@ -95,10 +102,12 @@ export class AjoutProduitComponent implements OnInit{
     const produit = {
       designation_p:this.designation_p,
       categorie_p:this.categorie_p,
-      poid_p:this.poid_p,
       prix_p:this.prix_p,
       file:this.preview,
-      photo_p : this.photo_p
+      photo_p : this.photo_p,
+      largeur : this.largeur,
+      longeur : this.longeur,
+      hauteur : this.hauteur
     };
 
     this.produitService.ajoutProduit(produit).subscribe(
@@ -123,7 +132,7 @@ export class AjoutProduitComponent implements OnInit{
   valider(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });
@@ -136,7 +145,7 @@ export class AjoutProduitComponent implements OnInit{
   validerSuppr(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });
@@ -176,6 +185,8 @@ export class AjoutProduitComponent implements OnInit{
   listeProduit(){
     this.produitService.getProduit(this.page).subscribe(data =>{
       this.produits = data;
+      console.log("produits", data);
+      
     })
   }
 

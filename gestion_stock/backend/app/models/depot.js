@@ -20,9 +20,5 @@ const Depot = sequelize.define("depot", {
     }
 });
 
-// Mouvement.belongsTo(Depot,{
-//     foreignKey:'id_dep',
-//     as:'depot'
-// })
 
 module.exports = Depot;

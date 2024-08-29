@@ -1,6 +1,7 @@
 
 @if(emailLocalStorage=="admin@gmail.com"){
   <button type="button" class="btns btnAjout" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">
+    <!-- <i class="fa fa-plus-circle" aria-hidden="true"></i> -->
     Add Product
     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
       {{sommes}}
@@ -19,6 +20,8 @@
           <div class="modal-body">
 
             <form [formGroup]="myForm" (ngSubmit)="ajoutProduit()" class="row g-3">
+
+              <!-- Designation -->
               <div class="col-md-6">
                 <label for="designation_p" class="form-label">Designation</label>
                 <input formControlName="designation_p" class="form-control" id="designation_p" type="text" [(ngModel)]="designation_p" required>
@@ -31,6 +34,7 @@
 
               </div>
 
+              <!-- category -->
               <div class="col-md-6">
                 <label for="categorie_p" class="form-label">Category</label>
                 <input formControlName="categorie_p" class="form-control" id="categorie_p" type="text" [(ngModel)]="categorie_p" required>
@@ -42,39 +46,43 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
-                <img [src]="preview" class="preview" alt="">
-              </div>
-
-              <!-- <div *ngIf="message">
-                <div class="alert alert-secondary">
-                  {{ message }}
-                </div>
-              </div> -->
-
+              <!-- largeur -->
               <div class="col-md-6">
-                <label for="photo_p" class="form-label">Image</label>
-                <input (change)="selectFile($event)" formControlName="photo_p" [(ngModel)]="photo_p" type="file" class="form-control" id="photo_p" required>
+                <label for="largeur" class="form-label">Largeur</label>
+                <input formControlName="largeur" class="form-control" id="largeur" type="number" [(ngModel)]="largeur" required>
 
-                <div *ngIf="myForm.get('photo_p')?.invalid && myForm.get('photo_p')?.touched">
-                  <small class="text-danger" *ngIf="myForm.get('photo_p')?.errors?.['required']">
-                    The repository picture is required.
-                  </small>
-                </div>
-
-              </div>
-
-              <div class="col-md-6">
-                <label for="poid_p" class="form-label">Weight</label>
-                <input formControlName="poid_p" class="form-control" id="poid_p" type="number" [(ngModel)]="poid_p" required>
-
-                <div *ngIf="myForm.get('poid_p')?.invalid && myForm.get('poid_p')?.touched">
-                  <small class="text-danger" *ngIf="myForm.get('poid_p')?.errors?.['required']">
-                    The repository weight is required.
+                <div *ngIf="myForm.get('largeur')?.invalid && myForm.get('largeur')?.touched">
+                  <small class="text-danger" *ngIf="myForm.get('largeur')?.errors?.['required']">
+                    The repository Largeur is required.
                   </small>
                 </div>
               </div>
 
+              <!-- longeur -->
+              <div class="col-md-6">
+                <label for="longeur" class="form-label">Longeur</label>
+                <input formControlName="longeur" class="form-control" id="longeur" type="number" [(ngModel)]="longeur" required>
+
+                <div *ngIf="myForm.get('longeur')?.invalid && myForm.get('longeur')?.touched">
+                  <small class="text-danger" *ngIf="myForm.get('longeur')?.errors?.['required']">
+                    The repository Longeur is required.
+                  </small>
+                </div>
+              </div>
+
+              <!-- hauteur -->
+              <div class="col-md-6">
+                <label for="hauteur" class="form-label">Height</label>
+                <input formControlName="hauteur" class="form-control" id="hauteur" type="number" [(ngModel)]="hauteur" required>
+
+                <div *ngIf="myForm.get('hauteur')?.invalid && myForm.get('hauteur')?.touched">
+                  <small class="text-danger" *ngIf="myForm.get('hauteur')?.errors?.['required']">
+                    The repository hauteur is required.
+                  </small>
+                </div>
+              </div>
+
+              <!-- prix -->
               <div class="col-md-6">
                 <label for="prix_p" class="form-label">Price</label>
                 <input formControlName="prix_p" class="form-control" id="prix_p" type="number" [(ngModel)]="prix_p" required>
@@ -82,6 +90,23 @@
                 <div *ngIf="myForm.get('prix_p')?.invalid && myForm.get('prix_p')?.touched">
                   <small class="text-danger" *ngIf="myForm.get('prix_p')?.errors?.['required']">
                     The repository price is required.
+                  </small>
+                </div>
+              </div>
+
+              <!-- preview -->
+              <div class="col-md-12">
+                <img [src]="preview" class="preview" alt="">
+              </div>
+
+              <!-- image -->
+              <div class="col-md-12">
+                <label for="photo_p" class="form-label">Image</label>
+                <input (change)="selectFile($event)" formControlName="photo_p" [(ngModel)]="photo_p" type="file" class="form-control" id="photo_p" required>
+
+                <div *ngIf="myForm.get('photo_p')?.invalid && myForm.get('photo_p')?.touched">
+                  <small class="text-danger" *ngIf="myForm.get('photo_p')?.errors?.['required']">
+                    The repository picture is required.
                   </small>
                 </div>
               </div>
@@ -97,13 +122,3 @@
     </div>
   </div>
 
-<!-- Historique produit -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Historique produit</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    ...
-  </div>
-</div>

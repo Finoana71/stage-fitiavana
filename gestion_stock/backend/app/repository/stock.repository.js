@@ -1,5 +1,5 @@
 const { where } = require("sequelize")
-const Stock = require("../models/Stock")
+const Stock = require("../models/stock")
 const stockService = require("../service/stock.service")
 const Depot = require("../models/depot")
 

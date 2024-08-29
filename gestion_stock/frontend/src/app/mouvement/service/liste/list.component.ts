@@ -98,7 +98,7 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
   validerUpdate(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });
@@ -118,7 +118,7 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
   validerSuppr(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });

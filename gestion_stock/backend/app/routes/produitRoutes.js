@@ -8,7 +8,7 @@ router.delete('/produit/:id_p',produitController.supprimerProduit);
 router.put('/produit/:id_p',produitController.modificationProduit);
 router.get('/produit/count',produitController.countProduit);
 
-router.get('/produit/search', (req, res) => produitController.search(req, res));
-
+router.get('/produit/detailProduit/:id_p', produitController.detailProduit)
+router.get('/produit/afficherProduit',produitController.afficherProduit);
 
 module.exports = router;

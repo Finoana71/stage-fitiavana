@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export class ListeStockComponent {
   @Input()stocks: any[] =[]
   
-  histoStocks:any  = null
+  histoStock:any  = null
   modifSuccess:boolean = false
   idDelete?:number // id produit à supprimer 
 
@@ -20,11 +20,13 @@ export class ListeStockComponent {
   setIdDelete(id_p:number){
     this.idDelete = id_p
   }
+
+  
   voirLeDetail(id: number){
     try {
       this.stockService.getByIdStock(id)
       .subscribe(data =>{
-        this.histoStocks = data;
+        this.histoStock = data;
         console.log("donné", data)
         }
       )
@@ -54,7 +56,7 @@ export class ListeStockComponent {
   validerSuprr(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });

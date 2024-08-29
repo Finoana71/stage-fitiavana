@@ -33,11 +33,16 @@
               data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"
               (click)="voirLeDetail(stock.id_st)"
-              >Vue</button>
+              >
+              <i class="fa fa-eye" aria-hidden="true"></i>
+              </button>
           </td>
         </tr>
       </tbody>
   </table>
+  <div *ngIf="stocks.length === 0">
+    <h3>Aucune stock</h3>
+  </div>
 </div>
 
 <!-- modal OUI / Non -->
@@ -67,11 +72,10 @@
   <div class="offcanvas-body">
 
     <div>
-      <span *ngIf="histoStocks">
-        <b>Nom depôt</b>  : {{histoStocks.depot.nom_dep}} <br>
-        <b>Nom produit</b>  : {{histoStocks.produit.designation_p}} <br>
-        <b>Poids produit</b>  : {{histoStocks.produit.poid_p}} <br>
-        <b>Quantité stock</b> : {{histoStocks.qtt_st}} <br>
+      <span *ngIf="histoStock">
+        <b>Nom depôt</b>  : {{histoStock.depot.nom_dep}} <br>
+        <b>Nom produit</b>  : {{histoStock.produit.designation_p}} <br>
+        <b>Quantité stock</b> : {{histoStock.qtt_st}} <br>
      </span>
     </div>
 

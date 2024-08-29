@@ -5,28 +5,43 @@
 
       @if (emailStorage == "admin@gmail.com") {
         <li class="nav-item">
-          <a  [routerLink]="['/gestion_de_stock_multi-tâche']" class="nav-link ">Dashboard</a>
+          <a [routerLink]="['/gestion_de_stock_multi-tâche']" class="nav-link">
+            <!-- <fa-icon [icon]="faTachometerAlt"></fa-icon>  -->
+            Dashboard          
+          </a>
         </li>
         <li class="nav-item">
-          <a  [routerLink]="['/gestion_de_stock_multi-tâche/utilisateur']" class="nav-link ">Utilisateur</a>
+          <a [routerLink]="['/gestion_de_stock_multi-tâche/utilisateur']" class="nav-link">
+            <!-- <fa-icon [icon]="faUser"></fa-icon>  -->
+            utilisateur
+          </a>
         </li>
 
       }
         <li class="nav-item">
-          <a  [routerLink]="['/gestion_de_stock_multi-tâche/produit']" class="nav-link ">Produit</a>
+          <a [routerLink]="['/gestion_de_stock_multi-tâche/produit']" class="nav-link">
+            <!-- <fa-icon [icon]="faBox"></fa-icon> -->
+             Produit
+          </a>
         </li>
         <li class="nav-item">
-          <a  [routerLink]="['/gestion_de_stock_multi-tâche/depot']" class="nav-link ">Dépot</a>
+          <a [routerLink]="['/gestion_de_stock_multi-tâche/depot']" class="nav-link">
+            <!-- <fa-icon [icon]="faWarehouse"></fa-icon>  -->
+            Depot
+          </a>        
         </li>
         <li class="nav-item">
-          <a  [routerLink]="['/gestion_de_stock_multi-tâche/mouvement']" class="nav-link ">Mouvement</a>
+          <a [routerLink]="['/gestion_de_stock_multi-tâche/mouvement']" class="nav-link">
+            <!-- <fa-icon [icon]="faExchangeAlt"></fa-icon>  -->
+            Mouvement
+          </a>
         </li>
         <li class="nav-item">
-          <a  [routerLink]="['/gestion_de_stock_multi-tâche/stock']" class="nav-link ">Stock</a>
+          <a [routerLink]="['/gestion_de_stock_multi-tâche/stock']" class="nav-link">
+            <!-- <fa-icon [icon]="faClipboardList"></fa-icon>  -->
+            Stock
+          </a>
         </li>
-
       </ul>
     </div>
    </nav>
-
-

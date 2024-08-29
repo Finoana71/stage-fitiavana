@@ -7,7 +7,7 @@ import { UtilisateurService } from './service/utilisateur.service';
   styleUrl: './utilisateur.component.css',
 })
 export class UtilisateurComponent {
-titre = ""
+titre = "Listes des utilisateurs"
 
  // liste utilisateur
 

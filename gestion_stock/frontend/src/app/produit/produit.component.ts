@@ -9,7 +9,7 @@ import { Produit } from './produit.model';
 })
 export class ProduitComponent implements OnInit{
 
-  titre=""
+  titre="Listes des produits"
   // ngOnInit(): void {
   //   AOS.init({disable:'mobile'});
   //   AOS.refresh();
@@ -23,7 +23,9 @@ export class ProduitComponent implements OnInit{
   
   ngOnInit(): void {
     this.produitService.getProduit(this.page).subscribe(data =>{
-      this.produits = data;      
+      this.produits = data;   
+      console.log('data', data);
+         
     }, error => console.log(error)
     )
   }

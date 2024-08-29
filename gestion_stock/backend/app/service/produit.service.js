@@ -15,11 +15,13 @@ function uploadPhotoProduit(file) {
 
 class produitService{
     async createProduit(data){
-
         return await produitRepository.create(data);
     }
     async getProduits(page){
         return await produitRepository.findAll(page);
+    }
+    async getdetailProduits(id){
+        return await produitRepository.findDetail(id);
     }
     async putProduits(id, data){
         return await produitRepository.update(id, data);

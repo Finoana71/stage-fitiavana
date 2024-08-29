@@ -31,6 +31,8 @@ import { BouttonUpdateComponent } from './boutton/miseajout/boutton.component';
 import { BouttonDeleteComponent } from './boutton/supprimer/boutton.component';
 import { SeDeconnecterComponent } from './navbar/seDeconnecter/seDeconnecter.component';
 import { RechercheDepotComponent } from './depot/service/recherche/recherche-depot.component';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconsComponent } from './icons/icons.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   imports: [
@@ -42,9 +44,12 @@ import { RechercheDepotComponent } from './depot/service/recherche/recherche-dep
     FormsModule,
     BrowserAnimationsModule,
     // NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // FontAwesomeModule  
   ],
   declarations: [
+    //icone
+    IconsComponent,
 
     AppComponent,
     NavbarComponent,

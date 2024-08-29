@@ -36,6 +36,15 @@
             >
             </app-boutton-delete>
 
+            <!-- <button
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+            (click)="voirLeDetail(mouvement.id_mvt)"
+            >desc</button> -->
+
             <button
             class="btn btn-primary"
             type="button"
@@ -43,12 +52,21 @@
             data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight"
             (click)="voirLeDetail(mouvement.id_mvt)"
-            >desc</button>
+
+            >
+            <i class="fa fa-eye" aria-hidden="true">
+            </i>
+          </button>
 
           </td>
         </tr>
       </tbody>
   </table>
+  
+  <div *ngIf="mouvements.length === 0">
+    <h3>Aucune mouvement</h3>
+  </div>
+
 </div>
 
 <!-- modal OUI / Non -->
@@ -73,7 +91,7 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
   <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Historique produit</h5>
+    <h5 id="offcanvasRightLabel">Historique mouvement</h5>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
@@ -83,7 +101,6 @@
         <b>Utilisateur</b>  : {{histoMouve.utilisateur.email_ut}} <br>
         <b>Nom depôt</b>  : {{histoMouve.depot.nom_dep}} <br>
         <b>Nom produit</b>  : {{histoMouve.produit.designation_p}} <br>
-        <b>Poids produit</b>  : {{histoMouve.produit.poid_p}} <br>
       </span>
     </div>
   </div>

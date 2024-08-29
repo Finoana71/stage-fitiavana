@@ -10,6 +10,7 @@ import { StockComponent } from "./stock/stock.component";
 import { slideComponent } from "./slide/slide.component";
 import { AuthComponent } from "./auth/auth.component";
 import { ProtectedComponent } from "./protected/protected.component";
+import { IconsComponent } from "./icons/icons.component";
 
 const routes: Routes = [
     // {path:'', component:slideComponent},

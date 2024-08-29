@@ -18,7 +18,7 @@ export class DepotService {
   getDepot(page:number): Observable<Depot[]> {
     return this.http.get<Depot[]>(`${this.apiUrl}?page=${page}`);
   }
-
+  
   ajoutDepot(depot: Depot): Observable<Depot>{
     return this.http.post<Depot>(this.apiUrl, depot)
   }

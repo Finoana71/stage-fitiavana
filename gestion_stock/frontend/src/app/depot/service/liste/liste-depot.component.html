@@ -24,7 +24,7 @@
 
             <app-boutton-delete
             type="button"
-            class="btn btn-danger ms-2"
+            class="btn btn-danger"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             (click)="getDepot(depot.id_dep)">
@@ -36,8 +36,8 @@
 
   <!-- <app-recherche-depot></app-recherche-depot> -->
 
-  <div *ngIf="depots.length === 0" class="aucunProd">
-    <h3>Aucune produit</h3>
+  <div *ngIf="depots.length === 0">
+    <h3>Aucune depot</h3>
   </div>
 
   <nav aria-label="Page navigation example">

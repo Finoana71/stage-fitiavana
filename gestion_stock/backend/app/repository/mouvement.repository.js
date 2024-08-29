@@ -14,6 +14,12 @@ class mouvementRepository{
     async geIdByMouv(){
         
     }
+
+    async contProduiMouvement(id_p){
+        return await Mouvement.count({where:{id_p}});
+    }
+
 }
+
 
 module.exports = new mouvementRepository();

@@ -18,6 +18,12 @@ export class ProduitService {
     return this.http.get<Produit[]>(`${this.apiUrl}?page=${page}`);
   }
 
+  getByIdProduit(id: number): Observable<Produit>{
+    console.log(`${this.apiUrl}/detailProduit/${id}`);
+    
+    return this.http.get<Produit>(`${this.apiUrl}/detailProduit/${id}`)
+  }
+
   ajoutProduit(produit: Produit):Observable<Produit>{
     return this.http.post<Produit>(this.apiUrl, produit);
   }
@@ -35,6 +41,7 @@ export class ProduitService {
   searchProduits(designation: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}?designation=${designation}`);
   }
+
 }
 
 

@@ -2,12 +2,20 @@
 body{
   background-color: black;
   color: rgb(242, 242, 242);
+  font-family: cursive;
 }
 .modal-content{
   background-color: rgb(46 46 46);
 
   color: white;
   border-radius: 10px;
+}
+*{
+  list-style: none;
+}
+h3{
+  display: flex;
+  justify-content: center;
 }
 .form-control{
   background-color: rgb(30, 27, 27);
@@ -34,7 +42,7 @@ body{
   margin-left: -20px;
 }
 .list_ajout1{
-  margin-left: -77px;
+  margin-left: -36px;
 }
 /*
 .widthTable{
@@ -103,9 +111,7 @@ body{
 /* Style par défaut pour les écrans d'ordinateur standard (ordinateurs portables et de bureau) */
 .widthTable {
   width: 74vw; /* Largeur ajustée pour les écrans standard */
-  height: 60vh; /* Hauteur ajustée pour les écrans standard */
-  margin-left: auto; /* CEntrée l'élément */
-  margin-right: auto; /* CEntrée l'élément */
+
   background-color: rgb(66, 66, 66);
   margin-left: 13rem;
 }
@@ -114,7 +120,6 @@ body{
 @media (max-width: 1024px) {
   .widthTable {
     width: 80vw; /* Ajustement pour mieux s'adapter aux écrans légèrement plus petits */
-    height: 65vh; /* Ajustement de la hauteur pour les écrans plus petits */
     margin-left: 2rem; /* Réduction de la marge pour éviter les débordements */
     margin-right: 2rem;
   }
@@ -128,7 +133,6 @@ body{
 
   .widthTable {
     width: 90vw; /* Adapte la largeur pour les tablettes */
-    height: 70vh; /* Ajustement de la hauteur pour les tablettes */
     margin-left: 2rem; /* Réduction de la marge pour éviter les débordements */
     margin-right: 2rem;
   }
@@ -142,10 +146,24 @@ body{
 
   .widthTable {
     width: 100vw; /* Adapte la largeur à 100% de l'écran */
-    height: 80vh; /* Ajustement de la hauteur pour les très petits écrans */
     margin-left: 0; /* Suppression de la marge pour cEntrée sur les petits écrans */
     margin-right: 0;
   }
+}
+.offcanvas-header {
+  display: flex;
+  padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+  flex-direction: column-reverse;
+  align-items: center;
+  background-color: black;
+  color: #ffffff;
+}
+.offcanvas-body {
+  flex-grow: 1;
+  padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+  overflow-y: auto;
+  background-color: #595858;
+  color: #ffffff;
 }
 
 

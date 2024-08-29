@@ -1,6 +1,5 @@
 const {DataTypes}= require('sequelize');
 const sequelize = require ('../config/bd_config');
-const Mouvement = require('./mouvement');
 
 const Utilisateur = sequelize.define("utilisateur", {
     id_ut: {
@@ -21,8 +20,6 @@ const Utilisateur = sequelize.define("utilisateur", {
         type : DataTypes.STRING(200),
         allowNull: true
     }
-    
 });
-
 
 module.exports = Utilisateur;

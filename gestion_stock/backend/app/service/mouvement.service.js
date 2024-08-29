@@ -25,6 +25,10 @@ class mouvementService{
         return await mouvementRepository.getIdMouv(id);
     }
 
+    async contProduiMouvement(id_p){
+        return await mouvementRepository.contProduiMouvement(id_p);
+    }
+
     async createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut){
 
         let data = { id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut };

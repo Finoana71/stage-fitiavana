@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   styleUrl: './stock.component.css'
 })
 export class StockComponent {
-  titre=""
+  titre="Listes des stocks"
 
   stocks: any [] = [];
   constructor(private stockService: StockService ){}

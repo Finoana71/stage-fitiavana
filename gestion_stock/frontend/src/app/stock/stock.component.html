@@ -9,6 +9,7 @@
     </div>
   </div>
   <div class="list_ajout">
+    <h3 data-aos="fade-down">{{titre}}</h3>
     <app-ajout-stock (estAjoutStock)="ajoutStock($event)"></app-ajout-stock>
     <app-list-stock [stocks]="stocks" ></app-list-stock>
   </div>

@@ -21,7 +21,7 @@ export class AjoutMouvementComponent {
   type_mvt:string = '';
   date_mvt?:Date;
   qtt_mvt?:number=0;
-  id_p?:number;
+  id_p!:number;
   id_dep?:number;
   id_ut?:number;
 
@@ -53,7 +53,9 @@ export class AjoutMouvementComponent {
     this.depotService.getDepot(this.page).subscribe(data => {
       this.depots = data;
     })
-    this.onRefreshList();
+    this.onRefreshList(); 
+
+
   }
 
   onRefreshList(){
@@ -91,7 +93,6 @@ export class AjoutMouvementComponent {
         // this.onAdd.emit(response.mouvement)
         console.log("response---", response);
         this.MouvementService.onRefreshList.emit()
-        
 
       },
       (erreur:any) =>{
@@ -103,7 +104,7 @@ export class AjoutMouvementComponent {
   valider(){
     const Toast = Swal.mixin({
       toast: true,
-      position: "top-end",
+      position: "bottom-end",
       showConfirmButton: false,
       timer: 2000,
     });

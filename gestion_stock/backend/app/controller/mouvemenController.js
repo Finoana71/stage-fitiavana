@@ -60,7 +60,15 @@ exports.creerMouvement = async (req, res) =>{
 
 exports.listeMouvement = async (req, res) =>{
     try {
-        const mouvement = await Mouvement.findAll({include:['produit','depot','utilisateur']});
+        const mouvement = await Mouvement.findAll({include:
+            [
+                // 'produit','depot','utilisateur'
+                // { model: Stock, as: 'stocks' }, // Utiliser l'alias défini pour Stock
+                { model: Produit, as: 'produit' },
+                { model: Depot, as: 'depot' },
+                { model: Utilisateur, as: 'utilisateur'}
+                
+            ]});
         res.status(200).json(mouvement);
 
     } catch (erreur) {
@@ -145,39 +153,23 @@ exports.modificationMouvement = async (req, res)=>{
     
 }
 
-exports.produitDetails = async (req, res) =>{
-    try {
-        const produitDetails = await Mouvement.findAll({include:['stocks', 'produit']});
-        
-        // const result = await Mouvement.findAll({
-        //     attributes: ['type_mvt', 'qtt_mvt', 'date_mvt'],
-        //     include: [
-        //       {
-        //         model: Produit,
-        //         attributes: ['designation_p'],
-        //         where: { designation_p: 'clavier' },
-        //       },
-        //       {
-        //         model: Depot,
-        //         attributes: ['nom_dep'],
-        //         include: [
-        //           {
-        //             model: Stock,
-        //             attributes: ['qtt_st'],
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   });
-        
-        res.status(200).json(produitDetails);
-        
+// exports.produitDetails = async (req, res) =>{
+//     try {
+//         const produitDetails = await Mouvement.findAll({include:['stocks', 'produit']});
 
-    } catch (erreur) {
-        res.status(400).json({erreur:erreur.message});
-    }
+//         res.status(200).json(produitDetails);       
 
-    
+//     } catch (erreur) {
+//         res.status(400).json({erreur:erreur.message});
+//     }
+// }
+
+exports.contProduiMouvement =async (req, res)=>{
+    const id_p = req.params.id_p
+
+    const result =  await mouvementService.contProduiMouvement(id_p)
+
+    res.status(200).json(result);
 
 }
 
