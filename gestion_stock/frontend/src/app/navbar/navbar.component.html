@@ -1,47 +1,73 @@
   <nav class="bg-navbar" >
 
-    <div>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="icone_menu">
 
-      @if (emailStorage == "admin@gmail.com") {
-        <li class="nav-item">
+      <!-- <div class="icone">
+
+        <div>
+          <fa-icon [icon]="faTachometerAlt" class="me-2"></fa-icon> 
+        </div>
+        @if (emailStorage == "admin@gmail.com") {
+        <div>
+          <fa-icon [icon]="faUser" class="me-2"></fa-icon> 
+        </div>
+        }
+        <div>
+          <fa-icon [icon]="faLocation" class="me-2"></fa-icon> 
+        </div>
+        <div>
+          <fa-icon [icon]="faBox" class="me-2"></fa-icon>
+        </div>
+        <div>
+          <fa-icon [icon]="faWarehouse" class="me-2"></fa-icon> 
+        </div>
+        <div>
+          <fa-icon [icon]="faExchangeAlt" class="me-2"></fa-icon> 
+        </div>
+        <div>
+          <fa-icon [icon]="faClipboardList" class="me-2"></fa-icon> 
+        </div>
+      </div> -->
+
+      <div class="menu">
+        <div>
           <a [routerLink]="['/gestion_de_stock_multi-tâche']" class="nav-link">
-            <!-- <fa-icon [icon]="faTachometerAlt"></fa-icon>  -->
             Dashboard          
-          </a>
-        </li>
-        <li class="nav-item">
+          </a>  
+        </div>
+        @if (emailStorage == "admin@gmail.com") {
+        <div>
           <a [routerLink]="['/gestion_de_stock_multi-tâche/utilisateur']" class="nav-link">
-            <!-- <fa-icon [icon]="faUser"></fa-icon>  -->
-            utilisateur
+            Utilisateur
           </a>
-        </li>
-
+        </div>
       }
-        <li class="nav-item">
-          <a [routerLink]="['/gestion_de_stock_multi-tâche/produit']" class="nav-link">
-            <!-- <fa-icon [icon]="faBox"></fa-icon> -->
-             Produit
+
+        <div>
+          <a [routerLink]="['/gestion_de_stock_multi-tâche/emplacements']" class="nav-link">
+            Emplacements
           </a>
-        </li>
-        <li class="nav-item">
+        </div>
+        <div>      
+          <a [routerLink]="['/gestion_de_stock_multi-tâche/produit']" class="nav-link">
+            Produit
+          </a>
+        </div>
+        <div>
           <a [routerLink]="['/gestion_de_stock_multi-tâche/depot']" class="nav-link">
-            <!-- <fa-icon [icon]="faWarehouse"></fa-icon>  -->
             Depot
-          </a>        
-        </li>
-        <li class="nav-item">
+          </a>  
+        </div>
+        <div>
           <a [routerLink]="['/gestion_de_stock_multi-tâche/mouvement']" class="nav-link">
-            <!-- <fa-icon [icon]="faExchangeAlt"></fa-icon>  -->
             Mouvement
           </a>
-        </li>
-        <li class="nav-item">
+        </div>
+        <div>
           <a [routerLink]="['/gestion_de_stock_multi-tâche/stock']" class="nav-link">
-            <!-- <fa-icon [icon]="faClipboardList"></fa-icon>  -->
             Stock
           </a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
    </nav>

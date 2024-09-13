@@ -17,7 +17,13 @@ import { AjoutMouvementComponent } from '../ajout/ajout.component';
 export class ListeMouvementomponent extends AjoutMouvementComponent implements OnInit  {
 
   // myForm:FormGroup;
-
+  override ngOnInit(): void {
+    this.produitService.getProduit(this.page).subscribe(data => {
+      this.produits = data;
+    });
+    this.listeDepots()
+    this.onRefreshList();
+  }
   mouvement:Mouvement = {
     id_mvt:0 ,
     type_mvt:'',
@@ -35,9 +41,7 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
   mouvementSuppr:boolean = false;
   ErreurSuppr:boolean = false
 
-  override ngOnInit(): void {
-    this.onRefreshList();
-  }
+
 
   supprimerMouv(id:number){
     this.MouvementService.supprMouvement(id).subscribe(
@@ -70,7 +74,6 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
 
       console.log("mouvement", this.mouvement);
 
-
       this.MouvementService.modification(id, this.mouvement).subscribe({
         next: (response) =>{
           console.log('update', response.mouvement);
@@ -86,8 +89,6 @@ export class ListeMouvementomponent extends AjoutMouvementComponent implements O
           this.errorUpdate();
         }
       })
-
-
   }
 
   getMouve(id_mvt:number){

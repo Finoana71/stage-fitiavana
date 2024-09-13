@@ -14,9 +14,15 @@ export class StockComponent {
   constructor(private stockService: StockService ){}
 
   ngOnInit(): void {
-    this.stockService.getStock().subscribe(data=>{
-      this.stocks = data;
-    })
+    this.stockService.getStock().subscribe(
+      (data) => {
+        this.stocks = data;
+        console.log('data', data);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des données', error);
+      }
+    );
   }
 
   ajoutStock(stock:any){

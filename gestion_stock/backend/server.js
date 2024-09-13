@@ -1,13 +1,16 @@
 const express = require('express');
 // const router = express.Router();
 const sequelize = require('./app/config/bd_config');
+const { Sequelize } = require('sequelize');
 
-const produitRoutes = require('./app/routes/produitRoutes');
-const depotRoutes = require('./app/routes/depotRoutes');
-const mouvementRoutes = require('./app/routes/mouvementRoutes');
-const UtilisateurRoutes = require('./app/routes/utilisateurRoutes');
-const StockRoutes = require('./app/routes/stockRoutes');
-const authRoutes = require('./app/routes/auth');
+
+const produitRoutes = require('./app/routes/produit.routes');
+const depotRoutes = require('./app/routes/depot.routes');
+const mouvementRoutes = require('./app/routes/mouvement.routes');
+const UtilisateurRoutes = require('./app/routes/utilisateur.routes');
+const StockRoutes = require('./app/routes/stock.routes');
+const authRoutes = require('./app/routes/auth.routes');
+const emplacementRoutes = require('./app/routes/emplacement.routes');
 
 
 const app = express();
@@ -31,8 +34,22 @@ app.use('/api',mouvementRoutes);
 app.use('/api',UtilisateurRoutes);
 app.use('/api',StockRoutes);
 app.use('/api', authRoutes);
+app.use('/api', emplacementRoutes);
 
 app.use('/fichier',express.static(__dirname + '/app/uploads/'));
+
+const defineAssociations = require('./app/models/associations');
+
+// Importer les modèles avec sequelize et DataTypes
+const Produit = require('./app/models/produits');
+const Depot = require('./app/models/depot');
+const Mouvement = require('./app/models/mouvement');
+const Utilisateur = require('./app/models/utilisateur');
+const Stock = require('./app/models/stock');
+const Emplacement = require('./app/models/emplacement');
+
+// Exécuter les associations
+defineAssociations();
 
 //start servers
 const startServer = async () => {  

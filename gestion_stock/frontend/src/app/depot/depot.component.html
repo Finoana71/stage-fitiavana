@@ -1,18 +1,14 @@
-
-<div class="displayFlex">
-  <div>
-    <div>
-      <app-seDeconnecter></app-seDeconnecter>
-    </div>
-    <div>
-      <app-navbar></app-navbar>
-    </div>
+<div class="dashboard-container">
+  <!-- Barre latérale pour le menu -->
+  <div class="sidebar">
+    <app-navbar></app-navbar>
+    <app-seDeconnecter></app-seDeconnecter>
   </div>
 
-  <div class="list_ajout1">
+  <!-- Contenu principal du tableau de bord -->
+  <div class="main-content">
     <h3 data-aos="fade-down">{{titre}}</h3>
     <app-ajout (onAdd)="addDepot($event)"></app-ajout>
     <app-liste-depot [depots]="depots"></app-liste-depot>
   </div>
 </div>
-

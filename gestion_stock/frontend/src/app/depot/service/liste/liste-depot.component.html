@@ -1,46 +1,96 @@
 <!-- Liste Depot -->
 
-<div class="card mt-4 widthTable"  data-aos="fade-down">
-  <table class="table table-striped">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">Depot name</th>
-          <th scope="col">Limit depot</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let depot of depots" class="table-secondary">
-          <td> {{depot.nom_dep}}</td>
-          <td> {{depot.limite_dep}}</td>
-          <td class="lesBouttons">
-            <app-boutton-update
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop1"
-              class="me-2"
-              (click)="getDepot(depot.id_dep)">
-            </app-boutton-update>
+<div class="card mt-4 widthTable"  data-aos="fade-down" >
 
-            <app-boutton-delete
+  <table class="table table-striped text-center" >
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Depot name</th>
+        <th scope="col" colspan="2"></th>
+        <th scope="col" colspan="2"></th>
+        <th scope="col" colspan="4">Emplacement</th>
+        <th scope="col">action</th>
+      </tr>
+      <tr class="table-dark text-center">
+        <th colspan="5"></th>
+        <th scope="col" >Emplacement</th>
+        <th scope="col">Volume actuel</th>
+        <th scope="col">Volume maximal</th>
+        <th scope="col">Pourcentage</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let depot of depots" class="table-secondary">
+        <!-- Appel de la méthode pour formater le nom du dépôt -->
+        <td class="align-middle">{{ depot.nom_dep }}</td>
+        <td></td>
+        <td></td>
+        <td colspan="6">
+          <table class="table table-sm mb-0 text-center">
+            <tbody>
+              <tr *ngFor="let emplacement of depot.emplacements">
+                <td *ngIf="emplacement.nom_em == 0">{{ emplacement.nom_em }}</td>
+                <td>{{ emplacement.volume_actuel }} m³</td>
+                <td>{{ emplacement.volume_max }} m³</td>
+                <td>{{ emplacement.pourcentage | number: '1.2-2'}} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <app-boutton-update
+            type="button"
+            class="me-2"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop1"
+            (click)="getDepot(depot.id_dep)"
+          >
+            Update
+          </app-boutton-update>
+  
+          <app-boutton-delete
             type="button"
             class="btn btn-danger"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            (click)="getDepot(depot.id_dep)">
-            </app-boutton-delete>
-          </td>
-
-        </tr>
+            (click)="getDepot(depot.id_dep)"
+          >
+            Delete
+          </app-boutton-delete>
+        </td>
+      </tr>
+    </tbody>
   </table>
+  
 
+  
+
+  <!-- avec de ngx-pagination -->
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item disabled" [class.disabled]=" page === 1 ">
+        <a class="page-link" (click)="handlePageChange(page - 1)">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPage()); let i= index" [class.active]="i + 1 === page">
+        <a class="page-link" (click)="handlePageChange(i + 1)">{{ i + 1}}</a>
+      </li>
+
+      <li class="page-item" [class.disabled]="page === totalPage()">
+        <a class="page-link" (click)="handlePageChange(page + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
   <!-- <app-recherche-depot></app-recherche-depot> -->
 
   <div *ngIf="depots.length === 0">
     <h3>Aucune depot</h3>
   </div>
 
-  <nav aria-label="Page navigation example">
+  <!-- pas de ngx-pagination -->
+
+  <!-- <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-end">
       <li class="page-item" [class.disabled]="page === 1">
         <a class="page-link" (click)="page > 1 && handlePageChange(page - 1)">Previous</a>
@@ -54,10 +104,9 @@
         <a class="page-link" (click)="page < totalPage() && handlePageChange(page + 1)">Next</a>
       </li>
     </ul>
-
   </nav>
 
-  <pagination-controls (pageChange)="handlePageChange($event)" [maxSize]="5" [autoHide]="true"></pagination-controls>
+  <pagination-controls (pageChange)="handlePageChange($event)" [maxSize]="5" [autoHide]="true"></pagination-controls> -->
 
 </div>
 
@@ -82,18 +131,6 @@
               </small>
             </div>
           </div>
-
-          <div class="">
-            <label for="validationDefault01" class="form-label">limit</label>
-            <input type="number" class="form-control" id="validationDefault01" formControlName="limite_dep" [(ngModel)]="depot.limite_dep" required>
-            <!-- Affichage du message d'erreur si le champ nom_dep est invalide -->
-            <div *ngIf="myForm.get('limite_dep')?.invalid && myForm.get('limite_dep')?.touched">
-              <small class="text-danger" *ngIf="myForm.get('limite_dep')?.errors?.['required']">
-                The repository limit depot is required.
-              </small>
-            </div>
-          </div>
-
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -4,7 +4,7 @@
       <thead class="table-dark">
         <tr>
           <th scope="col">Produit</th>
-          <th scope="col">Dépot</th>
+          <th scope="col">Emplacement</th>
           <th scope="col">Type</th>
           <th scope="col">Date</th>
           <th scope="col">Quantité</th>
@@ -45,7 +45,7 @@
             (click)="voirLeDetail(mouvement.id_mvt)"
             >desc</button> -->
 
-            <button
+            <!-- <button
             class="btn btn-primary"
             type="button"
             data-bs-toggle="offcanvas"
@@ -56,7 +56,7 @@
             >
             <i class="fa fa-eye" aria-hidden="true">
             </i>
-          </button>
+          </button> -->
 
           </td>
         </tr>
@@ -88,7 +88,7 @@
 </div>
 
 <!-- Historique mouvement -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<!-- <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
   <div class="offcanvas-header">
     <h5 id="offcanvasRightLabel">Historique mouvement</h5>
@@ -105,7 +105,7 @@
     </div>
   </div>
 
-</div>
+</div> -->
 
 
 <!-- Modal Modification -->
@@ -120,71 +120,71 @@
 
         <form [formGroup]="myForm" class="row g-3" (ngSubmit)="onModif()">
 
-          <!-- Type Mouvement -->
-          <div>
-            <label for="typeMouvement" class="form-label">Type mouvement</label>
-            <select class="form-select" aria-label="Default select example" formControlName="type_mvt" [(ngModel)]="mouvement.type_mvt">
-              <option value="Entrée">Entrée</option>
-              <option value="Sortie">Sortie</option>
-            </select>
-            <div *ngIf="myForm.get('type_mvt')?.invalid && myForm.get('type_mvt')?.touched">
-              <small class="text-danger" *ngIf="myForm.get('type_mvt')?.errors?.['required']">
-                Le type de mouvement est obligatoire.
-              </small>
+            <!-- Type Mouvement -->
+            <div>
+              <label for="typeMouvement" class="form-label">Type mouvement</label>
+              <select class="form-select" aria-label="Default select example" formControlName="type_mvt" [(ngModel)]="mouvement.type_mvt">
+                <option value="Entrée">Entrée</option>
+                <option value="Sortie">Sortie</option>
+              </select>
+              <div *ngIf="myForm.get('type_mvt')?.invalid && myForm.get('type_mvt')?.touched">
+                <small class="text-danger" *ngIf="myForm.get('type_mvt')?.errors?.['required']">
+                  Le type de mouvement est obligatoire.
+                </small>
+              </div>
             </div>
-          </div>
 
-          <!-- Date -->
-          <div class="">
-            <label for="dateMouvement" class="form-label">Date</label>
-            <input type="date" class="form-control" id="dateMouvement" formControlName="date_mvt" [(ngModel)]="mouvement.date_mvt">
-            <div *ngIf="myForm.get('date_mvt')?.invalid && myForm.get('date_mvt')?.touched">
-              <small class="text-danger" *ngIf="myForm.get('date_mvt')?.errors?.['required']">
-                La date est obligatoire.
-              </small>
+            <!-- Date -->
+            <div class="">
+              <label for="dateMouvement" class="form-label">Date</label>
+              <input type="date" class="form-control" id="dateMouvement" formControlName="date_mvt" [(ngModel)]="mouvement.date_mvt">
+              <div *ngIf="myForm.get('date_mvt')?.invalid && myForm.get('date_mvt')?.touched">
+                <small class="text-danger" *ngIf="myForm.get('date_mvt')?.errors?.['required']">
+                  La date est obligatoire.
+                </small>
+              </div>
             </div>
-          </div>
 
-          <!-- Quantité -->
-          <div class="">
-            <label for="qttMouvement" class="form-label">Quantité</label>
-            <input type="number" class="form-control" id="qttMouvement" formControlName="qtt_mvt" [(ngModel)]="mouvement.qtt_mvt">
-            <div *ngIf="myForm.get('qtt_mvt')?.invalid && myForm.get('qtt_mvt')?.touched">
-              <small class="text-danger" *ngIf="myForm.get('qtt_mvt')?.errors?.['required']">
-                La quantité est obligatoire.
-              </small>
+            <!-- Quantité -->
+            <div class="">
+              <label for="qttMouvement" class="form-label">Quantité</label>
+              <input type="number" class="form-control" id="qttMouvement" formControlName="qtt_mvt" [(ngModel)]="mouvement.qtt_mvt">
+              <div *ngIf="myForm.get('qtt_mvt')?.invalid && myForm.get('qtt_mvt')?.touched">
+                <small class="text-danger" *ngIf="myForm.get('qtt_mvt')?.errors?.['required']">
+                  La quantité est obligatoire.
+                </small>
+              </div>
             </div>
-          </div>
 
-          <!-- Dépôt -->
-          <div>
-            <label for="depotMouvement" class="form-label">Dépôt</label>
-            <select class="form-select" aria-label="Default select example" formControlName="id_dep" [(ngModel)]="mouvement.id_dep">
-              <option *ngFor="let depot of depots" [value]="depot.id_dep">
-                {{depot.nom_dep}}
-              </option>
-            </select>
-            <div *ngIf="myForm.get('id_dep')?.invalid && myForm.get('id_dep')?.touched">
-              <small class="text-danger" *ngIf="myForm.get('id_dep')?.errors?.['required']">
-                Le dépôt est obligatoire.
-              </small>
+            <!-- Dépot -->
+            <div>
+              <label for="depotMouvement" class="form-label">Dépot</label>
+              <select class="form-select" aria-label="Default select example" formControlName="id_dep" [(ngModel)]="mouvement.id_dep">
+                <option *ngFor="let depot of depots" [value]="depot.id_dep">
+                  {{depot.nom_dep}}
+                </option>
+              </select>
+              <div *ngIf="myForm.get('id_dep')?.invalid && myForm.get('id_dep')?.touched">
+                <small class="text-danger" *ngIf="myForm.get('id_dep')?.errors?.['required']">
+                  Le dépot est obligatoire.
+                </small>
+              </div>
             </div>
-          </div>
 
-          <!-- Produit -->
-          <div>
-            <label for="produitMouvement" class="form-label">Produit</label>
-            <select class="form-select" aria-label="Default select example" formControlName="id_p" [(ngModel)]="mouvement.id_p">
-              <option *ngFor="let produit of produits" [value]="produit.id_p">
-                {{produit.designation_p}}
-              </option>
-            </select>
-            <div *ngIf="myForm.get('id_p')?.invalid && myForm.get('id_p')?.touched">
-              <small class="text-danger" *ngIf="myForm.get('id_p')?.errors?.['required']">
-                Le produit est obligatoire.
-              </small>
+            <!-- Produit -->
+            <div>
+              <label for="produitMouvement" class="form-label">Produit</label>
+              <select class="form-select" aria-label="Default select example" formControlName="id_p" [(ngModel)]="mouvement.id_p">
+                <option *ngFor="let produit of produits" [value]="produit.id_p">
+                  {{produit.designation_p}}
+                </option>
+              </select>
+              <div *ngIf="myForm.get('id_p')?.invalid && myForm.get('id_p')?.touched">
+                <small class="text-danger" *ngIf="myForm.get('id_p')?.errors?.['required']">
+                  Le produit est obligatoire.
+                </small>
+              </div>
             </div>
-          </div>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

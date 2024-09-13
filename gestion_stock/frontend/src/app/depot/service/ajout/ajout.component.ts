@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core'
 import { DepotService } from '../depot.service'
-import { Depot } from '../../depot.model'
+import { Depot} from '../../depot.model'
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { response } from 'express';
@@ -23,24 +23,21 @@ export class AjoutDepotComponent implements OnInit {
   depot:Depot ={
     id_dep:0 ,
     nom_dep:'',
-    limite_dep:0
   };
 
   // id!:number
   nom_dep: string = 'Dépot'
-  limite_dep:number=0
   idDepot: any = null;
 
   // depots: Depot[] = [] // Déclarer la propriété depots
   emailLocalStorage = localStorage.getItem("email")
-
+  
   constructor(
     public DepotService: DepotService,
     private fb: FormBuilder
   ) {
     this.myForm = this.fb.group({
       nom_dep:[this.nom_dep, Validators.required],
-      limite_dep:[this.limite_dep, Validators.required]
     })
   }
 
@@ -58,18 +55,26 @@ export class AjoutDepotComponent implements OnInit {
 
   // }
 
-  listeDepots(){
-    this.DepotService.getDepot(this.page).subscribe(data =>{
-      this.depots = data;
-    })
+  listeDepots(): void {
+    this.DepotService.getDepot(this.page).subscribe(
+      (data) => {
+        this.depots = data;  // Récupérer uniquement les dépôts
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des données', error);
+      }
+    );
   }
+
+  
+
   handlePageChange(page:any){
     this.page = page;
     this.listeDepots()
   }
 
   ajouterDepot() {
-    const depot = new Depot(this.idDepot, this.nom_dep, this.limite_dep)
+    const depot = new Depot(this.idDepot, this.nom_dep)
 
     this.DepotService.ajoutDepot(depot).subscribe(
       (response:any) => {
@@ -137,26 +142,27 @@ export class AjoutDepotComponent implements OnInit {
   };
 
 
-
- supprimerDep(id:number){
-   const id_dep = this.idDepot
-
-   this.DepotService.supprDepot(id_dep).subscribe(
-
-     (response:Depot) =>{
-
-       const index = this.depots.findIndex(
-         (dep:Depot) => dep.id_dep == id,
-         console.log("id_dep", (dep:Depot)=>dep.id_dep == id)
-
-        )
-        this.depots.splice(index,1) // firy no ho fafana amin ilaina tableaux "index"
-        this.validerSuppr()
-        this.handlePageChange(this.page)
-     },
-
-   )
- }
+  supprimerDep(id: number): void {
+  
+    this.DepotService.supprDepot(id).subscribe(
+      (response: Depot) => {
+        const index = this.depots.findIndex((dep: Depot) => dep.id_dep === id);
+  
+        if (index !== -1) {
+          this.depots.splice(index, 1);
+        } else {
+        }
+  
+        this.validerSuppr();
+        this.handlePageChange(this.page);
+      },
+      (error) => {
+        console.error('Erreur lors de la suppression du dépôt', error);
+      }
+    );
+  }
+  
+  
 
 
  modification(){
@@ -177,6 +183,7 @@ export class AjoutDepotComponent implements OnInit {
        console.log("aaaa", nom_dep);
 
        this.valider();
+       this.DepotService.onRefreshList.emit()
      },
      error:(err) =>{
        console.log("err", err);

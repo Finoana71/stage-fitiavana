@@ -27,7 +27,6 @@ export class MouvementComponent {
   listeMouvement(){
     this.MouvementService.getMouvement().subscribe(data =>{
       this.mouvements = data;
-      console.log("dfqsfqdf", data);
     })
   }
 

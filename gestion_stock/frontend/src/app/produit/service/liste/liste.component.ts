@@ -23,6 +23,7 @@ export class ListeProduitComponent extends AjoutProduitComponent{
   histoProduit:any  = null;
   mouvements:any [] = [];
   stocks:any [] = [];
+  emplacements:any[] = [];
 
   countProduitParMouvement?: number;
   
@@ -31,6 +32,9 @@ export class ListeProduitComponent extends AjoutProduitComponent{
     this.countProd()
   }
 
+  trackById(index: number, item: any): number {
+    return item.id_st;
+  }
 
   totalPage():number{
 
@@ -58,11 +62,23 @@ export class ListeProduitComponent extends AjoutProduitComponent{
       .subscribe(
         (data:any)=>{
           this.histoProduit = data
-          this.mouvements = data.mouvement
-          this.stocks = data.stock
-          console.log("donné", data)
-          console.log("mouvements", data.mouvement)
-          console.log("stocks", data.stock)
+          this.mouvements = data.mouvements
+          this.stocks = data.stocks
+
+          console.log('produits', data);
+
+          data.stocks.forEach((stock: any) => {
+            if (stock.depot && stock.depot.emplacements) {
+              stock.depot.emplacements.forEach((emplacement: any) => {
+                this.emplacements.push({
+                  nom_em: emplacement.nom_em,
+                  volume_max: emplacement.volume_max,
+                  volume_actuel: emplacement.volume_actuel
+                });
+              });
+            }
+          });
+          
         }
       );
 

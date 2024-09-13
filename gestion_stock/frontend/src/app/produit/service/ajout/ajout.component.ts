@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProduitService } from '../produit.service';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Produit } from '../../produit.model';
 import { MouvementService } from '../../../mouvement/service/mouvement.service';
 
@@ -43,12 +43,17 @@ export class AjoutProduitComponent implements OnInit{
       designation_p:[this.designation_p, Validators.required],
       photo_p:[this.photo_p, Validators.required],
       categorie_p:[this.categorie_p, Validators.required],
-      prix_p:[this.prix_p, Validators.required],
-      longeur:[this.longeur, Validators.required],
-      largeur:[this.largeur, Validators.required],
-      hauteur:[this.hauteur, Validators.required],
+      prix_p:[this.prix_p, [Validators.required, this.invalidValueValidator]],
+      longeur:[this.longeur, [Validators.required, this.invalidValueValidator]],
+      largeur:[this.largeur,  [Validators.required, this.invalidValueValidator]],
+      hauteur:[this.hauteur, [Validators.required, this.invalidValueValidator]],
     })
   };
+
+  // Validateur personnalisé pour vérifier si la quantité est inférieur égale à 0
+  invalidValueValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    return control.value <= 0 ? { zeroQuantity: true } : null;
+  }
 
   ngOnInit(): void {
     this.imageInfos = this.produitService.getfiles();

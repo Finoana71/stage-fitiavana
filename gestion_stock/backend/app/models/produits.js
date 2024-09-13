@@ -1,10 +1,13 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/bd_config');
 const Stock = require('./stock');
-// const Depot = require('./depot');
-const Mouvement = require('./mouvement');
 
-const Produit = sequelize.define("produits", {
+// module.exports = (sequelize, DataTypes)=>{
+//     return Produit;
+// }
+
+
+const Produit = sequelize.define("produit", {
     id_p: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -31,6 +34,7 @@ const Produit = sequelize.define("produits", {
     hauteur: {
         type: DataTypes.INTEGER,
     },
+    
     volume: {
         type: DataTypes.VIRTUAL, // Utilisation de DataTypes.VIRTUAL car ce champ est calculé
         get() {
@@ -41,16 +45,8 @@ const Produit = sequelize.define("produits", {
             return longeur && largeur && hauteur ? longeur * largeur * hauteur : null;
         }
     }
-    
+},{
+    tableName:'produit'
 });
 
-Produit.hasMany(Stock, {foreignKey:'id_p', as:'stock'})
-Produit.hasMany(Mouvement, {foreignKey:'id_p', as:'mouvement'})
-
-Mouvement.belongsTo(Produit,{foreignKey:'id_p',as:'mouvement'})
-Stock.belongsTo(Produit, {foreignKey:'id_p',as:'stock'})
-Mouvement.belongsTo(Produit,{foreignKey:'id_p',as:'produit'})
-Stock.belongsTo(Produit, {foreignKey:'id_p',as:'produit'})
-
-
-module.exports = Produit;
+module.exports = Produit

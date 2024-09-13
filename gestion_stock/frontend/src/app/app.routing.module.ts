@@ -11,6 +11,7 @@ import { slideComponent } from "./slide/slide.component";
 import { AuthComponent } from "./auth/auth.component";
 import { ProtectedComponent } from "./protected/protected.component";
 import { IconsComponent } from "./icons/icons.component";
+import { EmplacementComponent } from "./emplacement/emplacement.component";
 
 const routes: Routes = [
     // {path:'', component:slideComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path:'gestion_de_stock_multi-tâche/utilisateur', component:UtilisateurComponent},
     {path:'gestion_de_stock_multi-tâche/mouvement', component:MouvementComponent},
     {path:'gestion_de_stock_multi-tâche/stock', component:StockComponent},
+    {path:'gestion_de_stock_multi-tâche/emplacements', component:EmplacementComponent},
 
     {path:'login', component:AuthComponent},
     {path:'register', component:AuthComponent},

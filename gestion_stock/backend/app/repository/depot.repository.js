@@ -26,11 +26,7 @@ class depotRepository{
     async findAllByNom_dep(nom_dep){
         return await Depot.findOne({ where: { nom_dep : nom_dep } });
     }
-
-    async maxLimite(){
-        return await Depot.max('limite_dep')
-    }
-
+    
     // async findByName(nom){
     //     return await Depot.findOne({where:{nom_dep:nom}})
     // }

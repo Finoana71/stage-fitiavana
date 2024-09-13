@@ -1,8 +1,6 @@
 const {DataTypes}= require('sequelize');
 const sequelize = require ('../config/bd_config');
 
-// const Mouvement = require('./mouvement');
-
 const Depot = sequelize.define("depot", {
     id_dep: {
         type: DataTypes.INTEGER,
@@ -14,11 +12,9 @@ const Depot = sequelize.define("depot", {
         allowNull: true,
         unique: true
     },
-    limite_dep: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    }
+},
+{
+    tableName: 'depot'
 });
 
-
-module.exports = Depot;
+module.exports = Depot

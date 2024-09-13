@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MouvementService } from '../mouvement.service'
 import { ProduitService } from '../../../produit/service/produit.service';
-import { DepotService } from '../../../depot/service/depot.service';
-import { UtilisateurService } from '../../../utilisateur/service/utilisateur.service';
 import Swal from 'sweetalert2';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DepotService } from '../../../depot/service/depot.service';
+import { DepotResponse } from '../../../depot/depot.model';
 
 @Component({
   selector: 'app-ajout-mouvement',
@@ -17,7 +17,6 @@ export class AjoutMouvementComponent {
   @Output()onAdd = new EventEmitter();
   @Input()mouvements : any[] = [];
 
-
   type_mvt:string = '';
   date_mvt?:Date;
   qtt_mvt?:number=0;
@@ -26,8 +25,8 @@ export class AjoutMouvementComponent {
   id_ut?:number;
 
   produits:any[] = [];
-  depots:any[] = [];
   utilisateurs:any[] = [];
+  depots:any[] = [];
   emailLocalStorage = localStorage.getItem("email");
   page = 1;
   constructor(
@@ -39,10 +38,15 @@ export class AjoutMouvementComponent {
     this.myForm = this.fb.group({
       type_mvt: ['', Validators.required],
       date_mvt: ['', Validators.required],
-      qtt_mvt: ['', Validators.required],
+      qtt_mvt: ['', [Validators.required, this.quantityValidator]], 
       id_dep: ['', Validators.required],
       id_p: ['', Validators.required],
     });
+  }
+
+  // Validateur personnalisé pour vérifier si la quantité est égale à 0
+  quantityValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    return control.value <= 0 ? { zeroQuantity: true } : null;
   }
 
   ngOnInit(): void {
@@ -50,14 +54,21 @@ export class AjoutMouvementComponent {
       this.produits = data;
     });
 
-    this.depotService.getDepot(this.page).subscribe(data => {
-      this.depots = data;
-    })
+    this.listeDepots()
+    
     this.onRefreshList(); 
-
-
   }
-
+  
+  listeDepots(): void {
+    this.depotService.getDepot(this.page).subscribe(
+      (data) => {
+        this.depots = data; // Utilisez la propriété "depots" de "DepotResponse"
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des données', error);
+      }
+    );
+  }
   onRefreshList(){
     this.MouvementService.onRefreshList.subscribe(()=>{
       this.listeMouvement();
@@ -67,7 +78,6 @@ export class AjoutMouvementComponent {
   listeMouvement(){
     this.MouvementService.getMouvement().subscribe(data =>{
       this.mouvements = data;
-      console.log("dfqsfqdf", data);
     })
   }
 

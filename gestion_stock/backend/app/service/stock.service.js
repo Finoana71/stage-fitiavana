@@ -28,8 +28,8 @@ class stockService{
         return await Stock.findAll({
             where:
                 {
-                    id_p:id_p,
-                    id_dep:id_dep
+                    id_p : id_p,
+                    id_dep : id_dep
                 }
             });
     }    

@@ -2,6 +2,8 @@ const { where } = require("sequelize")
 const Stock = require("../models/stock")
 const stockService = require("../service/stock.service")
 const Depot = require("../models/depot")
+const Produit = require("../models/produits")
+const Emplacement = require("../models/emplacement")
 
 class stockRepository{
     async findById(id){
@@ -11,7 +13,20 @@ class stockRepository{
         return await Stock.create(data)
     }
     async findAll(){
-        return await Stock.findAll({include:['produit','depot']})
+        return await Stock.findAll({
+            include:['produit',
+                {
+                    model:Depot,
+                    as:'depot',
+                    include:[
+                        {
+                            model:Emplacement,
+                            as:'emplacements'
+                        }
+                    ]
+                }
+
+            ]})
     }
     async update(id, data){
         const stock = await this.findById(id)
@@ -39,18 +54,6 @@ class stockRepository{
     async findAllDep_Pro(id_p, id_dep){
         return stockService.findAllDep_Pro(id_p, id_dep)
     }
-
-    async updateNouveau(ancienIdDepot,nouvelValeurLimitDepot){
-
-        await Depot.findByPk(ancienIdDepot);
-        return await Depot.update(
-            {   
-                limite_dep: nouvelValeurLimitDepot
-            }, 
-            { where:{ id_dep: ancienIdDepot}
-        });
-    }
-
     
 }
 

@@ -1,11 +1,6 @@
 const {DataTypes}= require('sequelize');
 const sequelize = require ('../config/bd_config');
 
-const produit = require('./produits');
-const depot = require('./depot');
-const utilisateur = require('./utilisateur');
-const stock = require('./stock');
-
 const Mouvement = sequelize.define("mouvement", {
     id_mvt: {
         type: DataTypes.INTEGER,
@@ -23,31 +18,29 @@ const Mouvement = sequelize.define("mouvement", {
     },
     id_p:{
         type: DataTypes.INTEGER,
-        // references:{
-        //     model: produits,
-        //     key:'id_p'
-        // }
+        references: {
+            model: 'produit', // nom de la table référencée
+            key: 'id_p', // clé primaire référencée
+        },
+        allowNull: false,
     },
+
     id_dep:{
         type: DataTypes.INTEGER,
         references:{
-            model: depot,
+            model: 'depot',
             key:'id_dep'
         }
     },
     id_ut:{
         type: DataTypes.INTEGER,
         references:{
-            model: utilisateur,
+            model: 'utilisateur',
             key:'id_ut'
         }
     }
+},{
+    tableName:'mouvement'
 });
 
-stock.belongsTo(depot,{foreignKey:'id_dep',as:'stocks'})
-
-Mouvement.belongsTo(depot,{foreignKey:'id_dep',as:'depot'})
-
-Mouvement.belongsTo(utilisateur,{ foreignKey:'id_ut',as:'utilisateur'})
-
-module.exports = Mouvement;
+module.exports = Mouvement

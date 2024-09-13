@@ -3,7 +3,7 @@ const pathProductImage = "./public/image/upload/produit/";
 const produitRepository = require('../repository/produit.repository')
 const helper = require('../helper/file.helper')
 const path = require('path');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const Produit = require('../models/produits');
 
 function uploadPhotoProduit(file) {
@@ -66,6 +66,12 @@ class produitService{
           throw error;
         }
       }
+
+    async volumePById(id, volume_p){
+        await Produit.findOne(id,{
+            where: volume_p
+        })
+    }
     
 }
 module.exports = new produitService();

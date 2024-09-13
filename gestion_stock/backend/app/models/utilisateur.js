@@ -1,6 +1,12 @@
 const {DataTypes}= require('sequelize');
 const sequelize = require ('../config/bd_config');
 
+// module.exports = (sequelize, DataTypes) => {
+
+
+//     return Utilisateur;
+// }
+
 const Utilisateur = sequelize.define("utilisateur", {
     id_ut: {
         type: DataTypes.INTEGER,
@@ -20,6 +26,8 @@ const Utilisateur = sequelize.define("utilisateur", {
         type : DataTypes.STRING(200),
         allowNull: true
     }
+},{
+    tableName: 'utilisateur'
 });
 
-module.exports = Utilisateur;
+module.exports = Utilisateur

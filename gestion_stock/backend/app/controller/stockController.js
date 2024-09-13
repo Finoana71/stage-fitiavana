@@ -1,35 +1,34 @@
 const { log } = require('handlebars');
-const Depot = require('../models/depot');
 const Produit = require('../models/produits')
 const stockService = require('../service/stock.service');
 const stockRepository = require('../repository/stock.repository');
+const Emplacement = require('../models/emplacement');
 
 // Creer une Stock
 
 exports.creerStock = async (req, res) =>{
     const {
         qtt_st,
-        id_dep,
+        id_em,
         id_p
     }= req.body
 
     try {        
 
         const produit = await Produit.findByPk(req.body.id_p);
-        const depot = await Depot.findByPk(req.body.id_dep);
+        const emplacement = await Emplacement.findByPk(req.body.id_em);
 
         if(!produit){
             return res.status(404).json({erreur:'Produit invalide'});
         }
 
-        if(!depot){
-            return res.status(404).json({erreur:'Depot invalide'});
+        if(!emplacement){
+            return res.status(404).json({erreur:'Emplacement invalide'});
         }
-
         
-        const nouveStock = await stockRepository.create( qtt_st, id_p, id_dep);
+        const nouveStock = await stockRepository.create( qtt_st, id_p, id_em);
 
-        res.status(201).json({message:'Creation Stock avec succés', stock:nouveStock, produit, depot});
+        res.status(201).json({message:'Creation Stock avec succés', stock:nouveStock, produit, emplacement});
         
     } catch (erreur) {
         console.log(erreur);
@@ -47,7 +46,6 @@ exports.listeStock = async (req, res) =>{
         res.status(200).json(stock);
 
     } catch (erreur) {
-        console.log("erreur--", erreur);
         res.status(400).json({erreur});
     }
 }
@@ -62,7 +60,6 @@ exports.getIdStock = async (req, res) =>{
         res.status(200).json(stock);
 
     } catch (erreur) {
-        console.log("erreur--", erreur);
         res.status(400).json({error});    
     }
 }
@@ -70,12 +67,10 @@ exports.getIdStock = async (req, res) =>{
 // Supprimer le stock
 
 exports.supprimerStock = async(req, res) =>{
+
     try {
         const id = req.params.id_st;
-        console.log("idddd",id);
-
         const stock = await stockRepository.delete(id);
-        console.log("sotck",stock);
         res.status(200).json({message:"Supprimer stock est avec succés", stocks : stock});
         
     } catch (erreur) {
@@ -88,11 +83,11 @@ exports.supprimerStock = async(req, res) =>{
 
 exports.modificationStock = async (req, res)=>{
     const id = req.params.id_st;
-    const { qtt_st, id_p,id_dep } = req.body;
+    const { qtt_st, id_p,id_em } = req.body;
 
     try {
         const [modification] = await stockService.updateStock(
-            { qtt_st, id_p, id_dep }, 
+            { qtt_st, id_p, id_em }, 
             { where:{ id_st:id}
         });
 

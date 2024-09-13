@@ -1,5 +1,6 @@
 
 
+const Depot = require('../models/depot');
 const Mouvement = require('../models/mouvement');
 const Produit = require('../models/produits');
 const Stock = require('../models/stock');
@@ -17,7 +18,7 @@ class produitRepository{
 
         const nbrEl = 5
         const offset = (page - 1) * nbrEl
-        return await Produit.findAll({limit: nbrEl, offset: offset}, {include:['produit','depot']});         
+        return await Produit.findAll({limit: nbrEl, offset: offset}, {include:['produit','emplacement']});         
     }
     async findDetail(id){
         return await Produit.findByPk(
@@ -26,18 +27,30 @@ class produitRepository{
                 include: [
                     {
                         model: Stock,
-                        as: 'stock',
-                        include:['depot']
+                        as: 'stocks',
+                        include:[
+                            {
+                                model:Depot,
+                                as:'depot',
+                                include:['emplacements']
+                            }
+                        ]
                     },
                     
                     {
                         model:Mouvement,
-                        as:'mouvement',
-                        include:['depot']
+                        as:'mouvements',
+                        include:[
+                            {
+                                model:Depot,
+                                as:'depot',
+                                include:['emplacements']
+                            }
+                        ]
                     },
                     {
                         model:Mouvement,
-                        as:'mouvement',
+                        as:'mouvements',
                         include:['utilisateur']
                     }
                 ]                  

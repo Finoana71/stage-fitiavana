@@ -5,7 +5,7 @@ import { ProduitComponent } from './produit/produit.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
 import { UtilisateurComponent } from './utilisateur/utilisateur.component';
 import { DepotComponent } from './depot/depot.component';
@@ -30,10 +30,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BouttonUpdateComponent } from './boutton/miseajout/boutton.component';
 import { BouttonDeleteComponent } from './boutton/supprimer/boutton.component';
 import { SeDeconnecterComponent } from './navbar/seDeconnecter/seDeconnecter.component';
-import { RechercheDepotComponent } from './depot/service/recherche/recherche-depot.component';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { IconsComponent } from './icons/icons.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
+
+import { IconsComponent } from './icons/icons.component';
+import { AjoutEmplacementComponent } from './emplacement/service/ajout/ajout.component';
+import { EmplacementComponent } from './emplacement/emplacement.component';
+import { ListeEmplacementComponent } from './emplacement/service/liste/liste-emplacement.component';
+import { PourcentageComponent } from './slide/pourcentage/pourcentage.component';
+import { InputAjoutEmplacementComponent } from './emplacement/components/ajout/inputAjout.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -45,12 +51,13 @@ import { IconsComponent } from './icons/icons.component';
     BrowserAnimationsModule,
     // NgxPaginationModule,
     ReactiveFormsModule,
-    // FontAwesomeModule  
+    // FontAwesomeModule,
+    RouterModule
   ],
+
   declarations: [
     //icone
     IconsComponent,
-
     AppComponent,
     NavbarComponent,
 
@@ -58,9 +65,9 @@ import { IconsComponent } from './icons/icons.component';
     BouttonUpdateComponent,
     BouttonDeleteComponent,
 
-
     // slide
     slideComponent,
+    PourcentageComponent,
 
     // les modules Produits
     ProduitComponent,
@@ -76,7 +83,6 @@ import { IconsComponent } from './icons/icons.component';
     DepotComponent,
     AjoutDepotComponent,
     ListeDepotComponent,
-    RechercheDepotComponent,
         
     // les modules Stocks
     StockComponent,
@@ -93,8 +99,15 @@ import { IconsComponent } from './icons/icons.component';
     ProtectedComponent,
 
     //SeDeconnecter
-    SeDeconnecterComponent
-    
+    SeDeconnecterComponent,
+
+    //emplacement
+    EmplacementComponent,
+    AjoutEmplacementComponent,   
+    ListeEmplacementComponent,
+      //InputEmplacementComponent
+      InputAjoutEmplacementComponent
+
 
   ],
   providers: [

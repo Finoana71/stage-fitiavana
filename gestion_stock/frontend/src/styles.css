@@ -3,6 +3,7 @@ body{
   background-color: black;
   color: rgb(242, 242, 242);
   font-family: cursive;
+  margin: 2rem;
 }
 .modal-content{
   background-color: rgb(46 46 46);
@@ -38,12 +39,7 @@ h3{
 .text-danger{
   color: rgb(255, 39, 60) !important;
 }
-.liste_ajout{
-  margin-left: -20px;
-}
-.list_ajout1{
-  margin-left: -36px;
-}
+
 /*
 .widthTable{
   width: 156vh;
@@ -51,6 +47,9 @@ h3{
   background-color: rgb(66, 66, 66);
 } */
 
+.displayFlex{
+  margin: rem;
+}
 /* boutton */
 .btn-secondary:hover{
   background-color: rgb(30, 27, 27);
@@ -61,18 +60,21 @@ h3{
 }
 
 .btnAjout{
-  margin-left: 13rem;
   background-color: #bd0303;
-  border: #bd0303;
   width: 12rem;
-  height: 2.3rem;
+  display: flex;
+  column-gap: 9px;
   border-radius: 12rem;
   margin-top: 36px;
   color: rgb(255, 255, 255);
   border: #bd0303 1px solid;
+  align-items: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
+
 .btnAjout:hover{
-  margin-left: 13rem;
   background-color: rgb(30, 27, 27);
   border: 1px solid #bd0303;
   transition: 0.5s;
@@ -111,9 +113,7 @@ h3{
 /* Style par défaut pour les écrans d'ordinateur standard (ordinateurs portables et de bureau) */
 .widthTable {
   width: 74vw; /* Largeur ajustée pour les écrans standard */
-
   background-color: rgb(66, 66, 66);
-  margin-left: 13rem;
 }
 
 /* Pour les écrans de moins de 1024px (petits ordinateurs portables et grandes tablettes) */
@@ -167,3 +167,27 @@ h3{
 }
 
 
+.dashboard-container {
+  display: flex;
+  height: 10vh; /* Utilise toute la hauteur de la page */
+}
+.main-content{
+  margin-top: 2.5rem;
+}.sidebar {
+  width: 250px; /* Largeur de la barre latérale */
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour un effet visuel */
+}
+
+.titre {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}

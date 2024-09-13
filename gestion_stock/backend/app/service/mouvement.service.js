@@ -5,14 +5,11 @@ const depotRepository = require('../repository/depot.repository');
 const mouvementRepository = require('../repository/mouvement.repository');
 const stockRepository = require('../repository/stock.repository');
 const depotService = require('./depot.service');
+const Emplacement = require('../models/emplacement');
+const Produit = require('../models/produits');
+const emplacementService = require('./emplacement.service');
 
 class mouvementService{
-
-     id_depLimite
-     ancienlLimite_dep
-     ancienNom_dep
-     valeurLimitDept
-
     async create(data){
         return await mouvementRepository.create(data)
     }
@@ -32,16 +29,11 @@ class mouvementService{
     async createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut){
 
         let data = { id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut };
-        let findByIdDepot = await depotRepository.findById(id_dep);
-        const ancienLimitDepot = findByIdDepot.limite_dep
-        const ancienIdDepot = findByIdDepot.id_dep
+
+
     
         // const updat = ancienLimitDepot = nouvelValeurLimitDepot
         if (type_mvt == "Entrée") {
-            const nouvelValeurLimitDepot = ancienLimitDepot + data.qtt_mvt
-            //modification limite_dep 
-
-            await this.updateDepot(ancienIdDepot,nouvelValeurLimitDepot);
 
             //maka an'ilay depot sy prod
             await this.findDepotProduitCreation(qtt_mvt, type_mvt, id_dep, id_p);
@@ -49,108 +41,16 @@ class mouvementService{
                 data.qtt_mvt = 0
             // creation mouvement
 
-
-           return await this.create(data)
+            return await this.create(data)
                 
         } else /* type_mvt == "Sortie" */{
-
-            const nouvelValeurLimitDepot = ancienLimitDepot - data.qtt_mvt
             
-            // condition analyser que le qtt_mvt supérieur égale limite_dep
-            if (data.qtt_mvt <= ancienLimitDepot) {
-
-                //modification limite_dep 
-    
-                await this.updateDepot(ancienIdDepot,nouvelValeurLimitDepot);
+            //maka an'ilay depot sy prod
+            await this.findDepotProduitCreation(qtt_mvt, type_mvt, id_dep, id_p);
             
-                //maka an'ilay depot sy prod
-                await this.findDepotProduitCreation(qtt_mvt, type_mvt, id_dep, id_p);
-                
-                // creation mouvement
-               return await this.create(data)
-
-        
-            } else{
-    
-                // misafidy le depot izay betsaka @ io ancienLimitDepot io
-                const dataLimitSupperieur =  await depotService.findSupperieurAncienLimite(ancienIdDepot, qtt_mvt)
-    
-                if (dataLimitSupperieur.length != 0) {
-                    
-                    console.log("Limite supperieur à ancien depot ", dataLimitSupperieur);
-                
-                    dataLimitSupperieur.forEach(depot => {
-                        const idLimiteSup = depot.dataValues.id_dep;
-                        const ancienLimite = depot.dataValues.limite_dep;
-                        const ancienNom = depot.dataValues.nom_dep;
-        
-                        this.id_depLimite = idLimiteSup
-                        this.ancienlLimite_dep = ancienLimite
-                        this.ancienNom_dep = ancienNom
-        
-                        }
-                    );
-                    
-                    console.log("id_depLimite",this.id_depLimite);
-                    console.log("nouveaux depot",this.ancienNom_dep);
-                    console.log("ancienLimite",this.ancienlLimite_dep); 
-                    console.log("qtt_mvt",qtt_mvt);
-        
-                    const nouvellLimitDept = this.ancienlLimite_dep - qtt_mvt
-    
-                    if (nouvellLimitDept < 0 ) 
-                        nouvellLimitDept = 0
-                    else
-                    {
-                        this.valeurLimitDept = nouvellLimitDept
-                        console.log('nouvellLimitDept',nouvellLimitDept);
-
-                        await this.updateDepot_p(id_dep)
-
-        
-                        const newMouvement = {
-                            id_p, type_mvt, date_mvt, id_ut,
-                            qtt_mvt,
-                            id_dep : this.id_depLimite                            
-                        }
-
-                        // regarder si le valeur de produit est la même dans la table stock
-                        await  this.findStockByProdDep_Newmouvement(this.id_depLimite, nouvellLimitDept, type_mvt, id_p, qtt_mvt) 
-                        
-                       return await this.create(newMouvement)
-                    } 
-    
-                } else {
-                    console.log("nok");
-                }
-            }
+            // creation mouvement
+            return await this.create(data)
         }
-    }
-
-    async updateDepot_p(id_dep) {
-        // Récupérer l'instance de Depot avec l'id spécifié
-        const ancienDepot = await Depot.findByPk(id_dep); 
-    
-        if (!ancienDepot) {
-            throw new Error('Depot not found');
-        }
-    
-        const nouvellDepot = {
-            nom_dep: this.ancienNom_dep,
-            limite_dep: this.valeurLimitDept
-        };
-
-        // console.log("valeur update depot", nouvellDepot);    
-        console.log(`
-        /
-         ****
-         * Le dépot ${nouvellDepot.nom_dep} est en libre de stocker cette mouvement 
-         ****
-         /
-        `);
-
-        // Passer l'identifiant du depot au lieu de l'instance
-        return await depotRepository.update(this.ancienNom_dep, nouvellDepot);
     }
 
     async updateStock_dep_pro(stock, qtt_mvt, type_mvt){
@@ -191,9 +91,6 @@ class mouvementService{
     async findStockByProdDep(id_dep, id_p){
         return await stockRepository.findStockByProdDep(id_dep, id_p);
     }
-    async updateDepot(ancienIdDepot,nouvelValeurLimitDepot){
-        return await stockRepository.updateNouveau(ancienIdDepot,nouvelValeurLimitDepot)
-    }
 
     async findDepotProduitCreation(qtt_mvt, type_mvt, id_dep, id_p){
 
@@ -207,22 +104,75 @@ class mouvementService{
         return  await this.createNewStock(id_p, id_dep, qtt_mvt, type_mvt) //raha tss de mcreer
     }
 
-    async findStockByProdDep_Newmouvement(id_depLimite, nouvellLimitDept, type_mvt, id_p, qtt_mvt) {
-     
-    this.id_depLimite = id_depLimite
-    // regarder si le valeur de produit est la même dans la table stock
-    let stock = await this.findStockByProdDep(this.id_depLimite, id_p); 
-    
-    console.log("stock-- ", stock);
+    // Répartir le volume_p entre les emplacements en fonction de l'espace disponible
+    distributeVolume(volume_p, emplacements) {
+        // Calculer l'espace total disponible en soustrayant `volume_actuel` de `volume_max` pour chaque emplacement
+        const espaceTotalDisponible = emplacements.reduce((total, emplacement) => {
+            // Calculer l'espace disponible pour cet emplacement
+           const volume_max = emplacement.dataValues.longeur * emplacement.dataValues.largeur * emplacement.dataValues.hauteur
+            const espaceDisponible = volume_max - emplacement.dataValues.volume_actuel;
+            // Ajouter cet espace disponible au total
+            return total + espaceDisponible;
+        }, 0);
 
-    if(stock != null){ //rah misy 
-        stock = JSON.stringify(stock)
-        stock = JSON.parse(stock)
-
-        await this.updateStock_dep_pro(stock, nouvellLimitDept, type_mvt) // ataov n modif
-    }else 
-        await this.createNewStock(id_p, this.id_depLimite, qtt_mvt, type_mvt) //raha tss de mcreer
+        // Répartir le volume_p proportionnellement à l'espace disponible dans chaque emplacement
+        return emplacements.map(emplacement => {
+            // Calculer l'espace disponible pour cet 
+            const volume_max = emplacement.dataValues.longeur * emplacement.dataValues.largeur * emplacement.dataValues.hauteur
+            const espaceDisponible = volume_max - emplacement.dataValues.volume_actuel;
+            // Calculer le volume à attribuer à cet emplacement en fonction de sa part de l'espace total disponible
+            const volumeReparti = Math.round((espaceDisponible / espaceTotalDisponible) * volume_p);
+            // Retourner l'ID de l'emplacement et le volume réparti
+            return {
+                id_em: emplacement.dataValues.id_em,
+                volume_p: volumeReparti
+            };
+        });
     }
+
+    async distributeVolume_modification_volume_actuel(volume_p, emplacements) {
+        // Répartir le volume entre les emplacements en fonction de l'espace disponible
+        const repartition = this.distributeVolume(volume_p, emplacements);        
+        // Si la répartition échoue, retourner une erreur
+        if (!repartition) return { erreur: 'Erreur dans la répartition du volume' };
+
+        // Parcourir chaque emplacement et mettre à jour la quantité actuelle (`volume_actuel`)
+        for (const { id_em, volume_p } of repartition) {
+            // Trouver l'emplacement correspondant dans la liste des emplacements
+            const emplacement = emplacements.find(emp => emp.dataValues.id_em === id_em);
+
+            if (emplacement) {
+                // Rechercher l'emplacement dans la base de données pour obtenir les valeurs actuelles de `volume_actuel` et `volume_max`
+                const emplacementDb = await Emplacement.findOne({ where: { id_em } });
+
+                if (emplacementDb) {
+                    // Obtenir la quantité maximale (volume_max) de l'emplacement
+                    const ancien_volume_max = emplacementDb.volume_max;
+                    // Calculer la nouvelle quantité actuelle en ajoutant le volume réparti
+                    const nouvelleQuantite = emplacementDb.volume_actuel + volume_p;
+                    // Vérifier si la nouvelle quantité dépasse la capacité maximale (volume_max)
+                    if (nouvelleQuantite <= ancien_volume_max) {
+                        // Mettre à jour `volume_actuel` avec la nouvelle quantité dans la base de données
+                        await Emplacement.update(
+                            { volume_actuel: nouvelleQuantite },
+                            { where: { id_em } }
+                        );
+                        // Afficher un message indiquant que l'emplacement a été mis à jour avec succès
+                        console.log(`Emplacement ID ${id_em} mis à jour avec volume_actuel: ${nouvelleQuantite}`);
+                    }                
+                    else {
+                        // Si la nouvelle quantité dépasse la capacité maximale, lancer une erreur
+                        throw new Error(`La nouvelle quantité (${nouvelleQuantite}) dépasse la capacité maximale (${ancien_volume_max}) pour l'emplacement ${emplacementDb.nom_em} car la capacité actuel est: ${emplacementDb.volume_actuel}, donc changer le dépot` );
+                    }
+                } else {
+                    // Si l'emplacement n'est pas trouvé dans la base de données, afficher un message d'erreur
+                    console.log(`Emplacement ID ${id_em} introuvable dans la base de données.`);
+                }
+            }
+        }
+    }  
+
+    
 }
 
 module.exports = new mouvementService();

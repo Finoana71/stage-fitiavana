@@ -1,22 +1,15 @@
-<!-- <app-navbar></app-navbar> -->
+<div class="dashboard-container">
+  <!-- Barre latérale pour le menu -->
+  <div class="sidebar">
+    <app-navbar></app-navbar>
+    <app-seDeconnecter></app-seDeconnecter>
+  </div>
 
-<div class="displayFlex">
-    <div>
-      <div>
-        <app-seDeconnecter></app-seDeconnecter>
-      </div>
-      <div>
-        <app-navbar></app-navbar>
-      </div>
-    </div>
-    <div class="list_ajout1">
-      <h3 data-aos="fade-down">{{titre}}</h3>
+  <!-- Contenu principal du tableau de bord -->
+  <div class="main-content">
+    <h3 data-aos="fade-down">{{titre}}</h3>
+    <app-ajout-produit (estAjout)="ajoutProduit($event)"></app-ajout-produit>
+    <app-list-produit class="listeProduit" [produits]="produits"></app-list-produit>
 
-      <div>
-        <app-ajout-produit (estAjout)="ajoutProduit($event)"></app-ajout-produit>
-      </div>
-      <div>
-        <app-list-produit class="listeProduit" [produits]="produits"></app-list-produit>
-      </div>
-    </div>
+  </div>
 </div>
