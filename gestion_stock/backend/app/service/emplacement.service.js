@@ -13,8 +13,15 @@ class EmplacementService{
     async delete(id){
         return Emplacement.destroy(id);
     }
-    async findAll(){
-        return Emplacement.findAll({
+    async findAll(page){
+
+        const nbrEl = 5;
+        const offset = (page - 1) * nbrEl
+
+        const emplacements = Emplacement.findAll({
+            limit:nbrEl,
+            offset : offset,
+
             include : [
                 {
                     model:Depot,
@@ -34,9 +41,13 @@ class EmplacementService{
                 }
             ]
         });
+        return emplacements;
     }
     async updateEmplacement (id,data){
         return Emplacement.update(id, data);
+    }
+    async count(){
+        return await Emplacement.count();
     }
 
     async findByEmplacement(id){

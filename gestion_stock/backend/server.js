@@ -64,8 +64,8 @@ const startServer = async () => {
 
     try {
         await sequelize.sync(); // creer tout les tables
-        app.listen(8081, () =>{
-            console.log("Serveur en marche en localhost:8081");
+        app.listen(8080, () =>{
+            console.log("Serveur en marche en localhost:8080");
         });
     } catch (error) {
         console.log('Erreur de se connecter',error);

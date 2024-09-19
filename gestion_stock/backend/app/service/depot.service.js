@@ -8,11 +8,17 @@ class depotSercie{
     async findById(id){
         return await depotRepository.findById(id);
     }
+
     async create(data){
         return depotRepository.create(data);
     }
+
     async delete(id){
         return depotRepository.delete(id);
+    }
+
+    async count(){
+        return await depotRepository.count();
     }
 
     async findAll(page) {
@@ -22,6 +28,7 @@ class depotSercie{
         const depots = await Depot.findAll({
             limit: nbrEl,
             offset: offset,
+            
             include: [{
                 model: Emplacement,
                 as: 'emplacements',
@@ -30,38 +37,8 @@ class depotSercie{
             }],
         });
         
-        return depots
-        // return depots.map(depot => {
-        //     // Si le dépôt a des emplacements, on calcule le volume maximum de chaque emplacement
-        //     if (depot.emplacements.length > 0) {
-        //         return depot.emplacements.map(emplacement => {
-        //             const volume_max = emplacement.longeur * emplacement.largeur * emplacement.hauteur;
-        //             return {
-        //                 id_dep: depot.id_dep,
-        //                 nom_dep: depot.nom_dep,
-        //                 emplacement: emplacement.nom_em,
-        //                 volume_actuel: emplacement.volume_actuel + " m³",
-        //                 volume_max: volume_max + " m³" // Calcul du volume maximum
-        //             };
-        //         });
-        //     } else {
-        //         // Si aucun emplacement n'est associé au dépôt
-        //         return {
-        //             id_dep: depot.id_dep,
-        //             nom_dep: depot.nom_dep,
-        //             emplacement: 'aucun',
-        //             volume_actuel: 'aucun',
-        //             volume_max: 'aucun'
-        //         };
-        //     }
-        
-        // }).flat(); // Utilisation de .flat() pour éviter une liste de listes si plusieurs emplacements
+        return depots;               
     }
-    
-    
-
-
-    
         
     async putDepot(id,data){
         return depotRepository.update(id, data);

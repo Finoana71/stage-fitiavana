@@ -4,6 +4,7 @@ import { Depot} from '../../depot.model'
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { response } from 'express';
+import { escape } from 'node:querystring';
 
 @Component({
   selector: 'app-ajout',
@@ -19,6 +20,7 @@ export class AjoutDepotComponent implements OnInit {
   myForm: FormGroup;
   sommes: number = 0;
   page = 1
+  
 
   depot:Depot ={
     id_dep:0 ,
@@ -26,14 +28,15 @@ export class AjoutDepotComponent implements OnInit {
   };
 
   // id!:number
-  nom_dep: string = 'Dépot'
+  nom_dep: any = ''; 
   idDepot: any = null;
+  nom_modifi:any = '';
 
   // depots: Depot[] = [] // Déclarer la propriété depots
   emailLocalStorage = localStorage.getItem("email")
   
   constructor(
-    public DepotService: DepotService,
+    public depotService: DepotService,
     private fb: FormBuilder
   ) {
     this.myForm = this.fb.group({
@@ -43,20 +46,26 @@ export class AjoutDepotComponent implements OnInit {
 
   ngOnInit(): void {
     this.handlePageChange(this.page);
-    this.DepotService.onRefreshList.subscribe(()=>
-      this.listeDepots()
+    this.depotService.onRefreshList.subscribe(()=>
+      this.listeDepots(),
+      this.handlePageChange(this.page)
     )
+
+    this.countDepot(); 
   }
 
-  // getNomDepot(){
-  //   const id_dep = this.idDepot;
-  //   const idDepotNom_dep = this.DepotService.getIdDepot(id_dep)
-  //   console.log( idDepotNom_dep);
+  countDepot():number{
+    this.depotService.countDepot()
+    .subscribe(data=>{
+      this.sommes = data.total_depot;
+    });
+    console.log("somme",this.sommes);
 
-  // }
+    return this.sommes;
+  }
 
   listeDepots(): void {
-    this.DepotService.getDepot(this.page).subscribe(
+    this.depotService.getDepot(this.page).subscribe(
       (data) => {
         this.depots = data;  // Récupérer uniquement les dépôts
       },
@@ -64,19 +73,19 @@ export class AjoutDepotComponent implements OnInit {
         console.error('Erreur lors de la récupération des données', error);
       }
     );
-  }
-
-  
+  }  
 
   handlePageChange(page:any){
     this.page = page;
+    this.depotService.onRefreshList.emit()
+
     this.listeDepots()
   }
 
   ajouterDepot() {
     const depot = new Depot(this.idDepot, this.nom_dep)
 
-    this.DepotService.ajoutDepot(depot).subscribe(
+    this.depotService.ajoutDepot(depot).subscribe(
       (response:any) => {
         // Message avec succéss
 
@@ -86,7 +95,7 @@ export class AjoutDepotComponent implements OnInit {
        console.log("response", response);
 
         // this.onAdd.emit(response)
-        this.DepotService.onRefreshList.emit()
+        this.depotService.onRefreshList.emit()
 
       },
       erro =>{
@@ -107,6 +116,7 @@ export class AjoutDepotComponent implements OnInit {
       title: "Ajout avec succes"
     })
   }
+
   validerSuppr(){
     const Toast = Swal.mixin({
       toast: true,
@@ -120,7 +130,6 @@ export class AjoutDepotComponent implements OnInit {
     })
   }
 
-
   error(){
     Swal.fire({
       icon: "error",
@@ -130,21 +139,23 @@ export class AjoutDepotComponent implements OnInit {
   }
 
   getDepot(id:number){
-    this.DepotService.getIdDepot(id)
+    this.depotService.getIdDepot(id)
 
     .subscribe(data =>{
     this.idDepot = data;
+    this.nom_modifi = data.nom_dep;
 
+    console.log("id_depot", data.nom_dep);
+    
     this.idDepot = id
     console.log(this.idDepot);
     })
 
   };
 
-
   supprimerDep(id: number): void {
   
-    this.DepotService.supprDepot(id).subscribe(
+    this.depotService.supprDepot(id).subscribe(
       (response: Depot) => {
         const index = this.depots.findIndex((dep: Depot) => dep.id_dep === id);
   
@@ -153,6 +164,8 @@ export class AjoutDepotComponent implements OnInit {
         } else {
         }
   
+        this.depotService.onRefreshList.emit()
+
         this.validerSuppr();
         this.handlePageChange(this.page);
       },
@@ -162,37 +175,33 @@ export class AjoutDepotComponent implements OnInit {
     );
   }
   
-  
+  modification(){
 
+    let id = this.idDepot;
 
- modification(){
+    console.log("id_mo", id);
+    console.log("this.Depot", this.depot);
 
-   let id = this.idDepot;
+    this.depotService.modification(id, this.depot).subscribe({
+      next: (response) =>{
+        console.log('update', response);
 
-   console.log("id_mo", id);
-   console.log("this.Depot", this.depot);
+        const index = this.depots.findIndex((dep:Depot) =>dep.id_dep == id);
 
-   this.DepotService.modification(id, this.depot).subscribe({
-     next: (response) =>{
-       console.log('update', response);
+        const nom_dep =  this.depots[index] = response.depot;
 
-       const index = this.depots.findIndex((dep:Depot) =>dep.id_dep == id);
+        console.log("aaaa", nom_dep);
 
-       const nom_dep =  this.depots[index] = response.depot;
+        this.valider();
+        this.depotService.onRefreshList.emit()
+      },
+      error:(err) =>{
+        console.log("err", err);
 
-       console.log("aaaa", nom_dep);
+        this.error();
+      }
+    })
 
-       this.valider();
-       this.DepotService.onRefreshList.emit()
-     },
-     error:(err) =>{
-       console.log("err", err);
-
-       this.error();
-     }
-   })
-
- }
-
+  }
 
 }

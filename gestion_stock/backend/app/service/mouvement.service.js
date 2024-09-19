@@ -30,8 +30,6 @@ class mouvementService{
 
         let data = { id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut };
 
-
-    
         // const updat = ancienLimitDepot = nouvelValeurLimitDepot
         if (type_mvt == "Entrée") {
 
@@ -40,7 +38,6 @@ class mouvementService{
             if(data.qtt_mvt < 0)
                 data.qtt_mvt = 0
             // creation mouvement
-
             return await this.create(data)
                 
         } else /* type_mvt == "Sortie" */{

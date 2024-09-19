@@ -10,14 +10,17 @@ class EmplacementRepository{
     async delete(id){
         return emplacementService.delete(id);
     }
-    async findAll(){
-        return emplacementService.findAll();
+    async findAll(page){
+        return emplacementService.findAll(page);
     }
     async updateEmplacement (id,data){
         return emplacementService.updateEmplacement(id, data);
     }
     async findByEmplacement(id){
         return emplacementService.findByEmplacement(id);
+    }
+    async count(){
+        return await emplacementService.count();
     }
 }
 module.exports = new EmplacementRepository();

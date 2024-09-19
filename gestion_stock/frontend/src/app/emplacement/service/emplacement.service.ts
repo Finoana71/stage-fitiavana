@@ -26,7 +26,9 @@ export class EmplacementService {
   supprEmplacement(id: number): Observable<Emplacement>{
     return this.http.delete<Emplacement>(`${this.apiUrl}/${id}`)
   }
-
+  countEmplacement(): Observable<{total_emplacement:number}> {
+    return this.http.get<{total_emplacement:number}>(`${this.apiUrl}/page/count`)
+  }
   getIdEmplacement(id:number):Observable<Emplacement>{
     return this.http.get<Emplacement>(`${this.apiUrl}/${id}`)
   }

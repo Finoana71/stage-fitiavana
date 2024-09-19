@@ -26,18 +26,6 @@ class depotRepository{
     async findAllByNom_dep(nom_dep){
         return await Depot.findOne({ where: { nom_dep : nom_dep } });
     }
-    
-    // async findByName(nom){
-    //     return await Depot.findOne({where:{nom_dep:nom}})
-    // }
-    // async update(id, data){
-    //     const depot = await this.findById(id);
-    //     if (depot) {
-    //         await Depot.update(data);
-    //         return depot;
-    //     }
-    //     return null;
-    // }
 
     async update(nom_dep, data){
         const depot = await this.findAllByNom_dep(nom_dep)
@@ -53,6 +41,9 @@ class depotRepository{
             return await Depot.update(data,{where:{nom_dep:id}});
         }
         return null
+    }
+    async count(){
+        return await Depot.count();
     }
 }
 

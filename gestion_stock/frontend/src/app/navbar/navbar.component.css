@@ -1,3 +1,7 @@
+a:hover {
+  border-bottom: 1px white solid;
+  transition: 1s;
+}
 
 h5{
   color: white;
@@ -7,6 +11,23 @@ h5{
   margin: auto;
   row-gap: 2rem;
 }
+
+.lienMenu.active {
+  font-weight: bold;
+  color: blue;
+
+}
+
+.active {
+  border-bottom: 2px red solid;
+  padding: 2px;
+  background-color: white;
+  color: black;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
 
 .bg-navbar{
   background-color: rgb(75, 72, 72);
@@ -34,3 +55,6 @@ h5{
   row-gap: 1rem;
 }
 
+.color-menu{
+  color: red;
+}

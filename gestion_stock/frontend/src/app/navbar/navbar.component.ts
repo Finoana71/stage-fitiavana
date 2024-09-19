@@ -31,8 +31,6 @@ export class NavbarComponent {
 
   constructor(private authService:AuthService){}
 
-
-
   getEmail(){
     let email = this.emailStorage ;
 

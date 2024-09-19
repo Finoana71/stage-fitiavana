@@ -10,6 +10,15 @@ import { AjoutEmplacementComponent } from '../ajout/ajout.component';
 export class ListeEmplacementComponent  extends AjoutEmplacementComponent{
 
   // nomDep?:string;
+  override ngOnInit(): void {
+    this.emplacementService.onRefreshList.subscribe(()=>
+      this.listeEmplacements()
+    )
+    this.countEmplacement();
+    this.totalPage();  
+    this.handlePageChange(this.page);
+  }
+
 
   totalPage():number{
 

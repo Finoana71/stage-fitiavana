@@ -57,11 +57,7 @@ export class AjoutProduitComponent implements OnInit{
 
   ngOnInit(): void {
     this.imageInfos = this.produitService.getfiles();
-    this.produitService.countProduit()
-    .subscribe(data=>{
-      this.sommes = data.total_p;
-      console.log("total", data);
-    });
+    this.countProd();
     
     // this.countProd()
     // this.handlePageChange(this.page)

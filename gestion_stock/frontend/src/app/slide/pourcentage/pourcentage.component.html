@@ -9,7 +9,6 @@
           </h5>
           <h6><i class="fa fa-
             " aria-hidden="true"></i> {{ emplacement.nom_em }}</h6>
-          
           <!-- Texte supplémentaire -->
           <p class="card-text">
             {{ emplacement.pourcentage >= 100 ? 'Plein' : emplacement.pourcentage ? (emplacement.pourcentage | number: '1.2-2' ) + ' % restant' : '100 % disponible' }}          

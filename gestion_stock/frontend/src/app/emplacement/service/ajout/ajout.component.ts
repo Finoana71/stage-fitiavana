@@ -36,7 +36,7 @@ export class AjoutEmplacementComponent implements OnInit {
 
   // id!:number
   idEmplacement: any = null;
-  nom_em: string = 'E1';
+  nom_em: string = 'A1';
   volume_actuel:number = 0 ;
   id_dep!:number ;
   longeur!: number;
@@ -48,7 +48,7 @@ export class AjoutEmplacementComponent implements OnInit {
   emailLocalStorage = localStorage.getItem("email")
 
   constructor(
-    public EmplacementService: EmplacementService,
+    public emplacementService: EmplacementService,
     private fb: FormBuilder,
     public depotService : DepotService
   ) {
@@ -61,6 +61,10 @@ export class AjoutEmplacementComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void {
+    this.listeDepots();
+  }
+
   // Validateur personnalisé pour vérifier si la quantité est inférieur égale à 0
   invalidValueValidator(control: AbstractControl): { [key: string]: boolean } | null {
     return control.value <= 0 ? { zeroQuantity: true } : null;
@@ -71,14 +75,14 @@ export class AjoutEmplacementComponent implements OnInit {
     return control.value <= 0 ? { zeroQuantity: true } : null;
   }
 
-  ngOnInit(): void {
-    this.handlePageChange(this.page);
+  countEmplacement():number{
+    this.emplacementService.countEmplacement()
+    .subscribe(data=>{
+      this.sommes = data.total_emplacement;
+    });
+    console.log("somme",this.sommes);
 
-    this.EmplacementService.onRefreshList.subscribe(()=>
-      this.listeEmplacements()
-    )
-    
-    this.listeDepots();
+    return this.sommes;
   }
 
   listeDepots(): void {
@@ -91,11 +95,11 @@ export class AjoutEmplacementComponent implements OnInit {
       }
     );
   }
+  
   listeEmplacements(){
-    this.EmplacementService.getEmplacement(this.page).subscribe(data =>{
+    this.emplacementService.getEmplacement(this.page).subscribe(data =>{
       this.Emplacements = data;
       console.log("fsdfqf", data);
-      
     })
   }
 
@@ -115,17 +119,17 @@ export class AjoutEmplacementComponent implements OnInit {
       this.hauteur
     )
 
-    this.EmplacementService.ajoutEmplacement(emplacement).subscribe(
+    this.emplacementService.ajoutEmplacement(emplacement).subscribe(
       (response:any) => {
         // Message avec succéss
 
         this.valider();
 
         // Récupérer le dépôt ajouté et l'ajouter à la liste des dépôts
-       console.log("response", response);
+        console.log("response", response);
 
         // this.onAdd.emit(response)
-        this.EmplacementService.onRefreshList.emit()
+        this.emplacementService.onRefreshList.emit()
 
       },
       erro =>{
@@ -169,7 +173,7 @@ export class AjoutEmplacementComponent implements OnInit {
   }
 
   getEmplacement(id:number){
-    this.EmplacementService.getIdEmplacement(id)
+    this.emplacementService.getIdEmplacement(id)
 
     .subscribe(data =>{
     this.idEmplacement = data;
@@ -183,7 +187,7 @@ export class AjoutEmplacementComponent implements OnInit {
  supprimerDep(id:number){
    const id_em = this.idEmplacement
 
-   this.EmplacementService.supprEmplacement(id_em).subscribe(
+   this.emplacementService.supprEmplacement(id_em).subscribe(
 
      (response:Emplacement) =>{
 
@@ -208,7 +212,7 @@ export class AjoutEmplacementComponent implements OnInit {
    console.log("id_em", id);
    console.log("this.Emplacement", this.Emplacement);
 
-   this.EmplacementService.modification(id, this.Emplacement).subscribe({
+   this.emplacementService.modification(id, this.Emplacement).subscribe({
      next: (response) =>{
        console.log('update', response);
 
@@ -217,9 +221,7 @@ export class AjoutEmplacementComponent implements OnInit {
        const nom_em =  this.Emplacements[index] = response.Emplacement;
 
        console.log("aaaa", nom_em);
-       this.EmplacementService.onRefreshList.emit()
-
-
+       this.emplacementService.onRefreshList.emit()
        this.valider();
      },
      error:(err) =>{

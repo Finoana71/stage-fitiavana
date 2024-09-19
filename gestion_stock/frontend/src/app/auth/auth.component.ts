@@ -80,8 +80,7 @@ export class AuthComponent {
       title: "Signed in successfully"
     })
   }
-
-
+  
   IfAdmin(){
     let email = this.emailStorage ;
 

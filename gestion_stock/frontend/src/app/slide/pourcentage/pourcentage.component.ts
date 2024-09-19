@@ -12,6 +12,10 @@ export class PourcentageComponent extends AjoutEmplacementComponent{
   
   emplacement:any;
 
+  override ngOnInit(): void {
+    this.listeEmplacements()
+  }
+
   getClassByPercentage(pourcentage: number): string {
     if (pourcentage >= 100) {
       return 'alert-danger'; // Rouge pour 100% ou plus
@@ -27,7 +31,7 @@ export class PourcentageComponent extends AjoutEmplacementComponent{
   voirLeDetail(id: number) {
 
     // Premier appel pour récupérer les détails du produit
-    this.EmplacementService.getIdEmplacement(id).subscribe(
+    this.emplacementService.getIdEmplacement(id).subscribe(
       (data: any) => {
         // Stocker les informations du produit  
         this.emplacement= data;

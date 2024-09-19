@@ -17,7 +17,6 @@ exports.creerDepot = async (req, res) =>{
 exports.listeDepot = async(req, res) =>{
     try {
         const page = req.query.page;
-        const nbrEl = 5;
         const result = await depotService.findAll(page);
 
         res.status(200).json(result);
@@ -79,17 +78,8 @@ exports.getIdStock = async (req,res) =>{
 
 }
 
-// exports.recherche = async (req, res) =>{
-//     try {
-        
-//         const query =  req.query.q;
-
-//         console.log("query", query);
-//         const depot =  await depotRepository.findByName(query)
-
-//         res.status(200).json(depot);
-
-//     } catch (error) {
-//         res.status(400).json({error:error.message})   
-//     }
-// }
+exports.countDepot = async (req, res) =>{
+    const depot = await depotService.count();
+    console.log("total depot", depot);
+    res.status(200).json({total_depot: depot});
+};

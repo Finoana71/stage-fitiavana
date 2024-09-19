@@ -34,31 +34,51 @@ exports.creerMouvement = async (req, res) => {
         const volume_p = produit.longeur * produit.largeur * produit.hauteur;
         if (volume_p <= 0) return res.status(400).json({ erreur: 'Volume du produit non défini ou invalide' });
 
-        console.log('volume_p', volume_p);
-        await mouvementService.distributeVolume_modification_volume_actuel(volume_p, emplacements)
+            if (type_mvt == "Entrée") {
+                
+                 // Vérifier l'utilisateur
+                 const utilisateur = await Utilisateur.findByPk(id_ut);
+                 if (!utilisateur) return res.status(404).json({ erreur: 'Utilisateur invalide' });
+ 
+                 // Créer le mouvement
+                 const newMouvement = await mouvementService.createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut, id);
+ 
+                 // Réponse avec succès
+                 res.status(201).json({
+                     message: 'Création du mouvement avec succès',
+                     mouvement: newMouvement,
+                     utilisateur,
+                     depot,
+                     produit
+                 });
+                console.log('volume_p', volume_p);
 
-        // Vérifier l'utilisateur
-        const utilisateur = await Utilisateur.findByPk(id_ut);
-        if (!utilisateur) return res.status(404).json({ erreur: 'Utilisateur invalide' });
+                await mouvementService.distributeVolume_modification_volume_actuel(volume_p, emplacements)
 
-        // Créer le mouvement
-        const newMouvement = await mouvementService.createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut, id);
+            } else {
+                // Vérifier l'utilisateur
+                const utilisateur = await Utilisateur.findByPk(id_ut);
+                if (!utilisateur) return res.status(404).json({ erreur: 'Utilisateur invalide' });
 
-        // Réponse avec succès
-        res.status(201).json({
-            message: 'Création du mouvement avec succès',
-            mouvement: newMouvement,
-            utilisateur,
-            depot,
-            produit
-        });
-        
+                // Créer le mouvement
+                const newMouvement = await mouvementService.createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut, id);
+
+                // Réponse avec succès
+                res.status(201).json({
+                    message: 'Création du mouvement avec succès',
+                    mouvement: newMouvement,
+                    utilisateur,
+                    depot,
+                    produit
+                });
+            }
+
+            
     } catch (erreur) {
         console.error("Erreur lors de la création du mouvement : ", erreur);
         res.status(500).json({ erreur: erreur.message });
     }
 };
-
 
 //List Mouvement
 

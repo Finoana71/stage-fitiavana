@@ -38,5 +38,8 @@ export class DepotService {
   onSearch(query:string):Observable<any>{
     return this.http.get<Depot>(`${this.apiUrl}/recherche?q=${query}`)
   }
+  countDepot(): Observable<{total_depot:number}> {
+    return this.http.get<{total_depot:number}>(`${this.apiUrl}/page/count`)
+  }
 }
 

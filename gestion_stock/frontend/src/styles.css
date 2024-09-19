@@ -61,7 +61,7 @@ h3{
 
 .btnAjout{
   background-color: #bd0303;
-  width: 12rem;
+  /* width: 12rem; */
   display: flex;
   column-gap: 9px;
   border-radius: 12rem;

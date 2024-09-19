@@ -78,3 +78,8 @@ exports.getIdEmplacement = async (req,res) =>{
         res.status(400).json({error:error.message})   
     }
 }
+
+exports.countEmplacements = async (req, res) =>{
+    const emplacement = await emplacementRepository.count();
+    res.status(200).json({total_emplacement: emplacement});
+};
