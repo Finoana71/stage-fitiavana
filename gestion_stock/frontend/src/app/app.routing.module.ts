@@ -24,10 +24,10 @@ const routes: Routes = [
     {path:'gestion_de_stock_multi-tâche/stock', component:StockComponent},
     {path:'gestion_de_stock_multi-tâche/emplacements', component:EmplacementComponent},
 
-    {path:'login', component:AuthComponent},
+    {path:'', component:AuthComponent},
     {path:'register', component:AuthComponent},
     {path:'protected', component:ProtectedComponent},
-    {path:'', redirectTo:'/login',pathMatch:'full'},
+    {path:'', redirectTo:'',pathMatch:'full'},
 
 ]
 

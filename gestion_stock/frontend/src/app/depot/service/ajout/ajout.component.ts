@@ -16,7 +16,9 @@ export class AjoutDepotComponent implements OnInit {
   @Output()onAdd = new EventEmitter(); // envoyez le donnée qu'on ajout
   @Input() depots: any[] = [] // prende le donné apres l'ajout
 
-  titre = " Dépot "
+  titre = " Dépot ";
+  titreModal = "Modification dépot";
+
   myForm: FormGroup;
   sommes: number = 0;
   page = 1
@@ -28,9 +30,8 @@ export class AjoutDepotComponent implements OnInit {
   };
 
   // id!:number
-  nom_dep: any = ''; 
+  nom_dep: any = 'a'; 
   idDepot: any = null;
-  nom_modifi:any = '';
 
   // depots: Depot[] = [] // Déclarer la propriété depots
   emailLocalStorage = localStorage.getItem("email")
@@ -143,14 +144,8 @@ export class AjoutDepotComponent implements OnInit {
 
     .subscribe(data =>{
     this.idDepot = data;
-    this.nom_modifi = data.nom_dep;
-
-    console.log("id_depot", data.nom_dep);
-    
-    this.idDepot = id
-    console.log(this.idDepot);
+    this.nom_dep = data.nom_dep    
     })
-
   };
 
   supprimerDep(id: number): void {
@@ -182,6 +177,9 @@ export class AjoutDepotComponent implements OnInit {
     console.log("id_mo", id);
     console.log("this.Depot", this.depot);
 
+    const a = this.depot.nom_dep = this.nom_dep; 
+    console.log('aaaaaa',a );
+    
     this.depotService.modification(id, this.depot).subscribe({
       next: (response) =>{
         console.log('update', response);

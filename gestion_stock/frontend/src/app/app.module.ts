@@ -39,6 +39,7 @@ import { EmplacementComponent } from './emplacement/emplacement.component';
 import { ListeEmplacementComponent } from './emplacement/service/liste/liste-emplacement.component';
 import { PourcentageComponent } from './slide/pourcentage/pourcentage.component';
 import { InputAjoutEmplacementComponent } from './emplacement/components/ajout/inputAjout.component';
+import { InputComponent } from './depot/service/input/input.component';
 
 @NgModule({
   imports: [
@@ -83,6 +84,8 @@ import { InputAjoutEmplacementComponent } from './emplacement/components/ajout/i
     DepotComponent,
     AjoutDepotComponent,
     ListeDepotComponent,
+      //imputDepot 
+      InputComponent,
         
     // les modules Stocks
     StockComponent,
