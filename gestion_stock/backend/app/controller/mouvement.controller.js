@@ -32,14 +32,17 @@ exports.creerMouvement = async (req, res) => {
         if (!produit) return res.status(404).json({ erreur: 'Produit invalide' });
 
         const volume_p = produit.longeur * produit.largeur * produit.hauteur;
+
         if (volume_p <= 0) return res.status(400).json({ erreur: 'Volume du produit non défini ou invalide' });
 
             if (type_mvt == "Entrée") {
+                await mouvementService.distributeVolume_modification_volume_actuel(volume_p, qtt_mvt, emplacements)
                 
                  // Vérifier l'utilisateur
                  const utilisateur = await Utilisateur.findByPk(id_ut);
                  if (!utilisateur) return res.status(404).json({ erreur: 'Utilisateur invalide' });
  
+
                  // Créer le mouvement
                  const newMouvement = await mouvementService.createMouvement(id_p, id_dep, type_mvt, date_mvt, qtt_mvt, id_ut, id);
  
@@ -53,7 +56,6 @@ exports.creerMouvement = async (req, res) => {
                  });
                 console.log('volume_p', volume_p);
 
-                await mouvementService.distributeVolume_modification_volume_actuel(volume_p, emplacements)
 
             } else {
                 // Vérifier l'utilisateur
